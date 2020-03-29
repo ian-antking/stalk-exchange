@@ -4,6 +4,7 @@ const UserHelpers = require('./helpers/user-helpers');
 const PriceHelpers = require('./helpers/price-helpers');
 const DataFactory = require('./helpers/data-factory');
 const User = require('../src/models/user');
+const Price = require('../src/models/price');
 
 describe('/price', () => {
   let userData;
@@ -32,7 +33,9 @@ describe('/price', () => {
 
   afterEach(done => {
     User.deleteMany({}, () => {
-      done();
+      Price.deleteMany({}, () => {
+        done();
+      })
     });
   });
 
@@ -82,4 +85,10 @@ describe('/price', () => {
       });
     })
   });
+
+  describe('GET /price', () => {
+    it('returns all prices',() => {
+
+    })
+  })
 });
