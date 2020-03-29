@@ -7,6 +7,7 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "express": "^4.17.1",
+    "mongoose": "^5.9.6",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1"
@@ -15,8 +16,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test-server": "jest ./server/__tests__ --setupFiles ./jest-setup.js",
     "eject": "react-scripts eject",
-    "dev-server": "nodemon -r dotenv/config index.js"
+    "dev-server": "nodemon -r dotenv/config index.js",
+    "dev-database": "docker run -d -p 27017-27019:27017-27019 --name mongodb mongo:4.0.4"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -34,6 +37,8 @@
     ]
   },
   "devDependencies": {
-    "nodemon": "^2.0.2"
+    "dotenv": "^8.2.0",
+    "nodemon": "^2.0.2",
+    "supertest": "^4.0.2"
   }
 }
