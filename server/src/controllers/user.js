@@ -1,7 +1,13 @@
 const User = require('../models/user');
 
 exports.addUser = (req, res) => {
-  const {name, island, password, friendCode} = req.body;
+  const {
+    name,
+    island,
+    password,
+    friendCode,
+  } = req.body;
+
   const user = new User({
     name,
     island,
