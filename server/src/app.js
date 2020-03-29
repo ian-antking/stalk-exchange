@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 
 const UserRouter = require('./routes/user');
+const AuthRouter = require('./routes/auth');
 
 const app = express();
 
@@ -11,6 +12,7 @@ app.use(express.json({
 }));
 
 app.use('/user', UserRouter);
+app.use('/auth', AuthRouter);
 
 app.get('*', (_, res) => {
   res.sendFile(path.join(process.cwd(), 'build', 'index.html'));

@@ -34,7 +34,7 @@ describe('/auth', () => {
       done();
     });
   });
-  
+
   describe('POST', () => {
     describe('/auth/login', () => {
       it('issues a web token', (done) => {
@@ -42,10 +42,10 @@ describe('/auth', () => {
           .then(res => {
             expect(res.status).toBe(200);
             const token = jwt.decode(res.body.token);
-            expect(token).tohaveProperty('_id');
-            expect(token).tohaveProperty('name');
-            expect(token).tohaveProperty('island');
-            expect(token).tohaveProperty('friendCode');
+            expect(token).toHaveProperty('_id');
+            expect(token).toHaveProperty('name');
+            expect(token).toHaveProperty('island');
+            expect(token).toHaveProperty('friendCode');
             done();
           })
           .catch(error => done(error));
