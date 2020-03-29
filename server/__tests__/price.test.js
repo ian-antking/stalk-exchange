@@ -7,6 +7,7 @@ const User = require('../src/models/user');
 
 describe('/price', () => {
   let userData;
+  let user;
   let token;
 
   beforeAll(done => {
@@ -20,7 +21,8 @@ describe('/price', () => {
 
   beforeEach((done) => {
     userData = DataFactory.user();
-    UserHelpers.signUp(app, userData).then(() => {
+    UserHelpers.signUp(app, userData).then((res) => {
+      user = res.body;
       UserHelpers.login(app, userData).then((res) => {
         token = res.body.token;
         done();
@@ -47,6 +49,32 @@ describe('/price', () => {
       }
       PriceHelpers.postPrice(app, data, token).then(res => {
         expect(res.status).toBe(201);
+        expect(res.body.bells).toBe(data.bells);
+        expect(res.body.type).toBe(data.type);
+        expect(res.body.user).toBe(user._id);
+      });
+    })
+
+    it('creates a new sell price', () => {
+      const data = {
+        bells: 500,
+        type: 'sell',
+      }
+      PriceHelpers.postPrice(app, data, token).then(res => {
+        expect(res.status).toBe(201);
+        expect(res.body.bells).toBe(data.bells);
+        expect(res.body.type).toBe(data.type);
+        expect(res.body.user).toBe(user._id);
+      });
+    })
+
+    it('requires a valid jwt', () => {
+      const data = {
+        bells: 500,
+        type: 'sell',
+      }
+      PriceHelpers.postPrice(app, data, 'not-a-valid-token').then(res => {
+        expect(res.status).toBe(401);
       });
     })
   });
