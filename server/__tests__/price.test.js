@@ -88,7 +88,16 @@ describe('/price', () => {
 
   describe('GET /price', () => {
     it('returns all prices',() => {
-
+      const prices = [
+        { bells: 500, type: 'sell' },
+        { bells: 600, type: 'buy' },
+      ]
+      Promise.all(PriceHelpers.manyPrices(app, prices, token))
+        .then(() => {
+          PriceHelpers.getPrices(app, token).then(res => {
+            expect(res.status).toBe(200);
+          })
+        });
     })
   })
 });

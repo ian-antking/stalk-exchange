@@ -22,3 +22,9 @@ exports.addPrice = (req, res) => {
         res.status(500).json(error);
     });
 }
+
+exports.getPrices = (_, res) => {
+  Price.find({}, (__, students) => {
+    res.status(200).json(students);
+  });
+}
