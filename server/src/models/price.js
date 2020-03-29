@@ -6,7 +6,7 @@ const priceSchema = new mongoose.Schema({
     required: true,
   },
   date: {
-    type: Date,
+    type: Number,
     default: Date.now,
   },
   type: {

@@ -42,29 +42,33 @@ describe('/price', () => {
   });
 
   describe('POST /price', () => {
-    it('creates a new buy price', () => {
+    it('/price/buy creates a new buy price', () => {
       const data = {
         bells: 500,
         type: 'buy',
+        date: 123456789,
       }
       PriceHelpers.postPrice(app, data, token).then(res => {
         expect(res.status).toBe(201);
         expect(res.body.bells).toBe(data.bells);
         expect(res.body.type).toBe(data.type);
         expect(res.body.user).toBe(user._id);
+        expect(res.body.date).toBe(data.date);
       });
     })
 
-    it('creates a new sell price', () => {
+    it('/price/sell creates a new sell price', () => {
       const data = {
         bells: 500,
         type: 'sell',
+        date: 987654321,
       }
       PriceHelpers.postPrice(app, data, token).then(res => {
         expect(res.status).toBe(201);
         expect(res.body.bells).toBe(data.bells);
         expect(res.body.type).toBe(data.type);
         expect(res.body.user).toBe(user._id);
+        expect(res.body.date).toBe(data.date);
       });
     })
 
