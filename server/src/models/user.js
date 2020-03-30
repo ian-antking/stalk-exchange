@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+var uniqueValidator = require('mongoose-unique-validator');
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -13,12 +14,15 @@ const userSchema = new mongoose.Schema({
   friendCode: {
     type: String,
     required: true,
+    unique: true,
   },
   password: {
     type: String,
     minlength: [8, 'Password must be at least 8 characters long'],
   },
 });
+
+userSchema.plugin(uniqueValidator);
 
 userSchema.pre('save', function encryptPassword(next) {
   if (!this.isModified('password')) {

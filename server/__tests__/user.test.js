@@ -56,14 +56,16 @@ describe('/user', () => {
       })
     });
 
-    xit('Requires a unique friend code', done => {
+    it('Requires a unique friend code', done => {
       const userData1 = DataFactory.user({ friendCode: 'duplicate-friend-code' });
       const userData2 = DataFactory.user({ friendCode: 'duplicate-friend-code' });
+      const ecpectedError = 'Error, expected `friendCode` to be unique. Value: `duplicate-friend-code`';
       UserHelper.signUp(app, userData1)
       .then(() => {
         UserHelper.signUp(app, userData2)
         .then(res => {
-          expect(res.status).toBe(422);
+          expect(res.status).toBe(500);
+          expect(res.body.errors.friendCode.message).toBe(ecpectedError);
             done();
         })
       })
