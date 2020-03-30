@@ -75,16 +75,34 @@ describe('/user', () => {
         })
       })
     })
-  })
 
-  it('/user/all requires a valid token', done => {
-    const usersData = [DataFactory.user(), DataFactory.user(), DataFactory.user()];
+    it('/user/:id returns single user', done => {
+      const usersData = [DataFactory.user(), DataFactory.user(), DataFactory.user()];
       Promise.all(UserHelper.manyUsers(app, usersData)).then(() => {
-          const token = 'not-a-token';
-          UserHelper.getUsers(app, token).then(res => {
-            expect(res.status).toBe(401);
-            done();
-          })
+        UserHelper.login(app, usersData[0]).then(res => {
+          const token = res.body.token;
+          User.find({}, (_, users) => users).then((users) => {
+            UserHelper.getUsers(app, token, users[0]._id).then(res => {
+              expect(res.body.name).toBe(users[0].name);
+              expect(res.body.island).toBe(users[0].island);
+              expect(res.body).not.toHaveProperty('password');
+              done();
+            })
+          }) 
+        })
       })
+    })
+    
+    it('/user/all requires a valid token', done => {
+      const usersData = [DataFactory.user(), DataFactory.user(), DataFactory.user()];
+      Promise.all(UserHelper.manyUsers(app, usersData)).then(() => {
+        const token = 'not-a-token';
+        UserHelper.getUsers(app, token).then(res => {
+          expect(res.status).toBe(401);
+          done();
+        })
+      })
+    })
+    
   })
 });
