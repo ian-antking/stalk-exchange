@@ -21,8 +21,8 @@
     "test": "react-scripts test",
     "test-server": "jest ./server/__tests__ --runInBand --setupFiles ./jest-setup.js",
     "eject": "react-scripts eject",
-    "dev-server": "nodemon -r dotenv/config index.js",
-    "dev-database": "docker run -d -p 27017-27019:27017-27019 --name mongodb mongo:4.0.4"
+    "dev-server": "nodemon -r dotenv/config server/index.js",
+    "dev-database": "docker run -p 27017-27019:27017-27019 --name mongodb mongo:4.0.4"
   },
   "eslintConfig": {
     "extends": "react-app"

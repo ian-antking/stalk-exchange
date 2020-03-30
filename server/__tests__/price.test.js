@@ -45,7 +45,7 @@ describe('/price', () => {
   });
 
   describe('POST /price', () => {
-    it('/price/buy creates a new buy price', () => {
+    it('/price/buy creates a new buy price', done => {
       const data = {
         bells: 500,
         type: 'buy',
@@ -57,10 +57,18 @@ describe('/price', () => {
         expect(res.body.type).toBe(data.type);
         expect(res.body.user).toBe(user._id);
         expect(res.body.date).toBe(data.date);
+
+        Price.findById(res.body._id, (_, price) => {
+          expect(price.bells).toBe(data.bells);
+          expect(price.type).toBe(data.type);
+          expect(price.date).toBe(data.date);
+          expect(price.user.toString()).toEqual(user._id);
+          done();
+        })
       });
     })
 
-    it('/price/sell creates a new sell price', () => {
+    it('/price/sell creates a new sell price', done => {
       const data = {
         bells: 500,
         type: 'sell',
@@ -72,32 +80,48 @@ describe('/price', () => {
         expect(res.body.type).toBe(data.type);
         expect(res.body.user).toBe(user._id);
         expect(res.body.date).toBe(data.date);
+        
+        Price.findById(res.body._id, (_, price) => {
+          expect(price.bells).toBe(data.bells);
+          expect(price.type).toBe(data.type);
+          expect(price.date).toBe(data.date);
+          expect(price.user.toString()).toEqual(user._id);
+          done();
+        })
       });
     })
 
-    it('requires a valid jwt', () => {
+    it('requires a valid jwt', done => {
       const data = {
         bells: 500,
         type: 'sell',
       }
       PriceHelpers.postPrice(app, data, 'not-a-valid-token').then(res => {
         expect(res.status).toBe(401);
+
+        Price.countDocuments((_, count) => {
+          expect(count).toBe(0);
+          done()
+        })
       });
     })
   });
 
   describe('GET /price', () => {
-    it('returns all prices',() => {
-      const prices = [
-        { bells: 500, type: 'sell' },
-        { bells: 600, type: 'buy' },
-      ]
-      Promise.all(PriceHelpers.manyPrices(app, prices, token))
+    it('returns all prices',done => {
+      const price1 = { bells: 600, type: 'buy' };
+      const price2 = { bells: 500, type: 'sell' };
+      PriceHelpers.postPrice(app, price1, token)
         .then(() => {
+          PriceHelpers.postPrice(app, price2, token)
+          .then(() => {
           PriceHelpers.getPrices(app, token).then(res => {
             expect(res.status).toBe(200);
+            expect(res.body.length).toBe(2);
+            done();
+            })
           })
         });
-    })
+    });
   })
-});
+})

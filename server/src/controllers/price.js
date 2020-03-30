@@ -23,8 +23,12 @@ exports.addPrice = (req, res) => {
     });
 }
 
-exports.getPrices = (_, res) => {
-  Price.find({}, (__, students) => {
-    res.status(200).json(students);
+exports.getPrices = (req, res) => {
+  const type = req.query.type;
+  const search = {};
+  if (type) search.type = type;
+  Price.find(search, (err, prices) => {
+    if (err) res.status(500).send(err);
+    res.status(200).json(prices);
   });
 }
