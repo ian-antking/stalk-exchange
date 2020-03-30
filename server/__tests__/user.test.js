@@ -47,7 +47,7 @@ describe('/user', () => {
       });
     });
 
-    it('Rejects attempts without valid invite code', (done) => {
+    it('Rejects attempts without valid invite code', done => {
       const userData = DataFactory.user({ inviteCode: 'not_the_invite_code' });
       UserHelper.signUp(app, userData)
       .then(res => {
@@ -55,6 +55,19 @@ describe('/user', () => {
           done();
       })
     });
+
+    xit('Requires a unique friend code', done => {
+      const userData1 = DataFactory.user({ friendCode: 'duplicate-friend-code' });
+      const userData2 = DataFactory.user({ friendCode: 'duplicate-friend-code' });
+      UserHelper.signUp(app, userData1)
+      .then(() => {
+        UserHelper.signUp(app, userData2)
+        .then(res => {
+          expect(res.status).toBe(422);
+            done();
+        })
+      })
+    })
   });
   
   describe('GET /user', () => {
