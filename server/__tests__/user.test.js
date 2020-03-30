@@ -56,4 +56,35 @@ describe('/user', () => {
       })
     });
   });
+  
+  describe('GET /user', () => {
+    it('/user/all returns all users', done => {
+      const usersData = [DataFactory.user(), DataFactory.user(), DataFactory.user()];
+      Promise.all(UserHelper.manyUsers(app, usersData)).then(() => {
+        UserHelper.login(app, usersData[0]).then(res => {
+          const token = res.body.token;
+          UserHelper.getUsers(app, token).then(res => {
+            usersData.forEach(userData => {
+              const user = res.body.find(resUser => resUser.friendCode === userData.friendCode);
+              expect(user.name).toBe(userData.name);
+              expect(user.island).toBe(userData.island);
+              expect(user).not.toHaveProperty('password');
+              done();
+            })
+          })
+        })
+      })
+    })
+  })
+
+  it('/user/all requires a valid token', done => {
+    const usersData = [DataFactory.user(), DataFactory.user(), DataFactory.user()];
+      Promise.all(UserHelper.manyUsers(app, usersData)).then(() => {
+          const token = 'not-a-token';
+          UserHelper.getUsers(app, token).then(res => {
+            expect(res.status).toBe(401);
+            done();
+          })
+      })
+  })
 });

@@ -14,6 +14,40 @@ exports.signUp = (app, data) =>
       });
   });
 
+exports.manyUsers = (app, data) => {
+  return data.map(user => {
+    return new Promise((resolve, reject) => {
+      request(app)
+      .post('/user')
+      .send(user)
+      .end((error, response) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(response);
+        }
+      });
+    });
+  });
+}
+
+exports.getUsers = (app, token, id = 'all') => {
+  const url = `/user/${id}`
+  return new Promise((resolve, reject) => {
+    request(app)
+      .get(url)
+      .set('Authorizer', token)
+      .send()
+      .end((error, response) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(response);
+        }
+      });
+  })
+}
+
 exports.login = (app, data) =>
   new Promise((resolve, reject) => {
     request(app)
