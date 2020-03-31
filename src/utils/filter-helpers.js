@@ -18,8 +18,15 @@ const lowestPrice = (prices) => {
   })
 }
 
+const highestPrice = (prices) => {
+  return prices.reduce((previousPrice, currentPrice) => {
+    return previousPrice.bells > currentPrice.bells ? previousPrice : currentPrice;
+  })
+}
+
 export {
   filterTodayPrices,
   filterPeriodPrices,
   lowestPrice,
+  highestPrice,
 }
