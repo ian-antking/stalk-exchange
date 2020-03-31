@@ -13,7 +13,7 @@ const getTokenPayload = () => {
 
 const isTokenValid = () => {
   const token = getTokenPayload();
-  return Boolean(token && ((!token.exp) || (Date.now() < token.exp)));
+  return Boolean(token && ((!token.exp) || (Date.now()/1000 < token.exp)));
 };
 
 const removeToken = () => {
