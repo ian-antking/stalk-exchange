@@ -118,7 +118,10 @@ describe('/price', () => {
           PriceHelpers.getPrices(app, token).then(res => {
             expect(res.status).toBe(200);
             expect(res.body.length).toBe(2);
-            done();
+            res.body.forEach(price => {
+              expect(price.user).toEqual(user);
+              done();
+            })
             })
           })
         });
