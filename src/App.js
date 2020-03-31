@@ -4,6 +4,7 @@ import theme from '@rebass/preset'
 import Nav from './components/nav';
 import { Switch, Route } from 'react-router-dom';
 import Login from './components/login';
+import SignUp from './components/signup';
 import TokenManager from './utils/token-manager';
 
 import './styles/App.scss';
@@ -20,6 +21,10 @@ class App extends React.Component{
     this.handleLogin();
   }
 
+  get isLoggedIn() {
+    return this.state.user && TokenManager.isTokenValid();
+  };
+
   handleLogin = () => {
     this.setState({ user: TokenManager.getTokenPayload() });
   };
@@ -29,19 +34,20 @@ class App extends React.Component{
     this.setState({ user: null });
   };
 
-  isLoggedIn = () => {
-    return Boolean(this.state.user) && TokenManager.isTokenValid();
-  };
-
   render = () => (
     <ThemeProvider theme={theme}>
       <div className='App'>
-        <Nav />
+        <Nav isLoggedIn={this.isLoggedIn} />
         <Switch>
           <Route
             path='/login'
-            ecact
+            exact
             render={props => <Login {...props} onLogin={this.handleLogin} />}
+          />
+          <Route
+            path='/signup'
+            exact
+            render={props => <SignUp {...props} onLogin={this.handleLogin} />}
           />
         </Switch>
       </div>
