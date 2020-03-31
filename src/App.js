@@ -11,6 +11,7 @@ import Login from './components/login';
 import SignUp from './components/signup';
 import TokenManager from './utils/token-manager';
 import apiString from './utils/api-string';
+import { format } from 'date-fns';
 
 import './styles/App.scss';
 
@@ -41,7 +42,10 @@ class App extends React.Component{
   };
 
   getPrices = () => {
-    window.fetch(`${apiString}/price`, {
+    const dayOfWeek = format(Date.now() / 1000, 'EEEE');
+    const action = dayOfWeek === 'Sunday' ? 'buy' : 'sell';
+    const url = `${apiString}/price?type=${action}`;
+    window.fetch(url, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
