@@ -61,13 +61,13 @@ class App extends React.Component{
       const todayPrices = data.filter(price => {
         return sameDay(price.date, Date.now());
       })
-      const currentPrices = isSunday() ? null : todayPrices.filter(price => {
+      const periodPrices = isSunday() ? null : todayPrices.filter(price => {
         return samePeriod(price.date, Date.now());
       })
-      console.log(currentPrices);
+      console.log(periodPrices);
       this.setState({
         ...this.state,
-        prices: currentPrices || todayPrices,
+        prices: periodPrices || todayPrices,
       })
     });
   }
