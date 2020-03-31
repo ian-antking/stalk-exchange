@@ -94,7 +94,7 @@ class SignUP extends React.Component {
         varient='primary'
         onClick={this.handleSignUP}
       >
-        Sign UP
+        Sign Up
       </Button>
       </Box>
     );

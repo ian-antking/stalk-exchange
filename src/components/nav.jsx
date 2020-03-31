@@ -17,7 +17,7 @@ const Nav = (props) => {
     <Box mx='auto' />
     { !props.isLoggedIn && (
       <React.Fragment>
-        <Link variant='nav' href='/signup'>
+        <Link variant='nav' href='/'>
           sign-up
         </Link>
         <Link variant='nav' href='login'>

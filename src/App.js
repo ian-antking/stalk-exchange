@@ -2,7 +2,11 @@ import React from 'react';
 import { ThemeProvider } from 'emotion-theming'
 import theme from '@rebass/preset'
 import Nav from './components/nav';
-import { Switch, Route } from 'react-router-dom';
+import {
+  Switch,
+  Route,
+  Redirect,
+} from 'react-router-dom';
 import Login from './components/login';
 import SignUp from './components/signup';
 import TokenManager from './utils/token-manager';
@@ -39,15 +43,13 @@ class App extends React.Component{
       <div className='App'>
         <Nav isLoggedIn={this.isLoggedIn} />
         <Switch>
+          <Route exact path="/">
+            {this.isLoggedIn ? <Redirect to="/dashboard" /> : props => <SignUp {...props} onLogin={this.handleLogin} />}
+          </Route>
           <Route
             path='/login'
             exact
             render={props => <Login {...props} onLogin={this.handleLogin} />}
-          />
-          <Route
-            path='/signup'
-            exact
-            render={props => <SignUp {...props} onLogin={this.handleLogin} />}
           />
         </Switch>
       </div>
