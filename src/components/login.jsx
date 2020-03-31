@@ -45,6 +45,7 @@ class Login extends React.Component {
       .then(data => {
         TokenManager.setToken(data.token);
         this.props.onLogin()
+        this.props.history.push('/');
       });
 
   };
