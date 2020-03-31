@@ -13,9 +13,11 @@ import TokenManager from './utils/token-manager';
 import apiString from './utils/api-string';
 import {
   isSunday,
-  sameDay,
   samePeriod,
 } from './utils/date-helpers';
+import {
+  filterTodayPrices,
+} from './utils/filter-helpers';
 
 import './styles/App.scss';
 
@@ -58,9 +60,7 @@ class App extends React.Component{
     })
     .then(res => res.json())
     .then(data => {
-      const todayPrices = data.filter(price => {
-        return sameDay(price.date, Date.now());
-      })
+      const todayPrices = filterTodayPrices(data);
       const periodPrices = isSunday() ? null : todayPrices.filter(price => {
         return samePeriod(price.date, Date.now());
       })
