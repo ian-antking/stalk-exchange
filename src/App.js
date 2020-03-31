@@ -10,6 +10,7 @@ import {
 import Login from './components/login';
 import SignUp from './components/signup';
 import TokenManager from './utils/token-manager';
+import apiString from './utils/api-string';
 
 import './styles/App.scss';
 
@@ -31,12 +32,25 @@ class App extends React.Component{
 
   handleLogin = () => {
     this.setState({ user: TokenManager.getTokenPayload() });
+    this.getPrices()
   };
 
   handleLogout = () => {
     TokenManager.removeToken();
     this.setState({ user: null });
   };
+
+  getPrices = () => {
+    window.fetch(`${apiString}/price`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': TokenManager.getToken(),
+      }
+    })
+    .then(res => res.json())
+    .then(data => console.log(data));
+  }
 
   render = () => (
     <ThemeProvider theme={theme}>
@@ -45,6 +59,9 @@ class App extends React.Component{
         <Switch>
           <Route exact path="/">
             {this.isLoggedIn ? <Redirect to="/dashboard" /> : props => <SignUp {...props} onLogin={this.handleLogin} />}
+          </Route>
+          <Route exact path="/dashboard">
+            {!this.isLoggedIn ? <Redirect to="/" /> : props => <h1>Dashboard</h1>}
           </Route>
           <Route
             path='/login'
