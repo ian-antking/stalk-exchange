@@ -12,7 +12,14 @@ const filterPeriodPrices = (prices) => {
   })
 }
 
+const lowestPrice = (prices) => {
+  return prices.reduce((previousPrice, currentPrice) => {
+    return previousPrice.bells < currentPrice.bells ? previousPrice : currentPrice;
+  })
+}
+
 export {
   filterTodayPrices,
   filterPeriodPrices,
+  lowestPrice,
 }
