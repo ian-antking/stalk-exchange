@@ -2,6 +2,7 @@ import React from 'react';
 import { ThemeProvider } from 'emotion-theming'
 import theme from '@rebass/preset'
 import Nav from './components/nav';
+import Dashboard from './components/dashboard';
 import {
   Switch,
   Route,
@@ -83,7 +84,13 @@ class App extends React.Component{
             {this.isLoggedIn ? <Redirect to="/dashboard" /> : props => <SignUp {...props} onLogin={this.handleLogin} />}
           </Route>
           <Route exact path="/dashboard">
-            {!this.isLoggedIn ? <Redirect to="/" /> : props => <h1>Dashboard</h1>}
+            {!this.isLoggedIn ? <Redirect to="/" /> : props => (
+              <Dashboard
+                {...props}
+                prices={this.state.prices}
+                bestPrice={this.state.bestPrice}
+              />
+            )}
           </Route>
           <Route
             path='/login'
