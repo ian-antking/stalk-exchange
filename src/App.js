@@ -6,6 +6,7 @@ class App extends React.Component{
     return (
       <div className='App'>
         <h1>Stalk Market</h1>
+        <h2>coming soon!</h2>
       </div>
     )
   };
