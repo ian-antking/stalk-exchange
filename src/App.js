@@ -12,6 +12,9 @@ import SignUp from './components/signup';
 import TokenManager from './utils/token-manager';
 import apiString from './utils/api-string';
 import { format } from 'date-fns';
+import {
+  isSunday,
+} from './utils/date-helpers';
 
 import './styles/App.scss';
 
@@ -43,8 +46,7 @@ class App extends React.Component{
   };
 
   getPrices = () => {
-    const dayOfWeek = format(Date.now() / 1000, 'EEEE');
-    const action = dayOfWeek === 'Sunday' ? 'buy' : 'sell';
+    const action = isSunday() ? 'buy' : 'sell';
     const url = `${apiString}/price?type=${action}`;
     window.fetch(url, {
       method: 'GET',
@@ -58,7 +60,7 @@ class App extends React.Component{
       const todayPrices = data.filter(price => {
         return format(price.date, 'dLy') === format(Date.now(), 'dLy');
       })
-      const currentPrices = dayOfWeek === 'Sunday' ? null : todayPrices.filter(price => {
+      const currentPrices = isSunday() ? null : todayPrices.filter(price => {
         return format(price.date, 'a..aaa') === format(Date.now(), 'a..aaa');
       })
       console.log(currentPrices);
