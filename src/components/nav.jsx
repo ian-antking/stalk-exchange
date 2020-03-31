@@ -1,10 +1,9 @@
 import React from 'react';
-import Navbar from 'react-bulma-components/lib/components/navbar';
 
 const Nav = () => (
-  <Navbar>
-
-  </Navbar>
+  <div>
+    <h1>This will be the navbar</h1>
+  </div>
 );
 
 export default Nav;
