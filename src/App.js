@@ -20,6 +20,7 @@ class App extends React.Component{
     super(props);
     this.state = {
       user: null,
+      priced: null,
     };
   }
 
@@ -53,7 +54,15 @@ class App extends React.Component{
       }
     })
     .then(res => res.json())
-    .then(data => console.log(data));
+    .then(data => {
+      const currentPrices = data.filter(price => {
+        return format(price.date, 'dLy') === format(Date.now(), 'dLy');
+      })
+      this.setState({
+        ...this.state,
+        prices: currentPrices,
+      })
+    });
   }
 
   render = () => (
