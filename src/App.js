@@ -2,6 +2,8 @@ import React from 'react';
 import { ThemeProvider } from 'emotion-theming'
 import theme from '@rebass/preset'
 import Nav from './components/nav';
+import { Switch, Route } from 'react-router-dom';
+import Login from './components/login';
 
 import './styles/App.scss';
 
@@ -10,8 +12,13 @@ class App extends React.Component{
     <ThemeProvider theme={theme}>
       <div className='App'>
         <Nav />
-        <h1>Stalk Market</h1>
-        <h2>coming soon!</h2>
+        <Switch>
+          <Route
+            path='/'
+            ecact
+            render={props => <Login {...props} />}
+          />
+        </Switch>
       </div>
     </ThemeProvider>
     )
