@@ -14,6 +14,7 @@ import apiString from './utils/api-string';
 import { format } from 'date-fns';
 import {
   isSunday,
+  sameDay,
 } from './utils/date-helpers';
 
 import './styles/App.scss';
@@ -58,7 +59,7 @@ class App extends React.Component{
     .then(res => res.json())
     .then(data => {
       const todayPrices = data.filter(price => {
-        return format(price.date, 'dLy') === format(Date.now(), 'dLy');
+        return sameDay(price.date, Date.now());
       })
       const currentPrices = isSunday() ? null : todayPrices.filter(price => {
         return format(price.date, 'a..aaa') === format(Date.now(), 'a..aaa');
