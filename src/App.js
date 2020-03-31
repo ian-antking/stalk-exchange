@@ -55,12 +55,16 @@ class App extends React.Component{
     })
     .then(res => res.json())
     .then(data => {
-      const currentPrices = data.filter(price => {
+      const todayPrices = data.filter(price => {
         return format(price.date, 'dLy') === format(Date.now(), 'dLy');
       })
+      const currentPrices = dayOfWeek === 'Sunday' ? null : todayPrices.filter(price => {
+        return format(price.date, 'a..aaa') === format(Date.now(), 'a..aaa');
+      })
+      console.log(currentPrices);
       this.setState({
         ...this.state,
-        prices: currentPrices,
+        prices: currentPrices || todayPrices,
       })
     });
   }
