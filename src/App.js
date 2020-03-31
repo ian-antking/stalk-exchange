@@ -17,6 +17,8 @@ import {
 import {
   filterTodayPrices,
   filterPeriodPrices,
+  lowestPrice,
+  highestPrice,
 } from './utils/filter-helpers';
 
 import './styles/App.scss';
@@ -65,6 +67,9 @@ class App extends React.Component{
       this.setState({
         ...this.state,
         prices: periodPrices || todayPrices,
+        bestPrice: isSunday() ? lowestPrice(todayPrices) : highestPrice(periodPrices),
+      }, () => {
+        console.log(this.state);
       })
     });
   }
