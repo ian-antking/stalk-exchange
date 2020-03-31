@@ -36,7 +36,7 @@ exports.getUsers = (app, token, id = 'all') => {
   return new Promise((resolve, reject) => {
     request(app)
       .get(url)
-      .set('Authorizer', token)
+      .set('Authorization', token)
       .send()
       .end((error, response) => {
         if (error) {

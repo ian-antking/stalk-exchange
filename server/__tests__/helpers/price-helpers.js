@@ -4,7 +4,7 @@ exports.postPrice = (app, data, token) => {
   return new Promise((resolve, reject) => {
     request(app)
       .post(`/price/${data.type}`)
-      .set('Authorizer', token)
+      .set('Authorization', token)
       .send({
         bells: data.bells,
         date: data.date || null,
@@ -24,7 +24,7 @@ exports.getPrices = (app, token, type) => {
   return new Promise((resolve, reject) => {
     request(app)
       .get(url)
-      .set('Authorizer', token)
+      .set('Authorization', token)
       .send()
       .end((error, response) => {
         if (error) {
