@@ -7,6 +7,8 @@ import {
   Box,
   Button,
 } from 'rebass';
+import apiString from '../utils/api-string';
+import TokenManager from '../utils/token-manager';
 
 class Login extends React.Component {
   constructor(props) {
@@ -31,7 +33,19 @@ class Login extends React.Component {
 
   handleLogin = (event) => {
     event.preventDefault();
-    
+    const data = JSON.stringify(this.state.fields);
+    window.fetch(`${apiString}/auth/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: data,
+    })
+      .then(res => res.json())
+      .then(data => {
+        TokenManager.setToken(data.token);
+      });
+
   };
 
   render() {
@@ -47,6 +61,7 @@ class Login extends React.Component {
       <Input
         id='login_name_input'
         name='name'
+        required
         value={this.state.fields.name}
         onChange={event => this.handleFieldChange(event)}
       />
@@ -54,6 +69,7 @@ class Login extends React.Component {
       <Input
         id='login_island_input'
         name='island'
+        required
         value={this.state.fields.island}
         onChange={event => this.handleFieldChange(event)}
       />
@@ -61,6 +77,7 @@ class Login extends React.Component {
       <Input
         id='login_password_input'
         name='password'
+        required
         type='password'
         value={this.state.fields.password}
         onChange={event => this.handleFieldChange(event)}
