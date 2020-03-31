@@ -44,6 +44,7 @@ class Login extends React.Component {
       .then(res => res.json())
       .then(data => {
         TokenManager.setToken(data.token);
+        this.props.onLogin()
       });
 
   };
