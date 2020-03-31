@@ -11,10 +11,10 @@ import Login from './components/login';
 import SignUp from './components/signup';
 import TokenManager from './utils/token-manager';
 import apiString from './utils/api-string';
-import { format } from 'date-fns';
 import {
   isSunday,
   sameDay,
+  samePeriod,
 } from './utils/date-helpers';
 
 import './styles/App.scss';
@@ -62,7 +62,7 @@ class App extends React.Component{
         return sameDay(price.date, Date.now());
       })
       const currentPrices = isSunday() ? null : todayPrices.filter(price => {
-        return format(price.date, 'a..aaa') === format(Date.now(), 'a..aaa');
+        return samePeriod(price.date, Date.now());
       })
       console.log(currentPrices);
       this.setState({
