@@ -30,6 +30,7 @@ class App extends React.Component{
     this.state = {
       user: null,
       prices: null,
+      message: null,
     };
   }
 
@@ -50,6 +51,13 @@ class App extends React.Component{
     TokenManager.removeToken();
     this.setState({ user: null });
   };
+
+  setMessage = (message) => {
+    this.setState({
+      ...this.state,
+      message,
+    })
+  }
 
   getPrices = () => {
     const action = isSunday() ? 'buy' : 'sell';
