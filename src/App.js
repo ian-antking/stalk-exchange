@@ -70,7 +70,6 @@ class App extends React.Component{
         prices: periodPrices || todayPrices,
         bestPrice: isSunday() ? lowestPrice(todayPrices) : highestPrice(periodPrices),
       }, () => {
-        console.log(this.state);
       })
     });
   }
