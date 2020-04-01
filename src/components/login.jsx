@@ -34,19 +34,23 @@ class Login extends React.Component {
 
   handleLogin = (event) => {
     event.preventDefault();
-    const data = JSON.stringify(this.state.fields);
+    const body = JSON.stringify(this.state.fields);
     window.fetch(`${apiString}/auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: data,
+      body: body,
     })
-      .then(res => res.json())
+      .then(res => {
+        return res.status === 200 ? res.json() : this.props.setMessage(res.statusText, true)
+      })
       .then(data => {
-        TokenManager.setToken(data.token);
-        this.props.onLogin()
-        this.props.history.push('/');
+        if (data) {
+          TokenManager.setToken(data.token);
+          this.props.onLogin()
+          this.props.history.push('/');
+        }
       });
   };
 

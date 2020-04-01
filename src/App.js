@@ -3,6 +3,7 @@ import { ThemeProvider } from 'emotion-theming'
 import theme from '@rebass/preset'
 import Nav from './components/nav';
 import Dashboard from './components/dashboard';
+import Message from './components/message';
 import {
   Switch,
   Route,
@@ -52,10 +53,13 @@ class App extends React.Component{
     this.setState({ user: null });
   };
 
-  setMessage = (message) => {
+  setMessage = (messageText, error = false) => {
     this.setState({
       ...this.state,
-      message,
+      message: {
+        text: messageText,
+        error,
+      }
     })
   }
 
@@ -86,9 +90,15 @@ class App extends React.Component{
     <ThemeProvider theme={theme}>
       <div className='App'>
         <Nav isLoggedIn={this.isLoggedIn} />
+        { this.state.message && <Message message={this.state.message} /> }
         <Switch>
           <Route exact path="/">
-            {this.isLoggedIn ? <Redirect to="/dashboard" /> : props => <SignUp {...props} onLogin={this.handleLogin} />}
+            {this.isLoggedIn ? <Redirect to="/dashboard" /> : props => {
+              return <SignUp
+                {...props}
+                onLogin={this.handleLogin}
+              />}
+            }
           </Route>
           <Route exact path="/dashboard">
             {!this.isLoggedIn ? <Redirect to="/" /> : props => (
@@ -102,7 +112,14 @@ class App extends React.Component{
           <Route
             path='/login'
             exact
-            render={props => <Login {...props} onLogin={this.handleLogin} />}
+            render={props => {
+                return <Login
+                  {...props}
+                  onLogin={this.handleLogin}
+                  setMessage={this.setMessage}
+                />
+              }
+            }
           />
         </Switch>
       </div>
