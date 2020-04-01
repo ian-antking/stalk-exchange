@@ -37,8 +37,12 @@ class SignUP extends React.Component {
 
   handleSignUP = (event) => {
     event.preventDefault();
-    const data = JSON.stringify(this.state.fields);
-    window.fetch(`${apiString}/auth/login`, {
+    const fields = this.state.fields;
+    if (fields.password !== fields.confirmPassword) {
+      return window.alert('Passwords do not match!');
+    }
+    const data = JSON.stringify(fields);
+    window.fetch(`${apiString}/user`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -46,10 +50,26 @@ class SignUP extends React.Component {
       body: data,
     })
       .then(res => res.json())
-      .then(data => {
-        TokenManager.setToken(data.token);
-        this.props.onLogin()
-        this.props.history.push('/');
+      .then(() => {
+        const { name, island, password } = fields;
+        const loginData = {
+          name,
+          island,
+          password,
+        }
+        window.fetch(`${apiString}/auth/login`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(loginData),
+        })
+          .then(res => res.json())
+          .then(data => {
+            TokenManager.setToken(data.token);
+            this.props.onLogin()
+            this.props.history.push('/');
+          });
       });
   };
 
@@ -88,20 +108,22 @@ class SignUP extends React.Component {
         <Input
           id='signUp_password_input'
           name='password'
+          type='password'
           value={this.state.fields.password}
           onChange={event => this.handleFieldChange(event)}
         />
         <Label py={2} htmlFor='signUp_confirmPassword_input'>Confirm Password</Label>
         <Input
           id='signUp_confirmPassword_input'
-          name='password'
+          name='confirmPassword'
+          type='password'
           value={this.state.fields.confirmPassword}
           onChange={event => this.handleFieldChange(event)}
         />
         <Label py={2} htmlFor='signUp_inviteCode_input'>Invite Code</Label>
         <Input
           id='signUp_inviteCode_input'
-          name='password'
+          name='inviteCode'
           value={this.state.fields.inviteCode}
           onChange={event => this.handleFieldChange(event)}
         />
