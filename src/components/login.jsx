@@ -43,7 +43,9 @@ class Login extends React.Component {
       body: body,
     })
       .then(res => {
-        return res.status === 200 ? res.json() : this.props.setMessage(res.statusText, true)
+        const errorMessage = res.status === 200 ? null : `${res.status}: ${res.statusText}`;
+        errorMessage && this.props.setMessage(errorMessage, true);
+        return errorMessage ? null : res.json();
       })
       .then(data => {
         if (data) {
