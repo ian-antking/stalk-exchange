@@ -43,7 +43,7 @@ class App extends React.Component{
 
   handleLogin = () => {
     this.setState({ user: TokenManager.getTokenPayload() });
-    this.getPrices()
+    this.isLoggedIn && this.getPrices()
   };
 
   handleLogout = () => {
