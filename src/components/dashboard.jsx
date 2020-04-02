@@ -7,7 +7,7 @@ import {
 import SubmitPrice from './submit-price'
 
 const Dashboard = (props) => {
-  const userPrice = props.prices && props.prices.filter(price => price.user === props.user).length;
+  const userPrice = props.prices && props.prices.filter(price => price.user._id === props.user._id);
   return (
   <Box>
     <Heading my={3}>Dashboard</Heading>
