@@ -44,8 +44,13 @@ class App extends React.Component{
   };
 
   handleLogin = () => {
-    this.setState({ user: TokenManager.getTokenPayload() });
-    this.isLoggedIn && this.getPrices()
+    this.setState({
+      ...this.state,
+      user: TokenManager.getTokenPayload()
+    }, () => {
+      !this.isLoggedIn && this.handleLogout();
+      this.isLoggedIn && this.getPrices()
+    });
   };
 
   handleLogout = () => {
@@ -81,8 +86,6 @@ class App extends React.Component{
         ...this.state,
         prices: periodPrices || todayPrices,
         bestPrice: isSunday() ? lowestPrice(todayPrices) : highestPrice(periodPrices),
-      }, () => {
-        console.log(this.state);
       })
     });
   }
@@ -105,6 +108,7 @@ class App extends React.Component{
             {!this.isLoggedIn ? <Redirect to="/" /> : props => (
               <Dashboard
                 {...props}
+                user={this.state.user}
                 prices={this.state.prices}
                 bestPrice={this.state.bestPrice}
                 setMessage={this.setMessage}
