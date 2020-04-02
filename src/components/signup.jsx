@@ -39,7 +39,7 @@ class SignUP extends React.Component {
     event.preventDefault();
     const fields = this.state.fields;
     if (fields.password !== fields.confirmPassword) {
-      return window.alert('Passwords do not match!');
+      return this.props.setMessage('Passwords do not match!', true);
     }
     const data = JSON.stringify(fields);
     window.fetch(`${apiString}/user`, {
@@ -71,6 +71,7 @@ class SignUP extends React.Component {
         })
           .then(res => res.json())
           .then(data => {
+            this.props.setMessage('Welcome!')
             TokenManager.setToken(data.token);
             this.props.onLogin()
             this.props.history.push('/');
