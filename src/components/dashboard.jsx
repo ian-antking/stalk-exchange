@@ -18,7 +18,7 @@ const Dashboard = (props) => {
       : (
         'No current prices submitted yet'
       )}
-    { userPrice ? <Text my={3}>Current price submitted</Text> : (
+    { userPrice && userPrice.length ? <Text my={3}>Current price submitted</Text> : (
       <SubmitPrice
         setMessage={props.setMessage}
         getPrices={props.getPrices}
