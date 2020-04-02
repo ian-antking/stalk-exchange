@@ -107,6 +107,8 @@ class App extends React.Component{
                 {...props}
                 prices={this.state.prices}
                 bestPrice={this.state.bestPrice}
+                setMessage={this.setMessage}
+                getPrices={this.getPrices}
               />
             )}
           </Route>
