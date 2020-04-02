@@ -49,8 +49,13 @@ class SignUP extends React.Component {
       },
       body: data,
     })
-      .then(res => res.json())
-      .then(() => {
+      .then(res => {
+        const errorMessage = res.status === 201 ? null : `${res.status}: ${res.statusText}`;
+        errorMessage && this.props.setMessage(errorMessage, true);
+        return errorMessage ? null : res.json();
+      })
+      .then(data => {
+        if (data) {
         const { name, island, password } = fields;
         const loginData = {
           name,
@@ -70,6 +75,7 @@ class SignUP extends React.Component {
             this.props.onLogin()
             this.props.history.push('/');
           });
+        };
       });
   };
 

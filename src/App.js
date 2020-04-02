@@ -101,6 +101,7 @@ class App extends React.Component{
               return <SignUp
                 {...props}
                 onLogin={this.handleLogin}
+                setMessage={this.setMessage}
               />}
             }
           </Route>
