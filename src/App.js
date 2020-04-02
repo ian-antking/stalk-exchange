@@ -80,7 +80,7 @@ class App extends React.Component{
     })
     .then(res => res.json())
     .then(data => {
-      const todayPrices = data ? filterTodayPrices(data) : [];
+      const todayPrices = data.prices ? filterTodayPrices(data) : [];
       const periodPrices = isSunday() ? null : filterPeriodPrices(todayPrices);
       this.setState({
         ...this.state,
