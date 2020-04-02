@@ -18,7 +18,7 @@ app.use('/user', UserRouter);
 app.use('/auth', AuthRouter);
 app.use('/price', PriceRouter);
 
-app.get('*', (_, res) => {
+app.get('/', (_, res) => {
   res.sendFile(path.join(process.cwd(), 'build', 'index.html'));
 });
 
