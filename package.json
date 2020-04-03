@@ -25,7 +25,8 @@
     "rebass": "^4.0.7"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node server/index.js",
+    "dev": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "test-server": "jest ./server/__tests__ --runInBand --setupFiles ./jest-setup.js",

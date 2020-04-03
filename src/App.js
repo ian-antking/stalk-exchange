@@ -4,24 +4,18 @@ import theme from '@rebass/preset'
 import Nav from './components/nav';
 import Dashboard from './components/dashboard';
 import Message from './components/message';
-import {
-  Switch,
-  Route,
-  Redirect,
-} from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import Login from './components/login';
 import SignUp from './components/signup';
 import TokenManager from './utils/token-manager';
-import {
-  isSunday,
-} from './utils/date-helpers';
+import { isSunday } from './utils/date-helpers';
 import {
   filterTodayPrices,
   filterPeriodPrices,
   lowestPrice,
   highestPrice,
 } from './utils/filter-helpers';
-import { getPrices } from './utils/fetch-helpers';
+import { getPrices, getUsers} from './utils/fetch-helpers';
 
 import './styles/App.scss';
 
@@ -32,6 +26,7 @@ class App extends React.Component{
       user: null,
       prices: null,
       message: null,
+      users: null,
     };
   }
 
@@ -49,7 +44,8 @@ class App extends React.Component{
       user: TokenManager.getTokenPayload()
     }, () => {
       !this.isLoggedIn && this.handleLogout();
-      this.isLoggedIn && this.getPrices()
+      this.isLoggedIn && this.getPrices();
+      this.isLoggedIn && this.getUsers();
     });
   };
 
@@ -79,6 +75,14 @@ class App extends React.Component{
       })
   }
 
+  getUsers = async () => {
+    const users = await getUsers();
+    this.setState({
+      ...this.state,
+      users,
+    });
+  }
+
   render = () => (
     <ThemeProvider theme={theme}>
       <div className='App'>
@@ -103,6 +107,7 @@ class App extends React.Component{
                 bestPrice={this.state.bestPrice}
                 setMessage={this.setMessage}
                 getPrices={this.getPrices}
+                users={this.state.users}
               />
             )}
           </Route>
