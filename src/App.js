@@ -80,7 +80,7 @@ class App extends React.Component{
     this.setState({
       ...this.state,
       users,
-    }, () => console.log(this.state.users));
+    });
   }
 
   render = () => (
@@ -107,6 +107,7 @@ class App extends React.Component{
                 bestPrice={this.state.bestPrice}
                 setMessage={this.setMessage}
                 getPrices={this.getPrices}
+                users={this.state.users}
               />
             )}
           </Route>
