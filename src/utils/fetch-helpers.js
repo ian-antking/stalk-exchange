@@ -7,6 +7,7 @@ const _buildAuthHeaders = () => ({
   'Authorization': TokenManager.getToken(),
 });
 
+
 const getPrices = async () => {
   const action = isSunday() ? 'buy' : 'sell';
   const url = `${apiString}/price?type=${action}`;

@@ -20,6 +20,7 @@ const Dashboard = (props) => {
         {props.users && <PriceList users={props.users}/>}
       </React.Fragment>
     ) : (
+
       <SubmitPrice
         setMessage={props.setMessage}
         getPrices={props.getPrices}
