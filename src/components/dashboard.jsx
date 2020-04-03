@@ -1,30 +1,32 @@
 import React from 'react';
 import {
-  Box,
-  Heading,
-  Text,
+  Flex,
 } from 'rebass';
-import SubmitPrice from './submit-price'
+import SubmitPrice from './submit-price';
+import BestPriceCard from './best-price-card';
+import PriceList from './price-list'
 
 const Dashboard = (props) => {
   const userPrice = props.prices && props.prices.filter(price => price.user._id === props.user._id);
   return (
-  <Box>
-    <Heading my={3}>Dashboard</Heading>
-    {props.bestPrice ? (
-      <Text my={3}>{
-        `The current best ${props.bestPrice.type} price is ${props.bestPrice.bells}, on ${props.bestPrice.user.name}'s island ${props.bestPrice.user.island}. ${props.bestPrice.user.friendCode}`
-        }</Text>)
-      : (
-        'No current prices submitted yet'
-      )}
-    { userPrice && userPrice.length ? <Text my={3}>Current price submitted</Text> : (
+  <Flex
+    alignItems='center'
+    flexDirection='column'
+    my={3}
+  >
+    { userPrice && userPrice.length ? (
+      <React.Fragment>
+        <BestPriceCard bestPrice={props.bestPrice} />
+        {props.users && <PriceList users={props.users}/>}
+      </React.Fragment>
+    ) : (
+
       <SubmitPrice
         setMessage={props.setMessage}
         getPrices={props.getPrices}
       />
     ) }
-  </Box>
+  </Flex>
 )}
 
 export default Dashboard;
