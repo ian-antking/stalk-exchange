@@ -31,9 +31,11 @@ exports.getUserById = (req, res) => {
 }
 
 exports.getUsers = (_, res) => {
-  User.find({}, (err, users) => {
+  User.find({})
+  .populate('latestPrice')
+  .exec((err, users) => {
     if (err) res.status(500).send(err);
     const sanitizedUsers = users.map(user => user.sanitize());
     res.status(200).json(sanitizedUsers);
-  });
+  })
 }
