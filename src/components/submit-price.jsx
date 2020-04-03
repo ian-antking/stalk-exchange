@@ -60,7 +60,6 @@ class SubmitPrice extends React.Component {
           width={2/3}
           margin='auto'
         >
-          <Label py={2} htmlFor='price_bells_input'>Bells</Label>
           <Input
             id='price_bells_input'
             name='bells'
