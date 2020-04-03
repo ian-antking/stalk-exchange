@@ -13,7 +13,7 @@ const Nav = (props) => {
     color='white'
     bg='black'
     alignItems='center'>
-    <Text p={2} fontWeight='bold'>Stalk Market</Text>
+    <Text p={2} fontWeight='bold'>Stalk Exchange</Text>
     <Box mx='auto' />
     { !props.isLoggedIn && (
       <React.Fragment>
