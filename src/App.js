@@ -12,7 +12,6 @@ import {
 import Login from './components/login';
 import SignUp from './components/signup';
 import TokenManager from './utils/token-manager';
-import apiString from './utils/api-string';
 import {
   isSunday,
 } from './utils/date-helpers';
@@ -22,6 +21,7 @@ import {
   lowestPrice,
   highestPrice,
 } from './utils/filter-helpers';
+import { getPrices } from './utils/fetch-helpers';
 
 import './styles/App.scss';
 
@@ -68,18 +68,8 @@ class App extends React.Component{
     })
   }
 
-  getPrices = () => {
-    const action = isSunday() ? 'buy' : 'sell';
-    const url = `${apiString}/price?type=${action}`;
-    window.fetch(url, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': TokenManager.getToken(),
-      }
-    })
-    .then(res => res.json())
-    .then(data => {
+  getPrices = async () => {
+      const data = await getPrices();
       const todayPrices = data ? filterTodayPrices(data) : [];
       const periodPrices = isSunday() ? null : filterPeriodPrices(todayPrices);
       this.setState({
@@ -87,7 +77,6 @@ class App extends React.Component{
         prices: periodPrices || todayPrices,
         bestPrice: isSunday() ? lowestPrice(todayPrices) : highestPrice(periodPrices),
       })
-    });
   }
 
   render = () => (
