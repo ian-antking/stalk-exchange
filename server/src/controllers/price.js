@@ -1,5 +1,4 @@
 const Price = require('../models/price');
-const User = require('../models/user');
 
 exports.addPrice = (req, res) => {
   const { bells, date } = req.body;
