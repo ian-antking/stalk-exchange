@@ -27,10 +27,11 @@ class App extends React.Component{
       prices: null,
       message: null,
       users: null,
+      working: true,
     };
   }
 
-  componentDidMount = () => {
+  componentDidMount = async () => {
     this.handleLogin();
   }
 
@@ -38,14 +39,26 @@ class App extends React.Component{
     return this.state.user && TokenManager.isTokenValid();
   };
 
-  handleLogin = () => {
+  toggleWorking = () => {
+    this.setState({
+      ...this.state,
+      working: !this.state.working
+    })
+  }
+
+  refreshPrices = async () => {
+    this.toggleWorking();
+    await this.getPrices();
+    this.toggleWorking();
+  }
+
+  handleLogin = async () => {
     this.setState({
       ...this.state,
       user: TokenManager.getTokenPayload()
     }, () => {
       !this.isLoggedIn && this.handleLogout();
-      this.isLoggedIn && this.getPrices();
-      this.isLoggedIn && this.getUsers();
+      this.isLoggedIn && this.getData();
     });
   };
 
@@ -83,6 +96,14 @@ class App extends React.Component{
     });
   }
 
+  getData = async () => {
+    await this.getUsers().then( async () => {
+      await this.getPrices().then(() => {
+        this.toggleWorking();
+      })
+    })
+  }
+
   render = () => (
     <ThemeProvider theme={theme}>
       <div className='App'>
@@ -106,8 +127,9 @@ class App extends React.Component{
                 prices={this.state.prices}
                 bestPrice={this.state.bestPrice}
                 setMessage={this.setMessage}
-                getPrices={this.getPrices}
+                refreshPrices={this.refreshPrices}
                 users={this.state.users}
+                working={this.state.working}
               />
             )}
           </Route>
