@@ -1,16 +1,19 @@
 import React from 'react';
-import { Card, Flex } from 'rebass';
+import { Card, Box } from 'rebass';
 
 const PriceCard = (props) => (
   <Card>
-    <Flex
-      justifyContent='space-between'
+    <Box
+      sx={{
+        display: 'grid',
+        gridGap: 1,
+        gridTemplateColumns: 'repeat(auto-fit, minmax(30px, 1fr))',
+      }}
     >
-      <span>{`${props.rank}:`}</span>
-      <span>{props.price.bells}</span>
-      <span>{props.price.user.name}</span>
-      <span>{props.price.user.friendCode}</span>
-    </Flex>
+      <div>{props.price.user.name}</div>
+      <div>{props.price.bells}</div>
+      <div>{props.price.user.friendCode}</div>
+    </Box>
   </Card>
 )
 
