@@ -12,11 +12,10 @@ const PriceList = (props) => {
   return (
   <Box my={3} width='90%'>
     {
-      activeUsers.map((price, index) => (
+      activeUsers.map((price) => (
         <PriceCard
           key={price._id}
           price={price}
-          rank={index + 2}
         />
       ))
     }
