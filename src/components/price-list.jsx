@@ -7,7 +7,7 @@ const PriceList = (props) => {
   const activeUsers = props.prices
     .sort((a, b) => a.bells - b.bells);
 
-  isSunday(Date.now()) && activeUsers.reverse();
+  !isSunday(Date.now()) && activeUsers.reverse();
 
   return (
   <Box my={3} width='90%'>
