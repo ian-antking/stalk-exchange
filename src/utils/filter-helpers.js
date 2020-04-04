@@ -1,9 +1,10 @@
 import { sameDay, samePeriod } from './date-helpers';
 
 const filterTodayPrices = (prices = []) => {
-  return prices.filter(price => {
+  const filteredPrices = prices.filter(price => {
     return sameDay(price.date, Date.now());
   })
+  return [...new Set(filteredPrices)]
 }
 
 const filterPeriodPrices = (prices = []) => {
