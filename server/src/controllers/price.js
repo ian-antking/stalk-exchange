@@ -16,12 +16,10 @@ exports.addPrice = (req, res) => {
 
   const price = new Price(priceData)
 
-  price.save((err, savedPrice) => {
-    err && res.status(500).json(err);
-    User.findOneAndUpdate(req.authorizer._id, { latestPrice: savedPrice._id }, { new: true }, (error) => {
-      error && res.status(500).send(error);
-      res.status(201).json(price);
-    })
+  price.save().then(price => {
+    res.status(201).json(price);
+  }).catch(error => {
+    res.status(500).json(error);
   });
 }
 

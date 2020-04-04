@@ -91,21 +91,6 @@ describe('/price', () => {
       });
     })
 
-    it('updates the User latestPrice', done => {
-      const data = {
-        bells: 500,
-        type: 'sell',
-        date: 987654321,
-      }
-      PriceHelpers.postPrice(app, data, token).then(res => {
-        const price = res.body;
-        User.findById(price.user, (_, user) => {
-          expect(user.latestPrice.toString()).toBe(price._id);
-          done();
-        })
-      });
-    })
-
     it('requires a valid jwt', done => {
       const data = {
         bells: 500,

@@ -17,7 +17,7 @@ const Dashboard = (props) => {
     { userPrice && userPrice.length ? (
       <React.Fragment>
         <BestPriceCard bestPrice={props.bestPrice} />
-        {props.users && <PriceList users={props.users}/>}
+        {props.prices && <PriceList prices={props.prices} users={props.users}/>}
       </React.Fragment>
     ) : (
 

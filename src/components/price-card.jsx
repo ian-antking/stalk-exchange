@@ -3,7 +3,7 @@ import { Card, Text } from 'rebass';
 
 const PriceCard = (props) => (
   <Card >
-    <Text>{`${props.rank}: ${props.user.latestPrice.bells} | ${props.user.name} | ${props.user.friendCode}`}</Text>
+    <Text>{`${props.rank}: ${props.price.bells} | ${props.price.user.name} | ${props.price.user.friendCode}`}</Text>
   </Card>
 )
 
