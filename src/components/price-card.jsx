@@ -1,9 +1,16 @@
 import React from 'react';
-import { Card, Text } from 'rebass';
+import { Card, Flex } from 'rebass';
 
 const PriceCard = (props) => (
-  <Card >
-    <Text>{`${props.rank}: ${props.price.bells} | ${props.price.user.name} | ${props.price.user.friendCode}`}</Text>
+  <Card>
+    <Flex
+      justifyContent='space-between'
+    >
+      <span>{`${props.rank}:`}</span>
+      <span>{props.price.bells}</span>
+      <span>{props.price.user.name}</span>
+      <span>{props.price.user.friendCode}</span>
+    </Flex>
   </Card>
 )
 
