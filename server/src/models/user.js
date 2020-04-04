@@ -20,10 +20,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     minlength: [8, 'Password must be at least 8 characters long'],
   },
-  latestPrice: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Price',
-  }
 });
 
 userSchema.plugin(uniqueValidator);
