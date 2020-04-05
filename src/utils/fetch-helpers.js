@@ -1,4 +1,4 @@
-import { isSunday } from './date-helpers';
+import { isSunday } from 'date-fns';
 import apiString from './api-string';
 import TokenManager from './token-manager';
 
@@ -9,7 +9,7 @@ const _buildAuthHeaders = () => ({
 
 
 const getPrices = async () => {
-  const action = isSunday() ? 'buy' : 'sell';
+  const action = isSunday(Date.now()) ? 'buy' : 'sell';
   const url = `${apiString}/price?type=${action}`;
   const response = await fetch(url, {
     method: 'GET',

@@ -9,7 +9,7 @@ import {
 } from 'rebass';
 import apiString from '../utils/api-string';
 import TokenManager from '../utils/token-manager';
-import { isSunday } from '../utils/date-helpers';
+import { isSunday } from 'date-fns';
 
 class SubmitPrice extends React.Component {
   constructor(props) {
@@ -33,7 +33,7 @@ class SubmitPrice extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault();
     const body = JSON.stringify(this.state.fields);
-    const action = isSunday() ? 'buy' : 'sell'
+    const action = isSunday(Date.now()) ? 'buy' : 'sell'
     window.fetch(`${apiString}/price/${action}`, {
       method: 'POST',
       headers: {

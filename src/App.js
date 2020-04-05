@@ -8,7 +8,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import Login from './components/login';
 import SignUp from './components/signup';
 import TokenManager from './utils/token-manager';
-import { isSunday } from './utils/date-helpers';
+import { isSunday } from 'date-fns';
 import {
   filterTodayPrices,
   filterPeriodPrices,
@@ -80,11 +80,11 @@ class App extends React.Component{
   getPrices = async () => {
       const data = await getPrices();
       const todayPrices = data ? filterTodayPrices(data) : [];
-      const periodPrices = isSunday() ? null : filterPeriodPrices(todayPrices);
+      const periodPrices = isSunday(Date.now()) ? null : filterPeriodPrices(todayPrices);
       this.setState({
         ...this.state,
         prices: periodPrices || todayPrices,
-        bestPrice: isSunday() ? lowestPrice(todayPrices) : highestPrice(periodPrices),
+        bestPrice: isSunday(Date.now()) ? lowestPrice(todayPrices) : highestPrice(periodPrices),
       })
   }
 
