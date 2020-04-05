@@ -4,12 +4,12 @@ const sameDay = (date1, date2) => {
   return format(date1, 'dLy') === format(date2, 'dLy');
 }
 
-const currentPeriod = () => {
-  return format(Date.now(), 'a..aaa');
+const currentPeriod = (date) => {
+  return format(date, 'a');
 }
 
 const samePeriod = (date1, date2) => {
-  return format(date1, 'a..aaa') === format(date2, 'a..aaa');
+  return currentPeriod(date1) === currentPeriod(date2);
 }
 
 export {

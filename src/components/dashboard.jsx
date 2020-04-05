@@ -6,7 +6,9 @@ import {
 } from 'rebass';
 import SubmitPrice from './submit-price';
 import BestPriceCard from './best-price-card';
-import PriceList from './price-list'
+import PriceList from './price-list';
+import { currentPeriod } from '../utils/date-helpers';
+import { isSunday } from 'date-fns';
 
 const Dashboard = (props) => {
   const userPrice = props.prices && props.prices.filter(price => price.user._id === props.user._id);
@@ -21,12 +23,12 @@ const Dashboard = (props) => {
   </React.Fragment>
   )
 
-  const submit = (
+  const submit = !isSunday(Date.now()) && currentPeriod(Date.now() === 'AM') ?  (
     <SubmitPrice
     setMessage={props.setMessage}
     getPrices={props.refreshPrices}
   />
-  )
+  ) : <Heading>The Stalk Exchange is closed until tomorrow!</Heading>
 
   const pricesReady = userPrice && userPrice.length;
 
