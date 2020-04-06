@@ -11,6 +11,7 @@ import { currentPeriod } from '../utils/date-helpers';
 import { isSunday } from 'date-fns';
 
 const Dashboard = (props) => {
+  const currentTime = Date.now();
   const userPrice = props.prices && props.prices.filter(price => price.user._id === props.user._id);
 
   const loading = <Heading my={3}>Loading...</Heading>;
@@ -23,7 +24,7 @@ const Dashboard = (props) => {
   </React.Fragment>
   )
 
-  const submit = !isSunday(Date.now()) && currentPeriod(Date.now() === 'AM') ?  (
+  const submit = !isSunday(currentTime) && currentPeriod(currentTime)  === 'AM' ?  (
     <SubmitPrice
     setMessage={props.setMessage}
     getPrices={props.refreshPrices}
