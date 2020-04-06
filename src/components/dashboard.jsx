@@ -24,12 +24,16 @@ const Dashboard = (props) => {
   </React.Fragment>
   )
 
-  const submit = !isSunday(currentTime) && currentPeriod(currentTime)  === 'AM' ?  (
+  console.log(isSunday(currentTime))
+
+  const submit = isSunday(currentTime) && currentPeriod(currentTime)  === 'PM' ? (
+    <Heading>The Stalk Exchange is closed until tomorrow!</Heading>
+  ) : (
     <SubmitPrice
-    setMessage={props.setMessage}
-    getPrices={props.refreshPrices}
-  />
-  ) : <Heading>The Stalk Exchange is closed until tomorrow!</Heading>
+      setMessage={props.setMessage}
+      getPrices={props.refreshPrices}
+    />
+  ) 
 
   const pricesReady = userPrice && userPrice.length;
 
