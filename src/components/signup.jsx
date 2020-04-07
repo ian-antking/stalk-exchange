@@ -1,7 +1,7 @@
 import React from 'react';
 import { Label, Input } from '@rebass/forms';
 import { Box, Button, Heading } from 'rebass';
-import apiString from '../utils/api-string';
+import { login, signUp } from '../utils/fetch-helpers';
 import TokenManager from '../utils/token-manager';
 
 class SignUP extends React.Component {
@@ -9,12 +9,12 @@ class SignUP extends React.Component {
     super(props);
     this.state = {
       fields: {
-        name: '',
-        island: '',
-        friendCode: '',
-        password: '',
-        confirmPassword: '',
-        inviteCode: '',
+        name: 'test-user',
+        island: 'test-island',
+        friendCode: 'test-friend-code',
+        password: 'test-password',
+        confirmPassword: 'test-password',
+        inviteCode: 'animal-crossing-gays',
       },
     };
   }
@@ -28,52 +28,31 @@ class SignUP extends React.Component {
     });
   };
 
-  handleSignup = event => {
+  handleSignup = async event => {
     event.preventDefault();
     const fields = this.state.fields;
     if (fields.password !== fields.confirmPassword) {
       return this.props.setMessage('Passwords do not match!', true);
     }
-    const data = JSON.stringify(fields);
-    window
-      .fetch(`${apiString}/user`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: data,
-      })
-      .then(res => {
-        const errorMessage =
-          res.status === 201 ? null : `${res.status}: ${res.statusText}`;
-        errorMessage && this.props.setMessage(errorMessage, true);
-        return errorMessage ? null : res.json();
-      })
-      .then(data => {
-        if (data) {
-          const { name, island, password } = fields;
-          const loginData = {
-            name,
-            island,
-            password,
-          };
-          window
-            .fetch(`${apiString}/auth/login`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(loginData),
-            })
-            .then(res => res.json())
-            .then(data => {
-              this.props.setMessage('Welcome!');
-              TokenManager.setToken(data.token);
-              this.props.onLogin();
-              this.props.history.push('/');
-            });
-        }
-      });
+    const body = JSON.stringify(fields);
+    const signUpResponse = await signUp(body);
+    const signUpMessage =
+      !signUpResponse.ok &&
+      `${signUpResponse.status}: ${signUpResponse.statusText}`;
+    this.props.setMessage(signUpMessage, !signUpResponse.ok);
+    if (signUpResponse.ok) {
+      const loginResponse = await login(body);
+      const data = loginResponse.ok && (await loginResponse.json());
+      const loginMessage =
+        !loginResponse.ok &&
+        `${loginResponse.status}: ${loginResponse.statusText}`;
+      this.props.setMessage(loginMessage, !loginResponse.ok);
+      if (data) {
+        TokenManager.setToken(data.token);
+        this.props.onLogin();
+        this.props.history.push('/');
+      }
+    }
   };
 
   render() {
