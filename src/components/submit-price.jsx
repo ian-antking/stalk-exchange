@@ -42,7 +42,6 @@ class SubmitPrice extends React.Component {
   };
 
   render() {
-    console.log(this.state.working)
     return !this.state.working && (
       <React.Fragment>
         <Heading my={3}>Submit Prices</Heading>
