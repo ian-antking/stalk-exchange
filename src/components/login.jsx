@@ -45,7 +45,6 @@ class Login extends React.Component {
     if (data) {
       TokenManager.setToken(data.token);
       this.props.onLogin();
-      this.props.getData();
       this.props.history.push('/');
     } else {
       this.toggleWorking();

@@ -39,10 +39,10 @@ class App extends React.Component {
     return this.state.user && TokenManager.isTokenValid();
   }
 
-  toggleWorking = () => {
+  toggleWorking = (state = !this.state.working) => {
     this.setState({
       ...this.state,
-      working: !this.state.working,
+      working: state,
     });
   };
 
@@ -71,7 +71,7 @@ class App extends React.Component {
   };
 
   setMessage = (messageText, error) => {
-    const message = messageText ? { text: messageText, error, } : null;
+    const message = messageText ? { text: messageText, error } : null;
     this.setState({
       ...this.state,
       message,
@@ -104,7 +104,7 @@ class App extends React.Component {
   getData = async () => {
     await this.getUsers().then(async () => {
       await this.getPrices().then(() => {
-        this.toggleWorking();
+        this.toggleWorking(false);
       });
     });
   };
@@ -157,7 +157,6 @@ class App extends React.Component {
                   {...props}
                   onLogin={this.handleLogin}
                   setMessage={this.setMessage}
-                  getData={this.getData}
                 />
               );
             }}
