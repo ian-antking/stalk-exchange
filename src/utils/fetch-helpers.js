@@ -38,8 +38,20 @@ const postPrice = async (body) => {
   return response;
 }
 
+const login = async (body) => {
+  const response = await fetch(`${apiString}/auth/login`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: body,
+  });
+  return response;
+}
+
 export {
   getPrices,
   getUsers,
   postPrice,
+  login,
 }

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Label, Input } from '@rebass/forms';
 import { Box, Button, Heading } from 'rebass';
-import apiString from '../utils/api-string';
 import TokenManager from '../utils/token-manager';
+import { login } from '../utils/fetch-helpers';
 
 class Login extends React.Component {
   constructor(props) {
@@ -25,30 +25,17 @@ class Login extends React.Component {
     });
   };
 
-  handleLogin = event => {
+  handleLogin = async event => {
     event.preventDefault();
     const body = JSON.stringify(this.state.fields);
-    window
-      .fetch(`${apiString}/auth/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: body,
-      })
-      .then(res => {
-        const errorMessage =
-          res.status === 200 ? null : `${res.status}: ${res.statusText}`;
-        errorMessage && this.props.setMessage(errorMessage, true);
-        return errorMessage ? null : res.json();
-      })
-      .then(data => {
-        if (data) {
-          TokenManager.setToken(data.token);
-          this.props.onLogin();
-          this.props.history.push('/');
-        }
-      });
+    const response = await login(body);
+    const message =
+      !response.ok && `${response.status}: ${response.statusText}`;
+    this.props.setMessage(message, !response.ok);
+    const data = response.ok && (await response.json());
+    data && TokenManager.setToken(data.token);
+    data && this.props.onLogin();
+    data && this.props.history.push('/');
   };
 
   render() {
