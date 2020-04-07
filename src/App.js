@@ -157,6 +157,7 @@ class App extends React.Component {
                   {...props}
                   onLogin={this.handleLogin}
                   setMessage={this.setMessage}
+                  getData={this.getData}
                 />
               );
             }}
