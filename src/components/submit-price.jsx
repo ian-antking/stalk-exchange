@@ -32,15 +32,18 @@ class SubmitPrice extends React.Component {
 
   handleSubmit = async event => {
     event.preventDefault();
+    this.toggleWorking();
     const body = JSON.stringify(this.state.fields);
-    const response = await postPrice(body);
+    const response = await postPrice(body)
     const message = response.ok ? 'current price submitted' : `${response.status}: ${response.statusText}`;
-    this.props.setMessage(message);
+    this.props.setMessage(message, !response.ok);
     response.ok && this.props.getPrices();
+    this.toggleWorking()
   };
 
   render() {
-    return (
+    console.log(this.state.working)
+    return !this.state.working && (
       <React.Fragment>
         <Heading my={3}>Submit Prices</Heading>
         <Box
