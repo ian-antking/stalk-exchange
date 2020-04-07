@@ -8,9 +8,6 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import Login from './components/login';
 import SignUp from './components/signup';
 import TokenManager from './utils/token-manager';
-import {
-  filterCurrentPrices,
-} from './utils/filter-helpers';
 import { getPrices, getUsers } from './utils/fetch-helpers';
 
 import './styles/App.scss';
@@ -72,10 +69,9 @@ class App extends React.Component {
 
   getPrices = async () => {
     const data = await getPrices();
-    const currentPrices = filterCurrentPrices(data);
     this.setState({
       ...this.state,
-      prices: currentPrices,
+      prices: data,
     });
   };
 

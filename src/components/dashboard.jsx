@@ -5,18 +5,20 @@ import BestPriceCard from './best-price-card';
 import PriceList from './price-list';
 import { currentPeriod } from '../utils/date-helpers';
 import { isSunday } from 'date-fns';
+import { filterCurrentPrices } from '../utils/filter-helpers';
 
 const Dashboard = props => {
+  const currentPrices = props.prices && filterCurrentPrices(props.prices);
   const userPrice =
-    props.prices &&
-    props.prices.filter(price => price.user._id === props.user._id);
+    currentPrices &&
+    currentPrices.find(price => price.user._id === props.user._id);
 
   const loading = <Heading my={3}>Loading...</Heading>;
 
   const prices = (
     <React.Fragment>
-      <BestPriceCard prices={props.prices} />
-      <PriceList prices={props.prices} users={props.users} />
+      <BestPriceCard prices={currentPrices} />
+      <PriceList prices={currentPrices} users={props.users} />
       <Button onClick={() => props.refreshPrices()}>Refresh</Button>
     </React.Fragment>
   );
@@ -31,9 +33,7 @@ const Dashboard = props => {
       />
     );
 
-  const pricesReady = userPrice && userPrice.length;
-
-  const display = pricesReady ? prices : submit;
+  const display = userPrice ? prices : submit;
 
   return (
     <Flex alignItems="center" flexDirection="column" my={3}>
