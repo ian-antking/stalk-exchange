@@ -28,7 +28,7 @@ class SignUP extends React.Component {
     });
   };
 
-  handleSignUP = event => {
+  handleSignup = event => {
     event.preventDefault();
     const fields = this.state.fields;
     if (fields.password !== fields.confirmPassword) {
@@ -146,7 +146,7 @@ class SignUP extends React.Component {
             my={3}
             width="100%"
             varient="primary"
-            onClick={this.handleSignUP}
+            onClick={this.handleSignup}
           >
             Sign Up
           </Button>
