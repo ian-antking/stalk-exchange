@@ -1,7 +1,7 @@
 const express = require('express');
 const userController = require('../controllers/user');
 const inviteCode = require('../middleware/invite-code');
-const auth = require('../middleware/auth')
+const auth = require('../middleware/auth');
 
 const router = express.Router();
 

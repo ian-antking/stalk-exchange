@@ -1,6 +1,6 @@
 import React from 'react';
-import { ThemeProvider } from 'emotion-theming'
-import theme from '@rebass/preset'
+import { ThemeProvider } from 'emotion-theming';
+import theme from '@rebass/preset';
 import Nav from './components/nav';
 import Dashboard from './components/dashboard';
 import Message from './components/message';
@@ -15,11 +15,11 @@ import {
   lowestPrice,
   highestPrice,
 } from './utils/filter-helpers';
-import { getPrices, getUsers} from './utils/fetch-helpers';
+import { getPrices, getUsers } from './utils/fetch-helpers';
 
 import './styles/App.scss';
 
-class App extends React.Component{
+class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -33,33 +33,36 @@ class App extends React.Component{
 
   componentDidMount = async () => {
     this.handleLogin();
-  }
+  };
 
   get isLoggedIn() {
     return this.state.user && TokenManager.isTokenValid();
-  };
+  }
 
   toggleWorking = () => {
     this.setState({
       ...this.state,
-      working: !this.state.working
-    })
-  }
+      working: !this.state.working,
+    });
+  };
 
   refreshPrices = async () => {
     this.toggleWorking();
     await this.getPrices();
     this.toggleWorking();
-  }
+  };
 
   handleLogin = async () => {
-    this.setState({
-      ...this.state,
-      user: TokenManager.getTokenPayload()
-    }, () => {
-      !this.isLoggedIn && this.handleLogout();
-      this.isLoggedIn && this.getData();
-    });
+    this.setState(
+      {
+        ...this.state,
+        user: TokenManager.getTokenPayload(),
+      },
+      () => {
+        !this.isLoggedIn && this.handleLogout();
+        this.isLoggedIn && this.getData();
+      }
+    );
   };
 
   handleLogout = () => {
@@ -73,20 +76,24 @@ class App extends React.Component{
       message: {
         text: messageText,
         error,
-      }
-    })
-  }
+      },
+    });
+  };
 
   getPrices = async () => {
-      const data = await getPrices();
-      const todayPrices = data ? filterTodayPrices(data) : [];
-      const periodPrices = isSunday(Date.now()) ? null : filterPeriodPrices(todayPrices);
-      this.setState({
-        ...this.state,
-        prices: periodPrices || todayPrices,
-        bestPrice: isSunday(Date.now()) ? lowestPrice(todayPrices) : highestPrice(periodPrices),
-      })
-  }
+    const data = await getPrices();
+    const todayPrices = data ? filterTodayPrices(data) : [];
+    const periodPrices = isSunday(Date.now())
+      ? null
+      : filterPeriodPrices(todayPrices);
+    this.setState({
+      ...this.state,
+      prices: periodPrices || todayPrices,
+      bestPrice: isSunday(Date.now())
+        ? lowestPrice(todayPrices)
+        : highestPrice(periodPrices),
+    });
+  };
 
   getUsers = async () => {
     const users = await getUsers();
@@ -94,61 +101,72 @@ class App extends React.Component{
       ...this.state,
       users,
     });
-  }
+  };
 
   getData = async () => {
-    await this.getUsers().then( async () => {
+    await this.getUsers().then(async () => {
       await this.getPrices().then(() => {
         this.toggleWorking();
-      })
-    })
-  }
+      });
+    });
+  };
 
   render = () => (
     <ThemeProvider theme={theme}>
-      <div className='App'>
+      <div className="App">
         <Nav isLoggedIn={this.isLoggedIn} />
-        { this.state.message && <Message message={this.state.message} /> }
+        {this.state.message && <Message message={this.state.message} />}
         <Switch>
           <Route exact path="/">
-            {this.isLoggedIn ? <Redirect to="/dashboard" /> : props => {
-              return <SignUp
-                {...props}
-                onLogin={this.handleLogin}
-                setMessage={this.setMessage}
-              />}
-            }
+            {this.isLoggedIn ? (
+              <Redirect to="/dashboard" />
+            ) : (
+              props => {
+                return (
+                  <SignUp
+                    {...props}
+                    onLogin={this.handleLogin}
+                    setMessage={this.setMessage}
+                  />
+                );
+              }
+            )}
           </Route>
           <Route exact path="/dashboard">
-            {!this.isLoggedIn ? <Redirect to="/" /> : props => (
-              <Dashboard
-                {...props}
-                user={this.state.user}
-                prices={this.state.prices}
-                bestPrice={this.state.bestPrice}
-                setMessage={this.setMessage}
-                refreshPrices={this.refreshPrices}
-                users={this.state.users}
-                working={this.state.working}
-              />
+            {!this.isLoggedIn ? (
+              <Redirect to="/" />
+            ) : (
+              props => (
+                <Dashboard
+                  {...props}
+                  user={this.state.user}
+                  prices={this.state.prices}
+                  bestPrice={this.state.bestPrice}
+                  setMessage={this.setMessage}
+                  refreshPrices={this.refreshPrices}
+                  users={this.state.users}
+                  working={this.state.working}
+                />
+              )
             )}
           </Route>
           <Route
-            path='/login'
+            path="/login"
             exact
             render={props => {
-                return <Login
+              return (
+                <Login
                   {...props}
                   onLogin={this.handleLogin}
                   setMessage={this.setMessage}
                 />
-              }
-            }
+              );
+            }}
           />
         </Switch>
       </div>
     </ThemeProvider>
-    )
+  );
 }
 
 export default App;

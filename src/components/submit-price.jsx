@@ -1,12 +1,6 @@
 import React from 'react';
-import {
-  Input,
-} from '@rebass/forms';
-import {
-  Box,
-  Button,
-  Heading,
-} from 'rebass';
+import { Input } from '@rebass/forms';
+import { Box, Button, Heading } from 'rebass';
 import apiString from '../utils/api-string';
 import TokenManager from '../utils/token-manager';
 import { isSunday } from 'date-fns';
@@ -18,10 +12,11 @@ class SubmitPrice extends React.Component {
       fields: {
         bells: '',
       },
+      working: false,
     };
   }
 
-  handleFieldChange = (event) => {
+  handleFieldChange = event => {
     this.setState({
       fields: {
         ...this.state.fields,
@@ -30,23 +25,27 @@ class SubmitPrice extends React.Component {
     });
   };
 
-  handleSubmit = (event) => {
+  handleSubmit = event => {
     event.preventDefault();
     const body = JSON.stringify(this.state.fields);
-    const action = isSunday(Date.now()) ? 'buy' : 'sell'
-    window.fetch(`${apiString}/price/${action}`, {
-      method: 'POST',
-      headers: {
-        'Authorization': TokenManager.getToken(),
-        'Content-Type': 'application/json'
-      },
-      body: body,
-    })
+    const action = isSunday(Date.now()) ? 'buy' : 'sell';
+    window
+      .fetch(`${apiString}/price/${action}`, {
+        method: 'POST',
+        headers: {
+          Authorization: TokenManager.getToken(),
+          'Content-Type': 'application/json',
+        },
+        body: body,
+      })
       .then(res => {
-        const errorMessage = res.status === 201 ? `New turnip price submitted!` : `${res.status}: ${res.statusText}`;
+        const errorMessage =
+          res.status === 201
+            ? `New turnip price submitted!`
+            : `${res.status}: ${res.statusText}`;
         errorMessage && this.props.setMessage(errorMessage);
         this.props.getPrices();
-      })
+      });
   };
 
   render() {
@@ -54,27 +53,27 @@ class SubmitPrice extends React.Component {
       <React.Fragment>
         <Heading my={3}>Submit Prices</Heading>
         <Box
-          as='form'
+          as="form"
           submit={event => this.preventDefault(event)}
-          width={2/3}
-          margin='auto'
+          width={2 / 3}
+          margin="auto"
         >
           <Input
-            id='price_bells_input'
-            name='bells'
+            id="price_bells_input"
+            name="bells"
             required
-            type='number'
+            type="number"
             value={this.state.fields.bells}
             onChange={event => this.handleFieldChange(event)}
           />
-        <Button
-          my={3}
-          width='100%'
-          varient='primary'
-          onClick={this.handleSubmit}
-        >
-          Submit
-        </Button>
+          <Button
+            my={3}
+            width="100%"
+            varient="primary"
+            onClick={this.handleSubmit}
+          >
+            Submit
+          </Button>
         </Box>
       </React.Fragment>
     );

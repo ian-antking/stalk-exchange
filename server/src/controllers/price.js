@@ -9,18 +9,21 @@ exports.addPrice = (req, res) => {
     bells,
     type,
     user,
-  }
+  };
 
   if (date) priceData.date = date;
 
-  const price = new Price(priceData)
+  const price = new Price(priceData);
 
-  price.save().then(price => {
-    res.status(201).json(price);
-  }).catch(error => {
-    res.status(500).json(error);
-  });
-}
+  price
+    .save()
+    .then(price => {
+      res.status(201).json(price);
+    })
+    .catch(error => {
+      res.status(500).json(error);
+    });
+};
 
 exports.getPrices = (req, res) => {
   const query = req.query;
@@ -29,6 +32,5 @@ exports.getPrices = (req, res) => {
     .exec((err, prices) => {
       if (err) res.status(500).send(err);
       res.status(200).json(prices);
-    })
-
-}
+    });
+};

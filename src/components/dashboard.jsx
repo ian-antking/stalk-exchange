@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  Flex,
-  Button,
-  Heading,
-} from 'rebass';
+import { Flex, Button, Heading } from 'rebass';
 import SubmitPrice from './submit-price';
 import BestPriceCard from './best-price-card';
 import PriceList from './price-list';
@@ -38,13 +34,10 @@ const Dashboard = (props) => {
   const display = pricesReady ? prices : submit;
 
   return (
-  <Flex
-    alignItems='center'
-    flexDirection='column'
-    my={3}
-  >
-    { props.working ? loading : display}
-  </Flex>
-)}
+    <Flex alignItems="center" flexDirection="column" my={3}>
+      {props.working ? loading : display}
+    </Flex>
+  );
+};
 
 export default Dashboard;

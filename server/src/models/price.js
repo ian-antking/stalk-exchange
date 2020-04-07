@@ -16,7 +16,7 @@ const priceSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-  }
+  },
 });
 
 const Price = mongoose.model('Price', priceSchema);

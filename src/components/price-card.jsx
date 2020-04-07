@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Box } from 'rebass';
 
-const PriceCard = (props) => (
+const PriceCard = props => (
   <Card>
     <Box
       sx={{
@@ -15,6 +15,6 @@ const PriceCard = (props) => (
       <div>{props.price.user.friendCode}</div>
     </Box>
   </Card>
-)
+);
 
-export default PriceCard
+export default PriceCard;
