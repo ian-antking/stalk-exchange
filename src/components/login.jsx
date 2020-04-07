@@ -13,6 +13,7 @@ class Login extends React.Component {
         island: '',
         password: '',
       },
+      working: false,
     };
   }
 
@@ -25,21 +26,34 @@ class Login extends React.Component {
     });
   };
 
+  toggleWorking = () => {
+    this.setState({
+      ...this.state,
+      working: !this.state.working,
+    });
+  };
+
   handleLogin = async event => {
     event.preventDefault();
+    this.toggleWorking();
     const body = JSON.stringify(this.state.fields);
     const response = await login(body);
     const message =
       !response.ok && `${response.status}: ${response.statusText}`;
     this.props.setMessage(message, !response.ok);
     const data = response.ok && (await response.json());
-    data && TokenManager.setToken(data.token);
-    data && this.props.onLogin();
-    data && this.props.history.push('/');
+    if (data) {
+      TokenManager.setToken(data.token);
+      this.props.onLogin();
+      this.props.getData();
+      this.props.history.push('/');
+    } else {
+      this.toggleWorking();
+    }
   };
 
   render() {
-    return (
+    return this.state.working ? <Heading>Logging In...</Heading> : (
       <React.Fragment>
         <Heading my={3}>Login</Heading>
         <Box
