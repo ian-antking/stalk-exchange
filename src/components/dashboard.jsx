@@ -22,13 +22,13 @@ const Dashboard = props => {
   );
 
   const submit =
-    !isSunday(Date.now()) && currentPeriod(Date.now()) === 'AM' ? (
+    isSunday(Date.now()) && currentPeriod(Date.now()) === 'PM' ? (
+      <Heading>The Stalk Exchange is closed until tomorrow!</Heading>
+    ) : (
       <SubmitPrice
         setMessage={props.setMessage}
         getPrices={props.refreshPrices}
       />
-    ) : (
-      <Heading>The Stalk Exchange is closed until tomorrow!</Heading>
     );
 
   const pricesReady = userPrice && userPrice.length;
