@@ -8,7 +8,8 @@ const filterTodayPrices = (prices = []) => {
 }
 
 const filterCurrentPrices = (prices = []) => {
-  return prices.filter(price => {
+  const todayPrices = filterTodayPrices(prices)
+  return todayPrices.filter(price => {
     return samePeriod(price.date, Date.now());
   })
 }

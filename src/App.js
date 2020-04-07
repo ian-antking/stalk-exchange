@@ -9,7 +9,6 @@ import Login from './components/login';
 import SignUp from './components/signup';
 import TokenManager from './utils/token-manager';
 import {
-  filterTodayPrices,
   filterCurrentPrices,
 } from './utils/filter-helpers';
 import { getPrices, getUsers } from './utils/fetch-helpers';
@@ -73,8 +72,7 @@ class App extends React.Component {
 
   getPrices = async () => {
     const data = await getPrices();
-    const todayPrices = data ? filterTodayPrices(data) : [];
-    const currentPrices = filterCurrentPrices(todayPrices);
+    const currentPrices = filterCurrentPrices(data);
     this.setState({
       ...this.state,
       prices: currentPrices,
