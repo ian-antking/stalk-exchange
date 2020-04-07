@@ -9,12 +9,12 @@ class SignUP extends React.Component {
     super(props);
     this.state = {
       fields: {
-        name: 'test-user',
-        island: 'test-island',
-        friendCode: 'test-friend-code',
-        password: 'test-password',
-        confirmPassword: 'test-password',
-        inviteCode: 'animal-crossing-gays',
+        name: '',
+        island: '',
+        friendCode: '',
+        password: '',
+        confirmPassword: '',
+        inviteCode: '',
       },
     };
   }
