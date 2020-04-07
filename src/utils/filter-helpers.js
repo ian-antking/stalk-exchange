@@ -1,17 +1,26 @@
-import { sameDay, samePeriod } from './date-helpers';
+import { sameDay, samePeriod, sameWeek } from './date-helpers';
+import { isSunday } from 'date-fns';
 
-const filterTodayPrices = (prices = []) => {
-  const filteredPrices = prices.filter(price => {
+const filterTodayPrices = (prices) => {
+  return prices.filter(price => {
     return sameDay(price.date, Date.now());
   })
-  return [...new Set(filteredPrices)]
 }
 
-const filterCurrentPrices = (prices = []) => {
+const filterCurrentPrices = (prices) => {
   const todayPrices = filterTodayPrices(prices)
   return todayPrices.filter(price => {
     return samePeriod(price.date, Date.now());
   })
+}
+const filterThisWeeksPrices = (prices) => {
+  return prices.filter(price => {
+    return sameWeek(price.date, Date.now()) && !isSunday(price.date);
+  })
+}
+
+const filterUserPrices = (prices, user) => {
+  return prices.filter(price => price.user._id === user._id)
 }
 
 const lowestPrice = (prices) => {
@@ -31,4 +40,6 @@ export {
   filterCurrentPrices,
   lowestPrice,
   highestPrice,
+  filterThisWeeksPrices,
+  filterUserPrices,
 }

@@ -6,12 +6,12 @@ import PriceList from './price-list';
 import { currentPeriod } from '../utils/date-helpers';
 import { isSunday } from 'date-fns';
 import { filterCurrentPrices } from '../utils/filter-helpers';
+import DailyPriceChart from './daily-price-chart';
 
 const Dashboard = props => {
   const currentPrices = props.prices && filterCurrentPrices(props.prices);
-  const userPrice =
-    currentPrices &&
-    currentPrices.find(price => price.user._id === props.user._id);
+  const userPrice = currentPrices && currentPrices.find(price => price.user._id === props.user._id);
+  
 
   const loading = <Heading my={3}>Loading...</Heading>;
 
@@ -38,6 +38,7 @@ const Dashboard = props => {
   return (
     <Flex alignItems="center" flexDirection="column" my={3}>
       {props.working ? loading : display}
+      {currentPrices && <DailyPriceChart user={props.user} prices={props.prices} />}
     </Flex>
   );
 };
