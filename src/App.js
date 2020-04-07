@@ -70,13 +70,11 @@ class App extends React.Component {
     this.setState({ user: null });
   };
 
-  setMessage = (messageText, error = false) => {
+  setMessage = (messageText, error) => {
+    const message = messageText ? { text: messageText, error, } : null;
     this.setState({
       ...this.state,
-      message: {
-        text: messageText,
-        error,
-      },
+      message,
     });
   };
 
