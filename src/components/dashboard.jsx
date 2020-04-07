@@ -6,28 +6,30 @@ import PriceList from './price-list';
 import { currentPeriod } from '../utils/date-helpers';
 import { isSunday } from 'date-fns';
 
-const Dashboard = (props) => {
-  const currentTime = Date.now();
-  const userPrice = props.prices && props.prices.filter(price => price.user._id === props.user._id);
+const Dashboard = props => {
+  const userPrice =
+    props.prices &&
+    props.prices.filter(price => price.user._id === props.user._id);
 
   const loading = <Heading my={3}>Loading...</Heading>;
 
   const prices = (
     <React.Fragment>
       <BestPriceCard bestPrice={props.bestPrice} />
-      <PriceList prices={props.prices} users={props.users}/>
-    <Button onClick={() => props.refreshPrices()}>Refresh</Button>
-  </React.Fragment>
-  )
+      <PriceList prices={props.prices} users={props.users} />
+      <Button onClick={() => props.refreshPrices()}>Refresh</Button>
+    </React.Fragment>
+  );
 
-  const submit = isSunday(currentTime) && currentPeriod(currentTime)  === 'PM' ? (
-    <Heading>The Stalk Exchange is closed until tomorrow!</Heading>
-  ) : (
-    <SubmitPrice
-      setMessage={props.setMessage}
-      getPrices={props.refreshPrices}
-    />
-  ) 
+  const submit =
+    !isSunday(Date.now()) && currentPeriod(Date.now() === 'AM') ? (
+      <SubmitPrice
+        setMessage={props.setMessage}
+        getPrices={props.refreshPrices}
+      />
+    ) : (
+      <Heading>The Stalk Exchange is closed until tomorrow!</Heading>
+    );
 
   const pricesReady = userPrice && userPrice.length;
 
