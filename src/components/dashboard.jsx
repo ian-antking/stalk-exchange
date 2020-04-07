@@ -22,7 +22,7 @@ const Dashboard = props => {
   );
 
   const submit =
-    !isSunday(Date.now()) && currentPeriod(Date.now() === 'AM') ? (
+    !isSunday(Date.now()) && currentPeriod(Date.now()) === 'AM' ? (
       <SubmitPrice
         setMessage={props.setMessage}
         getPrices={props.refreshPrices}
