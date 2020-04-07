@@ -28,7 +28,18 @@ const getUsers = async () => {
   return response.json();
 }
 
+const postPrice = async (body) => {
+  const action = isSunday(Date.now()) ? 'buy' : 'sell';
+  const response = await fetch(`${apiString}/price/${action}`, {
+    method: 'POST',
+    headers: _buildAuthHeaders(),
+    body,
+  })
+  return response;
+}
+
 export {
   getPrices,
   getUsers,
+  postPrice,
 }

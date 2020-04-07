@@ -1,9 +1,7 @@
 import React from 'react';
 import { Input } from '@rebass/forms';
 import { Box, Button, Heading } from 'rebass';
-import apiString from '../utils/api-string';
-import TokenManager from '../utils/token-manager';
-import { isSunday } from 'date-fns';
+import { postPrice } from '../utils/fetch-helpers';
 
 class SubmitPrice extends React.Component {
   constructor(props) {
@@ -32,27 +30,13 @@ class SubmitPrice extends React.Component {
     });
   };
 
-  handleSubmit = event => {
+  handleSubmit = async event => {
     event.preventDefault();
     const body = JSON.stringify(this.state.fields);
-    const action = isSunday(Date.now()) ? 'buy' : 'sell';
-    window
-      .fetch(`${apiString}/price/${action}`, {
-        method: 'POST',
-        headers: {
-          Authorization: TokenManager.getToken(),
-          'Content-Type': 'application/json',
-        },
-        body: body,
-      })
-      .then(res => {
-        const errorMessage =
-          res.status === 201
-            ? `New turnip price submitted!`
-            : `${res.status}: ${res.statusText}`;
-        errorMessage && this.props.setMessage(errorMessage);
-        this.props.getPrices();
-      });
+    const response = await postPrice(body);
+    const message = response.ok ? 'current price submitted' : `${response.status}: ${response.statusText}`;
+    this.props.setMessage(message);
+    response.ok && this.props.getPrices();
   };
 
   render() {
