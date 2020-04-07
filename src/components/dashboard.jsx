@@ -24,8 +24,6 @@ const Dashboard = (props) => {
   </React.Fragment>
   )
 
-  console.log(isSunday(currentTime))
-
   const submit = isSunday(currentTime) && currentPeriod(currentTime)  === 'PM' ? (
     <Heading>The Stalk Exchange is closed until tomorrow!</Heading>
   ) : (
