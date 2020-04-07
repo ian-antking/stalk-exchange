@@ -7,7 +7,7 @@ const filterTodayPrices = (prices = []) => {
   return [...new Set(filteredPrices)]
 }
 
-const filterPeriodPrices = (prices = []) => {
+const filterCurrentPrices = (prices = []) => {
   return prices.filter(price => {
     return samePeriod(price.date, Date.now());
   })
@@ -27,7 +27,7 @@ const highestPrice = (prices) => {
 
 export {
   filterTodayPrices,
-  filterPeriodPrices,
+  filterCurrentPrices,
   lowestPrice,
   highestPrice,
 }

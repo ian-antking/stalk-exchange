@@ -11,7 +11,7 @@ import TokenManager from './utils/token-manager';
 import { isSunday } from 'date-fns';
 import {
   filterTodayPrices,
-  filterPeriodPrices,
+  filterCurrentPrices,
   lowestPrice,
   highestPrice,
 } from './utils/filter-helpers';
@@ -52,7 +52,7 @@ class App extends React.Component {
     this.toggleWorking();
   };
 
-  handleLogin = async () => {
+  handleLogin = () => {
     this.setState(
       {
         ...this.state,
@@ -81,15 +81,13 @@ class App extends React.Component {
   getPrices = async () => {
     const data = await getPrices();
     const todayPrices = data ? filterTodayPrices(data) : [];
-    const periodPrices = isSunday(Date.now())
-      ? null
-      : filterPeriodPrices(todayPrices);
+    const currentPrices = filterCurrentPrices(todayPrices);
     this.setState({
       ...this.state,
-      prices: periodPrices || todayPrices,
+      prices: currentPrices,
       bestPrice: isSunday(Date.now())
-        ? lowestPrice(todayPrices)
-        : highestPrice(periodPrices),
+        ? lowestPrice(currentPrices)
+        : highestPrice(currentPrices),
     });
   };
 
