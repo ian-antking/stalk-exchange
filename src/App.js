@@ -8,12 +8,9 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import Login from './components/login';
 import SignUp from './components/signup';
 import TokenManager from './utils/token-manager';
-import { isSunday } from 'date-fns';
 import {
   filterTodayPrices,
   filterCurrentPrices,
-  lowestPrice,
-  highestPrice,
 } from './utils/filter-helpers';
 import { getPrices, getUsers } from './utils/fetch-helpers';
 
@@ -81,9 +78,6 @@ class App extends React.Component {
     this.setState({
       ...this.state,
       prices: currentPrices,
-      bestPrice: isSunday(Date.now())
-        ? lowestPrice(currentPrices)
-        : highestPrice(currentPrices),
     });
   };
 

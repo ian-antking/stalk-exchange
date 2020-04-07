@@ -15,7 +15,7 @@ const Dashboard = props => {
 
   const prices = (
     <React.Fragment>
-      <BestPriceCard bestPrice={props.bestPrice} />
+      <BestPriceCard prices={props.prices} />
       <PriceList prices={props.prices} users={props.users} />
       <Button onClick={() => props.refreshPrices()}>Refresh</Button>
     </React.Fragment>

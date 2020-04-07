@@ -14,13 +14,13 @@ const filterCurrentPrices = (prices = []) => {
 }
 
 const lowestPrice = (prices) => {
-  return prices.length && prices.reduce((previousPrice, currentPrice) => {
+  return prices.reduce((previousPrice, currentPrice) => {
     return previousPrice.bells < currentPrice.bells ? previousPrice : currentPrice;
   })
 }
 
 const highestPrice = (prices) => {
-  return prices.length && prices.reduce((previousPrice, currentPrice) => {
+  return prices.reduce((previousPrice, currentPrice) => {
     return previousPrice.bells > currentPrice.bells ? previousPrice : currentPrice;
   })
 }
