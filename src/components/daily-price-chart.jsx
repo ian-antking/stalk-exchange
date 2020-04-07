@@ -23,7 +23,7 @@ const DailyPriceChart = props => {
   });
   return (
     <React.Fragment>
-      <Heading my={3}>{`Week ${format(Date.now(), 'w')} Prices`}</Heading>
+      <Heading my={3}>{`${props.user.name}'s prices for week ${format(Date.now(), 'w')}`}</Heading>
       <Chart
         chartType="LineChart"
         data={data}
