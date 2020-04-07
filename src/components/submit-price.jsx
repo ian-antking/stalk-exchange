@@ -25,6 +25,13 @@ class SubmitPrice extends React.Component {
     });
   };
 
+  toggleWorking = () => {
+    this.setState({
+      ...this.state,
+      working: !this.state.working,
+    });
+  };
+
   handleSubmit = event => {
     event.preventDefault();
     const body = JSON.stringify(this.state.fields);
