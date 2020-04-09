@@ -23,14 +23,19 @@ const DailyPriceChart = props => {
   const baseline = thisWeeksPurchasePrice ? thisWeeksPurchasePrice.bells : null
 
   const options = {
-    hAxis: {},
     vAxis: {baseline, baselineColor: 'red' },
     legend: 'none',
+    chartArea: {
+      backgroundColor: "transparent",
+      width: '80%',
+      height: '80%',
+      marginTop: '10%',
+    }
   };
 
   return (
     <React.Fragment>
-      <Heading my={3}>{`${props.user.name}'s prices for week ${format(Date.now(), 'w')}`}</Heading>
+      <Heading mt={3}>{`${props.user.name}'s prices for week ${format(Date.now(), 'w')}`}</Heading>
       <Chart
         chartType="LineChart"
         data={data}
