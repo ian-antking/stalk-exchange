@@ -3,24 +3,31 @@ import { Chart } from 'react-google-charts';
 import { format } from 'date-fns';
 import {
   filterThisWeeksPrices,
+  filterThisWeeksSellPrices,
+  findThisWeeksPurchasePrice,
   filterUserPrices,
 } from '../utils/filter-helpers';
 import { Heading } from 'rebass';
-
-const options = {
-  hAxis: { title: 'Period' },
-  vAxis: { title: 'Bells' },
-  legend: 'none',
-};
 
 const DailyPriceChart = props => {
   const data = [['Period', 'Bells']];
   const userPrices = filterUserPrices(props.prices, props.user);
   const thisWeeksPrices = filterThisWeeksPrices(userPrices);
-  thisWeeksPrices.forEach(price => {
+  const thisWeeksSellPrices = filterThisWeeksSellPrices(thisWeeksPrices);
+  const thisWeeksPurchasePrice = findThisWeeksPurchasePrice(thisWeeksPrices);
+  thisWeeksSellPrices.forEach(price => {
     const date = format(price.date, 'E a');
     data.push([date, price.bells]);
   });
+
+  const baseline = thisWeeksPurchasePrice ? thisWeeksPurchasePrice.bells : null
+
+  const options = {
+    hAxis: { title: 'Period' },
+    vAxis: { title: 'Bells', baseline, baselineColor: 'red' },
+    legend: 'none',
+  };
+
   return (
     <React.Fragment>
       <Heading my={3}>{`${props.user.name}'s prices for week ${format(Date.now(), 'w')}`}</Heading>

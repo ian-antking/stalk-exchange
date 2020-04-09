@@ -15,7 +15,19 @@ const filterCurrentPrices = (prices) => {
 }
 const filterThisWeeksPrices = (prices) => {
   return prices.filter(price => {
+    return sameWeek(price.date, Date.now());
+  })
+}
+
+const filterThisWeeksSellPrices = (prices) => {
+  return prices.filter(price => {
     return sameWeek(price.date, Date.now()) && !isSunday(price.date);
+  })
+}
+
+const findThisWeeksPurchasePrice = (prices) => {
+  return prices.find(price => {
+    return sameWeek(price.date, Date.now()) && isSunday(price.date);
   })
 }
 
@@ -41,5 +53,7 @@ export {
   lowestPrice,
   highestPrice,
   filterThisWeeksPrices,
+  findThisWeeksPurchasePrice,
+  filterThisWeeksSellPrices,
   filterUserPrices,
 }
