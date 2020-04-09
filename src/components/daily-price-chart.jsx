@@ -23,8 +23,8 @@ const DailyPriceChart = props => {
   const baseline = thisWeeksPurchasePrice ? thisWeeksPurchasePrice.bells : null
 
   const options = {
-    hAxis: { title: 'Period' },
-    vAxis: { title: 'Bells', baseline, baselineColor: 'red' },
+    hAxis: {},
+    vAxis: {baseline, baselineColor: 'red' },
     legend: 'none',
   };
 
