@@ -58,9 +58,9 @@ describe('/user', () => {
     });
 
     it('Requires a unique friend code', done => {
-      const userData1 = DataFactory.user({ friendCode: 'duplicate-friend-code' });
-      const userData2 = DataFactory.user({ friendCode: 'duplicate-friend-code' });
-      const ecpectedError = 'Error, expected `friendCode` to be unique. Value: `duplicate-friend-code`';
+      const userData1 = DataFactory.user({ friendCode: 'SW-1234-1234-1234' });
+      const userData2 = DataFactory.user({ friendCode: 'SW-1234-1234-1234' });
+      const ecpectedError = 'Error, expected `friendCode` to be unique. Value: `SW-1234-1234-1234`';
       UserHelper.signUp(app, userData1)
       .then(() => {
         UserHelper.signUp(app, userData2)
