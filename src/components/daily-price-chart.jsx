@@ -33,7 +33,7 @@ const DailyPriceChart = props => {
     }
   };
 
-  return (
+  return data.length > 1 && (
     <React.Fragment>
       <Heading mt={3}>{`${props.user.name}'s prices for week ${format(Date.now(), 'w')}`}</Heading>
       <Chart
