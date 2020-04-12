@@ -31,7 +31,17 @@ const getUsers = async () => {
   return response.json();
 };
 
-const postPrice = async body => {
+const patchUser = async (body) => {
+  const url = `${apiString}/user`;
+  const response = await fetch(url, {
+    method: 'PATCH',
+    headers: _buildAuthHeaders(),
+    body,
+  });
+  return response.json();
+};
+
+const postPrice = async (body) => {
   const action = isSunday(Date.now()) ? 'buy' : 'sell';
   const response = await fetch(`${apiString}/price/${action}`, {
     method: 'POST',
@@ -41,7 +51,7 @@ const postPrice = async body => {
   return response;
 };
 
-const login = async body => {
+const login = async (body) => {
   const response = await fetch(`${apiString}/auth/login`, {
     method: 'POST',
     headers,
@@ -50,7 +60,7 @@ const login = async body => {
   return response;
 };
 
-const signUp = async body => {
+const signUp = async (body) => {
   const response = await fetch(`${apiString}/user`, {
     method: 'POST',
     headers,
@@ -59,4 +69,4 @@ const signUp = async body => {
   return response;
 };
 
-export { getPrices, getUsers, postPrice, login, signUp };
+export { getPrices, getUsers, postPrice, login, signUp, patchUser };

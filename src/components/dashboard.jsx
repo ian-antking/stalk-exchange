@@ -7,11 +7,13 @@ import { currentPeriod } from '../utils/date-helpers';
 import { isSunday } from 'date-fns';
 import { filterCurrentPrices } from '../utils/filter-helpers';
 import DailyPriceChart from './daily-price-chart';
+import DodoUpdater from './dodo-updater';
 
-const Dashboard = props => {
+const Dashboard = (props) => {
   const currentPrices = props.prices && filterCurrentPrices(props.prices);
-  const userPrice = currentPrices && currentPrices.find(price => price.user._id === props.user._id);
-  
+  const userPrice =
+    currentPrices &&
+    currentPrices.find((price) => price.user._id === props.user._id);
 
   const loading = <Heading my={3}>Loading...</Heading>;
 
@@ -19,7 +21,15 @@ const Dashboard = props => {
     <React.Fragment>
       <BestPriceCard prices={currentPrices} />
       <PriceList prices={currentPrices} users={props.users} />
-      <Button onClick={() => props.refreshPrices()}>Refresh</Button>
+      <Button my={3} onClick={() => props.refreshPrices()}>
+        Refresh
+      </Button>
+      <DodoUpdater
+        updateUser={props.updateUser}
+        user={props.user}
+        users={props.users}
+        setMessage={props.setMessage}
+      />
     </React.Fragment>
   );
 
@@ -38,7 +48,9 @@ const Dashboard = props => {
   return (
     <Flex alignItems="center" flexDirection="column" my={3}>
       {props.working ? loading : display}
-      {currentPrices && <DailyPriceChart user={props.user} prices={props.prices} />}
+      {currentPrices && (
+        <DailyPriceChart user={props.user} prices={props.prices} />
+      )}
     </Flex>
   );
 };

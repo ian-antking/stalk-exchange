@@ -8,7 +8,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import Login from './components/login';
 import SignUp from './components/signup';
 import TokenManager from './utils/token-manager';
-import { getPrices, getUsers } from './utils/fetch-helpers';
+import { getPrices, getUsers, patchUser } from './utils/fetch-helpers';
 
 import './styles/App.scss';
 
@@ -83,6 +83,14 @@ class App extends React.Component {
     });
   };
 
+  updateUser = async (body) => {
+    await patchUser(body).then((res) => {
+      const message = body.dodoCode ? `Submitted new DodoCode: ${res.dodoCode}` : 'DodoCode Removed';
+      this.setMessage(message);
+      this.getData();
+    });
+  }
+
   getData = async () => {
     await this.getUsers().then(async () => {
       await this.getPrices().then(() => {
@@ -126,6 +134,7 @@ class App extends React.Component {
                   refreshPrices={this.refreshPrices}
                   users={this.state.users}
                   working={this.state.working}
+                  updateUser={this.updateUser}
                 />
               )
             )}
