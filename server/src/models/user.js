@@ -16,6 +16,10 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  dodoCode: {
+    type: String,
+    default: '',
+  },
   password: {
     type: String,
     minlength: [8, 'Password must be at least 8 characters long'],

@@ -35,6 +35,7 @@ describe('/user', () => {
           expect(res.body.name).toBe(userData.name);
           expect(res.body.island).toBe(userData.island);
           expect(res.body.friendCode).toBe(userData.friendCode);
+          expect(res.body.dodoCode).toBe('');
           expect(res.body).not.toHaveProperty('password');
 
           User.findById(res.body._id, (_, user) => {
