@@ -151,4 +151,35 @@ describe('/user', () => {
       });
     });
   });
+
+  describe('PATCH /user', () => {
+    it('updates user dodoCode', (done) => {
+      const userData = DataFactory.user();
+      UserHelper.signUp(app, userData).then(() => {
+        UserHelper.login(app, userData).then((authRes) => {
+          const token = authRes.body.token;
+          UserHelper.updateUser(app, token, { dodoCode: 'new dodo code' }).then(
+            (res) => {
+              expect(res.status).toBe(200);
+              expect(res.body.dodoCode).toBe('new dodo code');
+              done();
+            }
+          );
+        });
+      });
+    });
+
+    it('requires authorisation', (done) => {
+      const userData = DataFactory.user();
+      UserHelper.signUp(app, userData).then(() => {
+        const token = 'not the token';
+        UserHelper.updateUser(app, token, { dodoCode: 'new dodo code' }).then(
+          (res) => {
+            expect(res.status).toBe(401);
+            done();
+          }
+        );
+      });
+    });
+  });
 });

@@ -48,6 +48,23 @@ exports.getUsers = (app, token, id = 'all') => {
   })
 }
 
+exports.updateUser = (app, token, data) => {
+  const url = `/user`
+  return new Promise((resolve, reject) => {
+    request(app)
+      .patch(url)
+      .set('Authorization', token)
+      .send(data)
+      .end((error, response) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(response);
+        }
+      });
+  })
+}
+
 exports.login = (app, data) =>
   new Promise((resolve, reject) => {
     request(app)

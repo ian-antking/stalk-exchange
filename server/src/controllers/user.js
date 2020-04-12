@@ -27,6 +27,16 @@ exports.getUserById = (req, res) => {
   });
 };
 
+exports.updateUser = (req, res) => {
+  User.findByIdAndUpdate(req.authorizer._id, req.body, { new: true }, (err, user) => {
+    if (err) {
+      res.status(500).json(err);
+    } else {
+      res.status(200).json(user);
+    }
+  });
+};
+
 exports.getUsers = (_, res) => {
   User.find({})
     .populate('latestPrice')
