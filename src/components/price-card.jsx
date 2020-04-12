@@ -1,7 +1,9 @@
 import React from 'react';
 import { Card, Box } from 'rebass';
 
-const PriceCard = props => (
+const PriceCard = props => {
+  const { price, price: {user} } = props;
+  return (
   <Card>
     <Box
       sx={{
@@ -10,11 +12,11 @@ const PriceCard = props => (
         gridTemplateColumns: 'repeat(auto-fit, minmax(30px, 1fr))',
       }}
     >
-      <div>{props.price.user.name}</div>
-      <div>{props.price.bells}</div>
-      <div>{props.price.user.friendCode}</div>
+      <div>{price.user.name}</div>
+      <div>{price.bells}</div>
+      <div>{`${user.island}: ${user.dodoCode || 'Closed'}`}</div>
     </Box>
   </Card>
-);
+)};
 
 export default PriceCard;
