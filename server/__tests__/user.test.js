@@ -64,6 +64,15 @@ describe('/user', () => {
       });
     });
 
+    it('converts lowercase friendCodes to upper case', (done) => {
+      const userData = DataFactory.user({ friendCode: 'sw-1234-1234-1234' });
+      UserHelper.signUp(app, userData).then((res) => {
+        expect(res.status).toBe(201);
+        expect(res.body.friendCode).toBe('SW-1234-1234-1234');
+        done();
+      });
+    });
+
     it('Requires a unique friend code', (done) => {
       const userData1 = DataFactory.user({ friendCode: 'SW-1234-1234-1234' });
       const userData2 = DataFactory.user({ friendCode: 'SW-1234-1234-1234' });

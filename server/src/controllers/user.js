@@ -7,7 +7,7 @@ exports.addUser = (req, res) => {
     name,
     island,
     password,
-    friendCode,
+    friendCode: friendCode.toUpperCase(),
   });
 
   user
