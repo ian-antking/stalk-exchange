@@ -15,7 +15,7 @@ exports.addUser = (req, res) => {
     .then(() => {
       res.status(201).json(user.sanitize());
     })
-    .catch(error => {
+    .catch((error) => {
       res.status(500).json(error);
     });
 };
@@ -28,11 +28,12 @@ exports.getUserById = (req, res) => {
 };
 
 exports.updateUser = (req, res) => {
-  User.findByIdAndUpdate(req.authorizer._id, req.body, { new: true }, (err, user) => {
+  const options = { new: true, useFindAndModify: false };
+  User.findByIdAndUpdate(req.authorizer._id, req.body, options, (err, user) => {
     if (err) {
       res.status(500).json(err);
     } else {
-      res.status(200).json(user);
+      res.status(200).json(user.sanitize());
     }
   });
 };
@@ -42,7 +43,7 @@ exports.getUsers = (_, res) => {
     .populate('latestPrice')
     .exec((err, users) => {
       if (err) res.status(500).send(err);
-      const sanitizedUsers = users.map(user => user.sanitize());
+      const sanitizedUsers = users.map((user) => user.sanitize());
       res.status(200).json(sanitizedUsers);
     });
 };

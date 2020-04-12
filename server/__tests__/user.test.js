@@ -162,6 +162,8 @@ describe('/user', () => {
             (res) => {
               expect(res.status).toBe(200);
               expect(res.body.dodoCode).toBe('new dodo code');
+              expect(res.body).not.toHaveProperty('password');
+              expect(res.body).not.toHaveProperty('friendCode');
               done();
             }
           );
