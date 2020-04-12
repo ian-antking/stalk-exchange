@@ -15,6 +15,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
+    validate: {
+      validator: (code) => /SW-[0-9]{4}-[0-9]{4}-[0-9]{4}/.test(code),
+      message: 'invalid friend code',
+    },
   },
   dodoCode: {
     type: String,
