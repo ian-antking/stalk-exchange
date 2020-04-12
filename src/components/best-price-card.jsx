@@ -10,7 +10,7 @@ const BestPriceCard = props => {
       <Heading>Current Best Price:</Heading>
       <Text my={2} fontSize={20}>{`${bestPrice.bells} bells`}</Text>
       <Text>{`On ${bestPrice.user.name}'s Island: ${bestPrice.user.island}`}</Text>
-      <Text>{`${bestPrice.user.friendCode}`}</Text>
+      <Text>{`${bestPrice.user.dodoCode || ''}`}</Text>
     </Card>
   );
 };
