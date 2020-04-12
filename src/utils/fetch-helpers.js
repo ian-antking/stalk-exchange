@@ -51,7 +51,6 @@ const login = async body => {
 };
 
 const signUp = async body => {
-  console.log(body);
   const response = await fetch(`${apiString}/user`, {
     method: 'POST',
     headers,
