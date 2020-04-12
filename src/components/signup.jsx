@@ -61,7 +61,6 @@ class SignUP extends React.Component {
         <Heading my={3}>Sign Up</Heading>
         <Box
           as="form"
-          submit={event => this.preventDefault(event)}
           width={2 / 3}
           margin="auto"
         >
@@ -125,7 +124,7 @@ class SignUP extends React.Component {
             my={3}
             width="100%"
             varient="primary"
-            onClick={this.handleSignup}
+            onClick={event => this.handleSignup(event)}
           >
             Sign Up
           </Button>

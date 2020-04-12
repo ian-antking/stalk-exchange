@@ -47,7 +47,6 @@ class SubmitPrice extends React.Component {
         <Heading my={3}>Submit Prices</Heading>
         <Box
           as="form"
-          submit={event => this.preventDefault(event)}
           width={2 / 3}
           margin="auto"
         >
@@ -63,7 +62,7 @@ class SubmitPrice extends React.Component {
             my={3}
             width="100%"
             varient="primary"
-            onClick={this.handleSubmit}
+            onClick={event => this.handleSubmit(event)}
           >
             Submit
           </Button>
