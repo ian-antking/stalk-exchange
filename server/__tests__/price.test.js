@@ -119,8 +119,7 @@ describe('/price', () => {
             expect(res.status).toBe(200);
             expect(res.body.length).toBe(2);
             res.body.forEach(price => {
-              const { latestPrice, ...rest } = price.user;
-              expect(rest).toEqual(user);
+              expect(price.user).toEqual(user);
               done();
             })
             })

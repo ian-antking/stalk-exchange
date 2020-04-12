@@ -28,7 +28,7 @@ exports.addPrice = (req, res) => {
 exports.getPrices = (req, res) => {
   const query = req.query;
   Price.find(query)
-    .populate('user', '-password')
+    .populate('user', '-password -friendCode')
     .exec((err, prices) => {
       if (err) res.status(500).send(err);
       res.status(200).json(prices);

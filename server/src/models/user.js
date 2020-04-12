@@ -47,7 +47,7 @@ userSchema.pre('save', function encryptPassword(next) {
 });
 
 userSchema.methods.sanitize = function sanitize() {
-  const { password, ...rest } = this.toObject();
+  const { password, friendCode, ...rest } = this.toObject();
   return rest;
 };
 

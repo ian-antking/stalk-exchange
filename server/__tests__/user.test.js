@@ -33,9 +33,9 @@ describe('/user', () => {
         expect(res.status).toBe(201);
         expect(res.body.name).toBe(userData.name);
         expect(res.body.island).toBe(userData.island);
-        expect(res.body.friendCode).toBe(userData.friendCode);
         expect(res.body.dodoCode).toBe('');
         expect(res.body).not.toHaveProperty('password');
+        expect(res.body).not.toHaveProperty('friendCode');
 
         User.findById(res.body._id, (_, user) => {
           expect(user.name).toBe(userData.name);
@@ -68,8 +68,10 @@ describe('/user', () => {
       const userData = DataFactory.user({ friendCode: 'sw-1234-1234-1234' });
       UserHelper.signUp(app, userData).then((res) => {
         expect(res.status).toBe(201);
-        expect(res.body.friendCode).toBe('SW-1234-1234-1234');
-        done();
+        User.findById(res.body._id, (_, user) => {
+          expect(user.friendCode).toBe('SW-1234-1234-1234');
+          done();
+        }).catch((error) => done(error));
       });
     });
 
@@ -101,7 +103,7 @@ describe('/user', () => {
           UserHelper.getUsers(app, token).then((res) => {
             usersData.forEach((userData) => {
               const user = res.body.find(
-                (resUser) => resUser.friendCode === userData.friendCode
+                (resUser) => resUser.name === userData.name
               );
               expect(user.name).toBe(userData.name);
               expect(user.island).toBe(userData.island);

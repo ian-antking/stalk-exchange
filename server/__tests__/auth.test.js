@@ -45,7 +45,6 @@ describe('/auth', () => {
             expect(token).toHaveProperty('_id');
             expect(token).toHaveProperty('name');
             expect(token).toHaveProperty('island');
-            expect(token).toHaveProperty('friendCode');
             done();
           })
           .catch(error => done(error));
