@@ -32,7 +32,7 @@ const findThisWeeksPurchasePrice = (prices) => {
 }
 
 const filterUserPrices = (prices, user) => {
-  return prices.filter(price => process.user && price.user._id === user._id)
+  return prices.filter(price => price.user && price.user._id === user._id)
 }
 
 const lowestPrice = (prices) => {
