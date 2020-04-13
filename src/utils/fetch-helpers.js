@@ -12,8 +12,7 @@ const _buildAuthHeaders = () => ({
 });
 
 const getPrices = async () => {
-  const action = isSunday(Date.now()) ? 'buy' : 'sell';
-  const url = `${apiString}/price?type=${action}`;
+  const url = `${apiString}/price`;
   const response = await fetch(url, {
     method: 'GET',
     headers: _buildAuthHeaders(),
