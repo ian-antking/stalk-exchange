@@ -68,7 +68,7 @@ const theme = {
     },
     card: {
       p: 3,
-      m: 4,
+      my: 1,
       bg: 'muted',
       borderRadius: '10pt'
     },
