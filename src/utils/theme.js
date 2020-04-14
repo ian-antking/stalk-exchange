@@ -39,7 +39,7 @@ const theme = {
   shadows: {
     card: '0 0 4px rgba(0, 0, 0, .125)',
   },
-  // rebass variants
+  // rebass 
   input: {
     backgroundColor: 'white',
   },
@@ -83,6 +83,9 @@ const theme = {
       px: 1,
       justifyContent: 'space-between',
       alignItems: 'center',
+      position: 'fixed',
+      top: 0,
+      width: '100%',
     },
     link: {
       color: 'primary',
