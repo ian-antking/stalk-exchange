@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Text, Box, Link } from 'rebass';
+import { Flex, Text, Link } from 'rebass';
 
 const Nav = props => {
   return (
