@@ -1,6 +1,6 @@
 import React from 'react';
 import { ThemeProvider } from 'emotion-theming';
-import theme from '@rebass/preset';
+import theme from './utils/theme';
 import Nav from './components/nav';
 import Dashboard from './components/dashboard';
 import Message from './components/message';
