@@ -26,15 +26,18 @@ const DailyPriceChart = (props) => {
   const options = {
     vAxis: {
       baseline,
-      baselineColor: 'red',
+      baselineColor: colors.error,
+      baselineWidth: 5,
       viewWindow: {
         min: 0,
         max: 600,
       },
     },
+    colors: [colors.primary],
+    lineWidth: 5,
+    backgroundColor: 'transparent',
     legend: 'none',
     chartArea: {
-      backgroundColor: 'transparent',
       width: '80%',
       height: '80%',
       marginTop: '10%',
