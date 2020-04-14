@@ -1,6 +1,6 @@
 import React from 'react';
 import { Label, Input } from '@rebass/forms';
-import { Box, Button, Heading } from 'rebass';
+import { Box, Button, Card, Heading } from 'rebass';
 import { login, signUp } from '../utils/fetch-helpers';
 import TokenManager from '../utils/token-manager';
 
@@ -57,7 +57,7 @@ class SignUP extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
+      <Card>
         <Heading my={3}>Sign Up</Heading>
         <Box
           as="form"
@@ -124,7 +124,7 @@ class SignUP extends React.Component {
             Sign Up
           </Button>
         </Box>
-      </React.Fragment>
+      </Card>
     );
   }
 }
