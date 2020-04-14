@@ -62,9 +62,10 @@ const theme = {
       borderRadius: 'circle',
     },
     card: {
-      p: 2,
-      bg: 'background',
-      boxShadow: 'card',
+      p: 3,
+      m: 4,
+      bg: 'muted',
+      borderRadius: '10pt'
     },
     navbar: {
       backgroundColor: 'primary',
