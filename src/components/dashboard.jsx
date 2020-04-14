@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Button, Heading } from 'rebass';
+import { Flex, Heading } from 'rebass';
 import SubmitPrice from './submit-price';
 import BestPriceCard from './best-price-card';
 import PriceList from './price-list';
