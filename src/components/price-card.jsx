@@ -6,7 +6,7 @@ const PriceCard = props => {
   return (
   <Box
     py={2}
-    backgroundColor={props.index % 2 === 0 ? 'muted' : 'gray'}
+    backgroundColor={props.index % 2 === 0 ? 'inherit' : 'gray'}
     sx={{
       display: 'grid',
       gridGap: 1,
