@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Text } from 'rebass';
+import { Card, Text } from 'rebass';
 import PriceCard from './price-card';
 import { isSunday } from 'date-fns';
 
@@ -9,14 +9,14 @@ const PriceList = props => {
   !isSunday(Date.now()) && activeUsers.reverse();
 
   return (
-    <Box width="90%">
-      {activeUsers.map(price => (
-        <PriceCard key={price._id} price={price} />
+    <Card width='90%'>
+      {activeUsers.map((price, index) => (
+        <PriceCard key={price._id} index={index} price={price} />
       ))}
       <Text>
         {`${activeUsers.length}/${props.users.length} users submitted`}
       </Text>
-    </Box>
+    </Card>
   );
 };
 
