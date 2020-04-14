@@ -7,7 +7,7 @@ const Message = props => {
     <Box
       width="100%"
       color="white"
-      backgroundColor={message.error ? 'red' : 'green'}
+      backgroundColor={message.error ? 'error' : 'confirm'}
       py={1}
     >
       <Text>{message.text}</Text>
