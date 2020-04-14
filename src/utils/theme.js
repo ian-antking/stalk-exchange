@@ -1,12 +1,13 @@
 const theme = {
   colors: {
     text: '#000',
-    background: '#fff',
-    primary: '#07c',
-    secondary: '#30c',
+    altText: '#fff',
+    background: '#8FF8F0',
+    primary: '#50B2B9',
+    secondary: '#CA2C30',
     muted: '#f6f6f9',
     gray: '#dddddf',
-    highlight: 'hsla(205, 100%, 40%, 0.125)',
+    highlight: '#FA6513',
   },
   fonts: {
     body: 'system-ui, sans-serif',
