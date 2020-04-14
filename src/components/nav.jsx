@@ -9,10 +9,10 @@ const Nav = props => {
       </Text>
       {!props.isLoggedIn && (
         <Box>
-          <Link variant="nav" href="/">
+          <Link variant="nav" href="/sign-up">
             sign-up
           </Link>
-          <Link variant="nav" href="login">
+          <Link variant="nav" href="/">
             log-in
           </Link>
         </Box>

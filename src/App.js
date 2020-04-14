@@ -6,7 +6,7 @@ import Dashboard from './components/dashboard';
 import Message from './components/message';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Login from './components/login';
-import SignUp from './components/signup';
+import SignUp from './components/signUp';
 import TokenManager from './utils/token-manager';
 import { getPrices, getUsers, patchUser } from './utils/fetch-helpers';
 
@@ -85,11 +85,13 @@ class App extends React.Component {
 
   updateUser = async (body) => {
     await patchUser(body).then((res) => {
-      const message = body.dodoCode ? `Submitted new DodoCode: ${res.dodoCode}` : 'DodoCode Removed';
+      const message = body.dodoCode
+        ? `Submitted new DodoCode: ${res.dodoCode}`
+        : 'DodoCode Removed';
       this.setMessage(message);
       this.getData();
     });
-  }
+  };
 
   getData = async () => {
     await this.getUsers().then(async () => {
@@ -109,9 +111,9 @@ class App extends React.Component {
             {this.isLoggedIn ? (
               <Redirect to="/dashboard" />
             ) : (
-              props => {
+              (props) => {
                 return (
-                  <SignUp
+                  <Login
                     {...props}
                     onLogin={this.handleLogin}
                     setMessage={this.setMessage}
@@ -124,7 +126,7 @@ class App extends React.Component {
             {!this.isLoggedIn ? (
               <Redirect to="/" />
             ) : (
-              props => (
+              (props) => (
                 <Dashboard
                   {...props}
                   user={this.state.user}
@@ -140,11 +142,11 @@ class App extends React.Component {
             )}
           </Route>
           <Route
-            path="/login"
+            path="/sign-up"
             exact
-            render={props => {
+            render={(props) => {
               return (
-                <Login
+                <SignUp
                   {...props}
                   onLogin={this.handleLogin}
                   setMessage={this.setMessage}
