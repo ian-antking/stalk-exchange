@@ -66,6 +66,14 @@ const theme = {
       bg: 'background',
       boxShadow: 'card',
     },
+    navbar: {
+      backgroundColor: 'primary',
+      color: 'altText',
+      py: 3,
+      px: 1,
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
     link: {
       color: 'primary',
     },
@@ -77,7 +85,7 @@ const theme = {
       color: 'inherit',
       textDecoration: 'none',
       ':hover,:focus,.active': {
-        color: 'primary',
+        color: 'highlight',
       }
     },
   },
@@ -85,7 +93,7 @@ const theme = {
     primary: {
       fontSize: 2,
       fontWeight: 'bold',
-      color: 'background',
+      color: 'altText',
       bg: 'primary',
       borderRadius: 'default',
     },
