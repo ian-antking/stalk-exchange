@@ -7,7 +7,7 @@ import {
   findThisWeeksPurchasePrice,
   filterUserPrices,
 } from '../utils/filter-helpers';
-import { Heading } from 'rebass';
+import { Heading, Card } from 'rebass';
 
 const DailyPriceChart = (props) => {
   const data = [['Period', 'Bells']];
@@ -42,7 +42,7 @@ const DailyPriceChart = (props) => {
 
   return (
     thisWeeksSellPrices.length > 0 && (
-      <React.Fragment>
+      <Card>
         <Heading>{`${props.user.name}'s prices for week ${format(
           Date.now(),
           'w'
@@ -55,7 +55,7 @@ const DailyPriceChart = (props) => {
           height="400px"
           legendToggle
         />
-      </React.Fragment>
+      </Card>
     )
   );
 };
