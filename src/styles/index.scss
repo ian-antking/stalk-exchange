@@ -9,6 +9,7 @@ body {
   background-image: radial-gradient(#fff 25%, transparent 0), radial-gradient(#fff 25%, transparent 0);
   background-size: 30px 30px;
   background-position: 0 0, 15px 15px;
+  background-attachment: fixed;
 }
 
 code {
