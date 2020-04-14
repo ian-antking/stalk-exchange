@@ -56,15 +56,14 @@ class DodoUpdater extends React.Component {
         <Heading>DodoCode</Heading>
         <Box as="form" display="flex" justifyContent="space-evenly">
           <Input
-            width="50%"
             id="dodocode_input"
             name="dodoCode"
             required
             value={this.state.fields.dodoCode}
             onChange={(event) => this.handleFieldChange(event)}
           />
-          <Button onClick={(event) => this.handleSubmit(event)}>Open</Button>
         </Box>
+          <Button onClick={(event) => this.handleSubmit(event)}>Open</Button>
       </React.Fragment>
     ) : (
       <Button onClick={(event) => this.handleSubmit(event)}>
