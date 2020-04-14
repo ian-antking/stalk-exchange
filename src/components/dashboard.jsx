@@ -20,10 +20,11 @@ const Dashboard = (props) => {
   const prices = (
     <React.Fragment>
       <BestPriceCard prices={currentPrices} />
-      <PriceList prices={currentPrices} users={props.users} />
-      <Button onClick={() => props.refreshPrices()}>
-        Refresh
-      </Button>
+      <PriceList
+        prices={currentPrices}
+        users={props.users}
+        refreshPrices={props.refreshPrices}
+      />
       <DodoUpdater
         updateUser={props.updateUser}
         user={props.user}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Text } from 'rebass';
+import { Card, Text, Button } from 'rebass';
 import PriceCard from './price-card';
 import { isSunday } from 'date-fns';
 
@@ -16,6 +16,9 @@ const PriceList = props => {
       <Text>
         {`${activeUsers.length}/${props.users.length} users submitted`}
       </Text>
+      <Button onClick={() => props.refreshPrices()}>
+        Refresh
+      </Button>
     </Card>
   );
 };
