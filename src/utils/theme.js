@@ -1,13 +1,15 @@
 const theme = {
   colors: {
-    text: '#000',
-    altText: '#fff',
-    background: '#8FF8F0',
-    primary: '#50B2B9',
-    secondary: '#CA2C30',
-    muted: '#f6f6f9',
-    gray: '#dddddf',
-    highlight: '#FA6513',
+    text: '#39383d',
+    primary: '#71b6f7',
+    secondary: '#ee6668',
+    background: '#b1f5fb',
+    confirm: '#ea4d740',
+    error: '#c93335',
+    muted: '#f5f7e9',
+    white: '#fff',
+    gray: '#b7b398',
+    highlight: '#ffbb5f',
   },
   fonts: {
     body: 'system-ui, sans-serif',
@@ -69,7 +71,7 @@ const theme = {
     },
     navbar: {
       backgroundColor: 'primary',
-      color: 'altText',
+      color: 'muted',
       py: 3,
       px: 1,
       justifyContent: 'space-between',
@@ -94,7 +96,7 @@ const theme = {
     primary: {
       fontSize: 2,
       fontWeight: 'bold',
-      color: 'altText',
+      color: 'muted',
       bg: 'primary',
       borderRadius: 'default',
     },
