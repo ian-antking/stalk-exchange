@@ -7,6 +7,7 @@ const Nav = props => {
       <Text fontWeight="bold">
         Stalk Exchange
       </Text>
+      {props.user && <Text>{props.user.name}</Text>}
       {!props.isLoggedIn && (
         <Box>
           <Link variant="nav" href="/sign-up">

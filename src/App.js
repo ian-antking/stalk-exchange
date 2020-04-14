@@ -105,7 +105,7 @@ class App extends React.Component {
   render = () => (
     <ThemeProvider theme={theme}>
       <Box className="App" pt={5}>
-        <Nav isLoggedIn={this.isLoggedIn} />
+        <Nav isLoggedIn={this.isLoggedIn} user={this.state.user} />
         {this.state.message && <Message message={this.state.message} />}
         <Switch>
           <Route exact path="/">

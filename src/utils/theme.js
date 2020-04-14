@@ -80,7 +80,7 @@ const theme = {
       backgroundColor: 'primary',
       color: 'muted',
       py: 3,
-      px: 1,
+      px: 3,
       justifyContent: 'space-between',
       alignItems: 'center',
       position: 'fixed',
