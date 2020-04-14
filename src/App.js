@@ -7,7 +7,7 @@ import Dashboard from './components/dashboard';
 import Message from './components/message';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Login from './components/login';
-import SignUp from './components/signUp';
+import SignUp from './components/sign-up';
 import TokenManager from './utils/token-manager';
 import { getPrices, getUsers, patchUser } from './utils/fetch-helpers';
 
