@@ -8,6 +8,7 @@ import {
   filterUserPrices,
 } from '../utils/filter-helpers';
 import { Heading, Card } from 'rebass';
+import colors from '../utils/colors';
 
 const DailyPriceChart = (props) => {
   const data = [['Period', 'Bells']];
