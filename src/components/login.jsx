@@ -90,7 +90,6 @@ class Login extends React.Component {
             onChange={event => this.handleFieldChange(event)}
           />
           <Button
-            width="100%"
             varient="primary"
             onClick={event => this.handleLogin(event)}
           >
