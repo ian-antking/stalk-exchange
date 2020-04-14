@@ -94,6 +94,7 @@ const theme = {
   },
   buttons: {
     primary: {
+      my: 3,
       fontSize: 2,
       fontWeight: 'bold',
       color: 'muted',
