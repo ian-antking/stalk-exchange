@@ -1,7 +1,9 @@
 import React from 'react';
 import { Input } from '@rebass/forms';
-import { Box, Button, Heading } from 'rebass';
+import { Box, Button, Card, Heading, Image } from 'rebass';
 import { postPrice } from '../utils/fetch-helpers';
+
+import bells from '../images/bells.svg';
 
 class SubmitPrice extends React.Component {
   constructor(props) {
@@ -43,19 +45,31 @@ class SubmitPrice extends React.Component {
 
   render() {
     return !this.state.working && (
-      <React.Fragment>
+      <Card>
         <Heading>Submit Prices</Heading>
         <Box
           as="form"
         >
-          <Input
-            id="price_bells_input"
-            name="bells"
-            required
-            type="number"
-            value={this.state.fields.bells}
-            onChange={event => this.handleFieldChange(event)}
-          />
+          <Box
+            display='flex'
+            flexDirection='row'
+            justifyContent='space-between'
+          >
+            <Image
+              src={bells}
+              alt='a bag of bells'
+              mx={3}
+            />
+            <Input
+              id="price_bells_input"
+              name="bells"
+              required
+              type="number"
+              width='80%'
+              value={this.state.fields.bells}
+              onChange={event => this.handleFieldChange(event)}
+            />  
+          </Box>
           <Button
             width="100%"
             varient="primary"
@@ -64,7 +78,7 @@ class SubmitPrice extends React.Component {
             Submit
           </Button>
         </Box>
-      </React.Fragment>
+      </Card>
     );
   }
 }
