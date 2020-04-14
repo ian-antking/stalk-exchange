@@ -33,7 +33,7 @@ const theme = {
     avatar: 48,
   },
   radii: {
-    default: 4,
+    default: 10,
     circle: 99999,
   },
   shadows: {
@@ -70,7 +70,7 @@ const theme = {
       p: 3,
       my: 1,
       bg: 'muted',
-      borderRadius: '10pt'
+      borderRadius: 'default'
     },
     navbar: {
       backgroundColor: 'primary',
