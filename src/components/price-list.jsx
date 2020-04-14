@@ -9,7 +9,7 @@ const PriceList = props => {
   !isSunday(Date.now()) && activeUsers.reverse();
 
   return (
-    <Card width='90%'>
+    <Card>
       {activeUsers.map((price, index) => (
         <PriceCard key={price._id} index={index} price={price} />
       ))}

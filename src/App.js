@@ -1,6 +1,7 @@
 import React from 'react';
 import { ThemeProvider } from 'emotion-theming';
 import theme from './utils/theme';
+import { Box } from 'rebass';
 import Nav from './components/nav';
 import Dashboard from './components/dashboard';
 import Message from './components/message';
@@ -103,7 +104,7 @@ class App extends React.Component {
 
   render = () => (
     <ThemeProvider theme={theme}>
-      <div className="App">
+      <Box className="App" pt={5}>
         <Nav isLoggedIn={this.isLoggedIn} />
         {this.state.message && <Message message={this.state.message} />}
         <Switch>
@@ -155,7 +156,7 @@ class App extends React.Component {
             }}
           />
         </Switch>
-      </div>
+      </Box>
     </ThemeProvider>
   );
 }
