@@ -45,6 +45,8 @@ const theme = {
   },
   text: {
     heading: {
+      color: 'text',
+      mb: 3,
       fontFamily: 'heading',
       lineHeight: 'heading',
       fontWeight: 'heading',
@@ -68,7 +70,9 @@ const theme = {
     },
     card: {
       p: 3,
-      my: 1,
+      marginTop: 3,
+      mx: 'auto',
+      width: '80%',
       bg: 'muted',
       borderRadius: 'default'
     },
