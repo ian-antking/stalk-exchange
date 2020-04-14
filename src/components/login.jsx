@@ -54,13 +54,11 @@ class Login extends React.Component {
   render() {
     return this.state.working ? <Heading>Logging In...</Heading> : (
       <React.Fragment>
-        <Heading my={3}>Login</Heading>
+        <Heading>Login</Heading>
         <Box
           as="form"
-          width={2 / 3}
-          margin="auto"
         >
-          <Label py={2} htmlFor="login_name_input">
+          <Label htmlFor="login_name_input">
             Name
           </Label>
           <Input
@@ -70,7 +68,7 @@ class Login extends React.Component {
             value={this.state.fields.name}
             onChange={event => this.handleFieldChange(event)}
           />
-          <Label py={2} htmlFor="login_island_input">
+          <Label htmlFor="login_island_input">
             Island
           </Label>
           <Input
@@ -80,7 +78,7 @@ class Login extends React.Component {
             value={this.state.fields.island}
             onChange={event => this.handleFieldChange(event)}
           />
-          <Label py={2} htmlFor="login_password_input">
+          <Label htmlFor="login_password_input">
             Password
           </Label>
           <Input
@@ -92,7 +90,6 @@ class Login extends React.Component {
             onChange={event => this.handleFieldChange(event)}
           />
           <Button
-            my={3}
             width="100%"
             varient="primary"
             onClick={event => this.handleLogin(event)}

@@ -6,9 +6,9 @@ import { lowestPrice, highestPrice } from '../utils/filter-helpers';
 const BestPriceCard = props => {
   const bestPrice = isSunday(Date.now()) ? lowestPrice(props.prices) : highestPrice(props.prices);
   return (
-    <Card width="90%">
+    <Card>
       <Heading>Current Best Price:</Heading>
-      <Text my={2} fontSize={20}>{`${bestPrice.bells} bells`}</Text>
+      <Text>{`${bestPrice.bells} bells`}</Text>
       <Text>{`On ${bestPrice.user.name}'s Island: ${bestPrice.user.island}`}</Text>
       <Text>{`${bestPrice.user.dodoCode || ''}`}</Text>
     </Card>

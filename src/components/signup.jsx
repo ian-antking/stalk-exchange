@@ -61,8 +61,6 @@ class SignUP extends React.Component {
         <Heading my={3}>Sign Up</Heading>
         <Box
           as="form"
-          width={2 / 3}
-          margin="auto"
         >
           <Label py={2} htmlFor="signUp_name_input">
             Name
@@ -73,7 +71,7 @@ class SignUP extends React.Component {
             value={this.state.fields.name}
             onChange={event => this.handleFieldChange(event)}
           />
-          <Label py={2} htmlFor="signUp_island_input">
+          <Label htmlFor="signUp_island_input">
             Island
           </Label>
           <Input
@@ -82,7 +80,7 @@ class SignUP extends React.Component {
             value={this.state.fields.island}
             onChange={event => this.handleFieldChange(event)}
           />
-          <Label py={2} htmlFor="signUp_friendCode_input">
+          <Label htmlFor="signUp_friendCode_input">
             Friend Code
           </Label>
           <Input
@@ -91,7 +89,7 @@ class SignUP extends React.Component {
             value={this.state.fields.friendCode}
             onChange={event => this.handleFieldChange(event)}
           />
-          <Label py={2} htmlFor="signUp_password_input">
+          <Label htmlFor="signUp_password_input">
             Password
           </Label>
           <Input
@@ -101,7 +99,7 @@ class SignUP extends React.Component {
             value={this.state.fields.password}
             onChange={event => this.handleFieldChange(event)}
           />
-          <Label py={2} htmlFor="signUp_confirmPassword_input">
+          <Label htmlFor="signUp_confirmPassword_input">
             Confirm Password
           </Label>
           <Input
@@ -111,7 +109,7 @@ class SignUP extends React.Component {
             value={this.state.fields.confirmPassword}
             onChange={event => this.handleFieldChange(event)}
           />
-          <Label py={2} htmlFor="signUp_inviteCode_input">
+          <Label htmlFor="signUp_inviteCode_input">
             Invite Code
           </Label>
           <Input
@@ -121,9 +119,6 @@ class SignUP extends React.Component {
             onChange={event => this.handleFieldChange(event)}
           />
           <Button
-            my={3}
-            width="100%"
-            varient="primary"
             onClick={event => this.handleSignup(event)}
           >
             Sign Up

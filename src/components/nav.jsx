@@ -3,11 +3,10 @@ import { Flex, Text, Box, Link } from 'rebass';
 
 const Nav = props => {
   return (
-    <Flex px={2} color="white" bg="black" alignItems="center">
-      <Text p={2} fontWeight="bold">
+    <Flex color="white" bg="black" alignItems="center">
+      <Text fontWeight="bold">
         Stalk Exchange
       </Text>
-      <Box mx="auto" />
       {!props.isLoggedIn && (
         <React.Fragment>
           <Link variant="nav" href="/">

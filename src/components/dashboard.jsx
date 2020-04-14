@@ -15,13 +15,13 @@ const Dashboard = (props) => {
     currentPrices &&
     currentPrices.find((price) => price.user._id === props.user._id);
 
-  const loading = <Heading my={3}>Loading...</Heading>;
+  const loading = <Heading>Loading...</Heading>;
 
   const prices = (
     <React.Fragment>
       <BestPriceCard prices={currentPrices} />
       <PriceList prices={currentPrices} users={props.users} />
-      <Button my={3} onClick={() => props.refreshPrices()}>
+      <Button onClick={() => props.refreshPrices()}>
         Refresh
       </Button>
       <DodoUpdater

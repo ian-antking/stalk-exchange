@@ -43,7 +43,7 @@ const DailyPriceChart = (props) => {
   return (
     thisWeeksSellPrices.length > 0 && (
       <React.Fragment>
-        <Heading mt={3}>{`${props.user.name}'s prices for week ${format(
+        <Heading>{`${props.user.name}'s prices for week ${format(
           Date.now(),
           'w'
         )}`}</Heading>
