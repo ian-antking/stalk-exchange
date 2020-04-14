@@ -9,13 +9,13 @@ const PriceList = props => {
   !isSunday(Date.now()) && activeUsers.reverse();
 
   return (
-    <Box my={3} width="90%">
+    <Box width="90%">
       {activeUsers.map(price => (
         <PriceCard key={price._id} price={price} />
       ))}
-      <Text
-        my={3}
-      >{`${activeUsers.length}/${props.users.length} users submitted`}</Text>
+      <Text>
+        {`${activeUsers.length}/${props.users.length} users submitted`}
+      </Text>
     </Box>
   );
 };

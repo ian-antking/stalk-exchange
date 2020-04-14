@@ -53,7 +53,7 @@ class DodoUpdater extends React.Component {
     );
     const controlPanel = !user.dodoCode ? (
       <React.Fragment>
-        <Heading my={2}>DodoCode</Heading>
+        <Heading>DodoCode</Heading>
         <Box as="form" display="flex" justifyContent="space-evenly">
           <Input
             width="50%"
@@ -72,7 +72,7 @@ class DodoUpdater extends React.Component {
       </Button>
     );
     return (
-      <Card width="80%">
+      <Card>
         {this.state.working ? <Heading>Updating...</Heading> : controlPanel}
       </Card>
     );

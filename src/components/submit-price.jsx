@@ -44,11 +44,9 @@ class SubmitPrice extends React.Component {
   render() {
     return !this.state.working && (
       <React.Fragment>
-        <Heading my={3}>Submit Prices</Heading>
+        <Heading>Submit Prices</Heading>
         <Box
           as="form"
-          width={2 / 3}
-          margin="auto"
         >
           <Input
             id="price_bells_input"
@@ -59,7 +57,6 @@ class SubmitPrice extends React.Component {
             onChange={event => this.handleFieldChange(event)}
           />
           <Button
-            my={3}
             width="100%"
             varient="primary"
             onClick={event => this.handleSubmit(event)}
