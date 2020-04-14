@@ -1,21 +1,21 @@
 import React from 'react';
-import { Flex, Text, Link } from 'rebass';
+import { Flex, Text, Box, Link } from 'rebass';
 
 const Nav = props => {
   return (
-    <Flex color="white" bg="black" alignItems="center">
+    <Flex variant='navbar'>
       <Text fontWeight="bold">
         Stalk Exchange
       </Text>
       {!props.isLoggedIn && (
-        <React.Fragment>
+        <Box>
           <Link variant="nav" href="/">
             sign-up
           </Link>
           <Link variant="nav" href="login">
             log-in
           </Link>
-        </React.Fragment>
+        </Box>
       )}
     </Flex>
   );
