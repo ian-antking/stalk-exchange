@@ -40,6 +40,9 @@ const theme = {
     card: '0 0 4px rgba(0, 0, 0, .125)',
   },
   // rebass variants
+  input: {
+    backgroundColor: 'white',
+  },
   text: {
     heading: {
       fontFamily: 'heading',
