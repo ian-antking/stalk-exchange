@@ -6,8 +6,12 @@ const Message = props => {
   return (
     <Box
       width="100%"
+      height='50px'
       color="white"
-      backgroundColor={message.error ? 'error' : 'confirm'}
+      display='flex'
+      alignItems='center'
+      justifyContent='center'
+      bg={message.error ? 'error' : 'confirm'}
       py={1}
     >
       <Text>{message.text}</Text>
