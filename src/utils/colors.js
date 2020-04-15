@@ -3,12 +3,12 @@ const colors = {
   primary: '#71b6f7',
   secondary: '#ee6668',
   background: '#b1f5fb',
-  confirm: '#ea4d740',
+  confirm: '#afd45a',
   error: '#c93335',
   muted: '#f5f7e9',
   white: '#fff',
   gray: '#b7b398',
-  highlight: '#ffbb5f',
+  highlight: '#f1b260',
 };
 
 export default colors;
