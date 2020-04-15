@@ -104,7 +104,7 @@ class App extends React.Component {
 
   render = () => (
     <ThemeProvider theme={theme}>
-      <Box className="App" pt={5}>
+      <Box className="App" paddingTop='55px'>
         <Nav isLoggedIn={this.isLoggedIn} user={this.state.user} />
         {this.state.message && <Message message={this.state.message} />}
         <Switch>
