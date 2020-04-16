@@ -36,7 +36,7 @@ class DodoUpdater extends React.Component {
           working: true,
         },
         async () => {
-          await this.props.updateUser(JSON.stringify(body)).then(() => {
+          await this.props.updateUser(body).then(() => {
             this.setState({
               ...this.state,
               working: false,

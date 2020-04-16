@@ -85,7 +85,8 @@ class App extends React.Component {
   };
 
   updateUser = async (body) => {
-    await patchUser(body).then((res) => {
+    await patchUser(JSON.stringify(body)).then((res) => {
+      console.log(body);
       const message = body.dodoCode
         ? `Submitted new DodoCode: ${res.dodoCode}`
         : 'DodoCode Removed';
@@ -104,7 +105,7 @@ class App extends React.Component {
 
   render = () => (
     <ThemeProvider theme={theme}>
-      <Box className="App" paddingTop='55px'>
+      <Box className="App" paddingTop="55px">
         <Nav isLoggedIn={this.isLoggedIn} user={this.state.user} />
         {this.state.message && <Message message={this.state.message} />}
         <Switch>
