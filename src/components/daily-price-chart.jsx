@@ -8,7 +8,7 @@ import {
   filterUserPrices,
 } from '../utils/filter-helpers';
 import { Heading, Card } from 'rebass';
-import colors from '../utils/colors';
+import chartOptions from '../utils/chart-options';
 
 const DailyPriceChart = (props) => {
   const data = [['Period', 'Bells']];
@@ -21,29 +21,6 @@ const DailyPriceChart = (props) => {
     data.push([date, price.bells]);
   });
 
-  const baseline = thisWeeksPurchasePrice ? thisWeeksPurchasePrice.bells : null;
-
-  const options = {
-    vAxis: {
-      baseline,
-      baselineColor: colors.error,
-      baselineWidth: 5,
-      viewWindow: {
-        min: 0,
-        max: 600,
-      },
-    },
-    colors: [colors.primary],
-    lineWidth: 5,
-    backgroundColor: 'transparent',
-    legend: 'none',
-    chartArea: {
-      width: '80%',
-      height: '80%',
-      marginTop: '10%',
-    },
-  };
-
   return (
     thisWeeksSellPrices.length > 0 && (
       <Card>
@@ -54,7 +31,7 @@ const DailyPriceChart = (props) => {
         <Chart
           chartType="LineChart"
           data={data}
-          options={options}
+          options={chartOptions(thisWeeksPurchasePrice.bells || null)}
           width="100%"
           height="400px"
           legendToggle
