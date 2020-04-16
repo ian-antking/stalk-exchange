@@ -22,10 +22,10 @@ class DodoUpdater extends React.Component {
     });
   };
 
-  handleSubmit = async (event) => {
+  handleSubmit = async (event, clear) => {
     event.preventDefault();
     const body = this.state.fields;
-    if (!body.dodoCode) {
+    if (!body.dodoCode && !clear) {
       this.props.setMessage('No DodoCode entered!', true);
     } else {
       this.setState(
@@ -66,7 +66,7 @@ class DodoUpdater extends React.Component {
           <Button onClick={(event) => this.handleSubmit(event)}>Open</Button>
       </React.Fragment>
     ) : (
-      <Button onClick={(event) => this.handleSubmit(event)}>
+      <Button onClick={(event) => this.handleSubmit(event, true)}>
         Close Island
       </Button>
     );
