@@ -18,7 +18,7 @@ const DailyPriceChart = (props) => {
         <Chart
           chartType="LineChart"
           data={data.prices}
-          options={chartOptions(data.baseline.bells || null)}
+          options={chartOptions(data.baseline ? data.baseline.bells : null)}
           width="100%"
           height="400px"
           legendToggle
