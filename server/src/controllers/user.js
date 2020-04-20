@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const Price = require('../models/price');
 
 exports.addUser = (req, res) => {
   const { name, island, password, friendCode } = req.body;
@@ -20,11 +21,13 @@ exports.addUser = (req, res) => {
     });
 };
 
-exports.getUserById = (req, res) => {
-  User.findOne({ _id: req.params.id }, (err, user) => {
-    if (err) res.status(500).send(err);
-    res.status(200).json(user.sanitize());
-  });
+exports.getUserById = async (req, res) => {
+  const user = await User.findOne({ _id: req.params.id });
+  return user ? res.status(200).json(user.sanitize()) : res.status(500);
+  // User.findOne({ _id: req.params.id }, (err, user) => {
+  //   if (err) res.status(500).send(err);
+  //   res.status(200).json(user.sanitize());
+  // });
 };
 
 exports.updateUser = (req, res) => {
@@ -38,11 +41,11 @@ exports.updateUser = (req, res) => {
   });
 };
 
-exports.getUsers = (_, res) => {
-  User.find({})
-    .exec((err, users) => {
-      if (err) res.status(500).send(err);
-      const sanitizedUsers = users.map((user) => user.sanitize());
-      res.status(200).json(sanitizedUsers);
-    });
+exports.getUsers = async (req, res) => {
+  const query = req.params.id ? { _id: req.param.id } : {};
+  const users = await User.find(query);
+  const sanitizedUsers = users.map(user => {
+    return user.sanitize()
+  });
+  res.status(200).json(sanitizedUsers);
 };
