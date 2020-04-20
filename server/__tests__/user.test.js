@@ -75,6 +75,18 @@ describe('/user', () => {
       });
     });
 
+    it('removes whitespace from beginning and end of island and name', (done) => {
+      const userData = DataFactory.user({ name: ' testName ', island: ' testIsland ' });
+      UserHelper.signUp(app, userData).then((res) => {
+        expect(res.status).toBe(201);
+        User.findById(res.body._id, (_, user) => {
+          expect(user.name).toBe('testName');
+          expect(user.island).toBe('testIsland');
+          done();
+        }).catch((error) => done(error));
+      });
+    });
+
     it('Requires a unique friend code', (done) => {
       const userData1 = DataFactory.user({ friendCode: 'SW-1234-1234-1234' });
       const userData2 = DataFactory.user({ friendCode: 'SW-1234-1234-1234' });
