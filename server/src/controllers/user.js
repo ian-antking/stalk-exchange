@@ -42,7 +42,7 @@ exports.updateUser = (req, res) => {
 };
 
 exports.getUsers = async (req, res) => {
-  const query = req.params.id ? { _id: req.param.id } : {};
+  const query = { _id: req.param.id };
   const users = await User.find(query);
   const sanitizedUsers = users.map(user => {
     return user.sanitize()
