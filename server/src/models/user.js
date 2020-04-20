@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 var uniqueValidator = require('mongoose-unique-validator');
+const Price = require('./price');
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -46,9 +47,10 @@ userSchema.pre('save', function encryptPassword(next) {
   }
 });
 
-userSchema.methods.sanitize = function sanitize() {
-  const { password, friendCode, ...rest } = this.toObject();
-  return rest;
+userSchema.methods.sanitize = function sanitize(prices) {
+  const { password, friendCode, ...sanitizedUser } = this.toObject();
+  sanitizedUser.prices = prices;
+  return sanitizedUser;
 };
 
 userSchema.methods.validatePassword = function validatePassword(guess) {
