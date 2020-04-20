@@ -91,21 +91,6 @@ describe('/price', () => {
       });
     })
 
-    it('adds reference to price to User document', done => {
-      const data = {
-        bells: 500,
-        type: 'sell',
-        date: 987654321,
-      }
-      PriceHelpers.postPrice(app, data, token).then(res => {
-        const priceId = res.body._id;
-        User.findById(user._id, (_, user) => {
-          expect(user.prices[0].toString()).toEqual(priceId);
-          done();
-        });
-      });
-    })
-
     it('requires a valid jwt', done => {
       const data = {
         bells: 500,
@@ -134,7 +119,7 @@ describe('/price', () => {
             expect(res.status).toBe(200);
             expect(res.body.length).toBe(2);
             res.body.forEach(price => {
-              expect(price.user._id).toEqual(user._id);
+              expect(price.user).toEqual(user);
               done();
             })
             })
