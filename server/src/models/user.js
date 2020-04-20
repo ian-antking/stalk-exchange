@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 var uniqueValidator = require('mongoose-unique-validator');
-const Price = require('./price');
 
 const userSchema = new mongoose.Schema({
   name: {
