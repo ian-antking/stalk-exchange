@@ -19,7 +19,7 @@ const generateFriendCode = () => {
 
 exports.user = (options = {}) => ({
   name: options.name || faker.name.findName(),
-  island: options.name || faker.name.firstName(),
+  island: options.island || faker.name.firstName(),
   password: options.password || faker.internet.password(),
   friendCode: options.friendCode || generateFriendCode(),
   inviteCode: options.inviteCode || 'invite',
