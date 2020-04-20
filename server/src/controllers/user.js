@@ -4,8 +4,8 @@ exports.addUser = (req, res) => {
   const { name, island, password, friendCode } = req.body;
 
   const user = new User({
-    name,
-    island,
+    name: name.trim(),
+    island: island.trim(),
     password,
     friendCode: friendCode.toUpperCase(),
   });
