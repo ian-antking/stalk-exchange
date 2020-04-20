@@ -34,6 +34,7 @@ describe('/user', () => {
         expect(res.body.name).toBe(userData.name);
         expect(res.body.island).toBe(userData.island);
         expect(res.body.dodoCode).toBe('');
+        expect(res.body.prices).toEqual(expect.arrayContaining([]));
         expect(res.body).not.toHaveProperty('password');
         expect(res.body).not.toHaveProperty('friendCode');
 

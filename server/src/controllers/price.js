@@ -1,4 +1,5 @@
 const Price = require('../models/price');
+const User = require('../models/user');
 
 exports.addPrice = (req, res) => {
   const { bells, date } = req.body;
@@ -17,10 +18,13 @@ exports.addPrice = (req, res) => {
 
   price
     .save()
-    .then(price => {
-      res.status(201).json(price);
+    .then((price) => {
+      User.findOne(user._id, (_, user) => {
+        user.prices.push(price._id);
+        user.save().then(() => res.status(201).json(price));
+      });
     })
-    .catch(error => {
+    .catch((error) => {
       res.status(500).json(error);
     });
 };
