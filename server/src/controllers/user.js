@@ -40,7 +40,6 @@ exports.updateUser = (req, res) => {
 
 exports.getUsers = (_, res) => {
   User.find({})
-    .populate('latestPrice')
     .exec((err, users) => {
       if (err) res.status(500).send(err);
       const sanitizedUsers = users.map((user) => user.sanitize());
