@@ -24,10 +24,6 @@ exports.addUser = (req, res) => {
 exports.getUserById = async (req, res) => {
   const user = await User.findOne({ _id: req.params.id });
   return user ? res.status(200).json(user.sanitize()) : res.status(500);
-  // User.findOne({ _id: req.params.id }, (err, user) => {
-  //   if (err) res.status(500).send(err);
-  //   res.status(200).json(user.sanitize());
-  // });
 };
 
 exports.updateUser = (req, res) => {
