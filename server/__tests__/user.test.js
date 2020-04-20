@@ -3,6 +3,7 @@ const app = require('../src/app');
 
 const User = require('../src/models/user');
 const UserHelper = require('./helpers/user-helpers');
+const PriceHelper = require('./helpers/price-helpers');
 const DataFactory = require('./helpers/data-factory');
 
 describe('/user', () => {
@@ -141,6 +142,25 @@ describe('/user', () => {
               expect(res.body.name).toBe(users[0].name);
               expect(res.body.island).toBe(users[0].island);
               expect(res.body).not.toHaveProperty('password');
+              done();
+            });
+          });
+        });
+      });
+    });
+
+    it('/user/:id returns populated prices on user document', (done) => {
+      const userData = DataFactory.user();
+      UserHelper.signUp(app, userData).then(userRes => {
+        const user = userRes.body;
+        UserHelper.login(app, userData).then(loginRes => {
+          const token = loginRes.body.token;
+          const priceData = { bells: 100, type: 'sell' }
+          PriceHelper.postPrice(app, priceData, token).then(priceRes => {
+            const price = priceRes.body;
+            UserHelper.getUsers(app, token, user._id).then(getRes => {
+              console.log(typeof getRes.body.prices, typeof [price]);
+              expect(getRes.body.prices.toString()).toContain([price]);
               done();
             });
           });

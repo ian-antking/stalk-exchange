@@ -22,8 +22,11 @@ exports.addUser = (req, res) => {
 };
 
 exports.getUserById = async (req, res) => {
-  const user = await User.findOne({ _id: req.params.id });
-  return user ? res.status(200).json(user.sanitize()) : res.status(500);
+  const user = await User.findOne({ _id: req.params.id }).lean();
+  const prices = await Price.find({ user: req.params.id }).lean();
+  const { password, friendCode, ...sanitizedUser } = user;
+  sanitizedUser.prices = prices;
+  return user ? res.status(200).json(sanitizedUser) : res.status(500);
 };
 
 exports.updateUser = (req, res) => {
