@@ -77,7 +77,10 @@ describe('/user', () => {
     });
 
     it('removes whitespace from beginning and end of island and name', (done) => {
-      const userData = DataFactory.user({ name: ' testName ', island: ' testIsland ' });
+      const userData = DataFactory.user({
+        name: ' testName ',
+        island: ' testIsland ',
+      });
       UserHelper.signUp(app, userData).then((res) => {
         expect(res.status).toBe(201);
         User.findById(res.body._id, (_, user) => {
@@ -128,6 +131,34 @@ describe('/user', () => {
       });
     });
 
+    it('/user/all returns all users with populated prices', (done) => {
+      const usersData = [
+        DataFactory.user(),
+        DataFactory.user(),
+        DataFactory.user(),
+      ];
+      const priceData = { bells: 100, type: 'sell' };
+      Promise.all(UserHelper.manyUsers(app, usersData)).then(() => {
+        UserHelper.login(app, usersData[0]).then((loginRes) => {
+          const token = loginRes.body.token;
+          PriceHelper.postPrice(app, priceData, token).then((priceRes) => {
+            const price = priceRes.body;
+            UserHelper.getUsers(app, token).then((getRes) => {
+              const users = getRes.body;
+              const userPrices = users.find(user => user.name === usersData[0].name).prices.toString();
+              expect(userPrices).toContain([price])
+              users.forEach(user => {
+                user.prices.forEach(price => {
+                  expect(price.user.toString()).toBe(user._id);
+                })
+              })
+              done();
+            });
+          });
+        });
+      });
+    });
+
     it('/user/:id returns single user', (done) => {
       const usersData = [
         DataFactory.user(),
@@ -151,14 +182,14 @@ describe('/user', () => {
 
     it('/user/:id returns populated prices on user document', (done) => {
       const userData = DataFactory.user();
-      UserHelper.signUp(app, userData).then(userRes => {
+      UserHelper.signUp(app, userData).then((userRes) => {
         const user = userRes.body;
-        UserHelper.login(app, userData).then(loginRes => {
+        UserHelper.login(app, userData).then((loginRes) => {
           const token = loginRes.body.token;
-          const priceData = { bells: 100, type: 'sell' }
-          PriceHelper.postPrice(app, priceData, token).then(priceRes => {
+          const priceData = { bells: 100, type: 'sell' };
+          PriceHelper.postPrice(app, priceData, token).then((priceRes) => {
             const price = priceRes.body;
-            UserHelper.getUsers(app, token, user._id).then(getRes => {
+            UserHelper.getUsers(app, token, user._id).then((getRes) => {
               console.log(typeof getRes.body.prices, typeof [price]);
               expect(getRes.body.prices.toString()).toContain([price]);
               done();

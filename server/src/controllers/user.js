@@ -40,7 +40,10 @@ exports.updateUser = (req, res) => {
 
 exports.getUsers = async (_, res) => {
   const users = await User.find({});
-  const prices = await Price.find({});
-  const sanitizedUsers = users.map(user => user.sanitize(prices.filter(price => price.user === user._id)));
+  const prices = await Price.find({}).lean();
+  const sanitizedUsers = users.map(user => {
+    const userPrices = prices.filter(price => price.user.toString() === user._id.toString())
+    return user.sanitize(userPrices)
+  });
   res.status(200).json(sanitizedUsers);
 };
