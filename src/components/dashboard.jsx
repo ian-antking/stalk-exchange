@@ -20,7 +20,7 @@ const Dashboard = (props) => {
   const priceDisplay = currentPriceSubmitted ? (
     <PriceList users={users} refreshPrices={refreshPrices} />
   ) : (
-    <SubmitPrice setMesage={props.setMesage} />
+    <SubmitPrice setMesage={props.setMessage} />
   );
 
   const dashBoard = (
@@ -40,7 +40,7 @@ const Dashboard = (props) => {
   );
 
   const display =
-    !isSunday(Date.now()) && currentPeriod(Date.now()) === 'AM'
+    !isSunday(Date.now()) && currentPeriod(Date.now()) === 'PM'
       ? dashBoard
       : closedMessage;
 
