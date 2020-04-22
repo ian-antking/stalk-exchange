@@ -13,7 +13,7 @@ const chartData = (user) => {
 
   if (!thisWeeksPurchasePrice) return null;
 
-  const analysis = [thisWeeksPurchasePrice];
+  const analysis = [thisWeeksPurchasePrice.bells];
 
   thisWeeksSellPrices.forEach(price => analysis.push(price.bells))
 
