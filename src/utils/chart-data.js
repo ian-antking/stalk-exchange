@@ -3,7 +3,6 @@ import {
   filterThisWeeksSellPrices,
   findThisWeeksPurchasePrice,
 } from './filter-helpers';
-import { format } from 'date-fns';
 import { possiblePatterns, patternReducer } from './pattern';
 
 const chartData = (user) => {
