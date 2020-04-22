@@ -39,7 +39,7 @@ class SubmitPrice extends React.Component {
     const response = await postPrice(body)
     const message = response.ok ? 'current price submitted' : `${response.status}: ${response.statusText}`;
     this.props.setMessage(message, !response.ok);
-    response.ok && this.props.getPrices();
+    response.ok && this.props.refreshPrices();
     this.toggleWorking()
   };
 
