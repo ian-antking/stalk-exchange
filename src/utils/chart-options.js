@@ -10,10 +10,10 @@ const chartOptions = (baseline = null) => ({
         max: 600,
       },
     },
-    colors: [colors.primary],
+    colors: [colors.primary, colors.secondary, colors.confirm],
     lineWidth: 5,
     backgroundColor: 'transparent',
-    legend: 'none',
+    legend: { position: 'top' },
     chartArea: {
       width: '80%',
       height: '80%',
