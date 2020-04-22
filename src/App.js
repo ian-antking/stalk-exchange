@@ -9,7 +9,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import Login from './components/login';
 import SignUp from './components/sign-up';
 import TokenManager from './utils/token-manager';
-import { getPrices, getUsers, patchUser } from './utils/fetch-helpers';
+import { getUsers, patchUser } from './utils/fetch-helpers';
 
 import './styles/App.scss';
 
@@ -26,7 +26,7 @@ class App extends React.Component {
   };
 
   get isLoggedIn() {
-    return this.state.user && TokenManager.isTokenValid();
+    return TokenManager.isTokenValid();
   }
 
   toggleWorking = (state = !this.state.working) => {
@@ -36,23 +36,8 @@ class App extends React.Component {
     });
   };
 
-  refreshPrices = async () => {
-    this.toggleWorking();
-    await this.getPrices();
-    this.toggleWorking();
-  };
-
   handleLogin = () => {
-    this.setState(
-      {
-        ...this.state,
-        user: TokenManager.getTokenPayload(),
-      },
-      () => {
-        !this.isLoggedIn && this.handleLogout();
-        this.isLoggedIn && this.getData();
-      }
-    );
+    this.isLoggedIn && this.getUsers();
   };
 
   handleLogout = () => {
@@ -68,44 +53,31 @@ class App extends React.Component {
     });
   };
 
-  getPrices = async () => {
-    const data = await getPrices();
-    this.setState({
-      ...this.state,
-      prices: data,
-    });
-  };
-
   getUsers = async () => {
+    this.toggleWorking(true);
     const users = await getUsers();
+    const user = users.find(user => user._id === TokenManager.getTokenPayload()._id)
     this.setState({
       ...this.state,
       users,
+      user,
     });
+    this.toggleWorking(false);
   };
 
   updateUser = async (body) => {
     await patchUser(JSON.stringify(body)).then((res) => {
-      console.log(body);
       const message = body.dodoCode
         ? `Submitted new DodoCode: ${res.dodoCode}`
         : 'DodoCode Removed';
       this.setMessage(message);
-      this.getData();
-    });
-  };
-
-  getData = async () => {
-    await this.getUsers().then(async () => {
-      await this.getPrices().then(() => {
-        this.toggleWorking(false);
-      });
+      this.getUsers();
     });
   };
 
   render = () => (
     <ThemeProvider theme={theme}>
-      <Box className="App" paddingTop="55px">
+      <Box className="App">
         <Nav isLoggedIn={this.isLoggedIn} user={this.state.user} />
         {this.state.message && <Message message={this.state.message} />}
         <Switch>
@@ -132,10 +104,8 @@ class App extends React.Component {
                 <Dashboard
                   {...props}
                   user={this.state.user}
-                  prices={this.state.prices}
-                  bestPrice={this.state.bestPrice}
                   setMessage={this.setMessage}
-                  refreshPrices={this.refreshPrices}
+                  refreshPrices={this.getUsers}
                   users={this.state.users}
                   working={this.state.working}
                   updateUser={this.updateUser}

@@ -2,14 +2,12 @@ import {
   filterThisWeeksPrices,
   filterThisWeeksSellPrices,
   findThisWeeksPurchasePrice,
-  filterUserPrices,
 } from './filter-helpers';
 import { format } from 'date-fns';
 
-const chartData = (prices, user) => {
+const chartData = (user) => {
   const data = [['Period', 'Bells']];
-  const userPrices = filterUserPrices(prices, user);
-  const thisWeeksPrices = filterThisWeeksPrices(userPrices);
+  const thisWeeksPrices = filterThisWeeksPrices(user.prices);
   const thisWeeksSellPrices = filterThisWeeksSellPrices(thisWeeksPrices);
   const thisWeeksPurchasePrice = findThisWeeksPurchasePrice(thisWeeksPrices);
   thisWeeksSellPrices.forEach((price) => {

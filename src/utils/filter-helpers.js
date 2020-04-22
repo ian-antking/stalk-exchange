@@ -9,7 +9,7 @@ const filterTodayPrices = (prices) => {
 
 const filterCurrentPrices = (prices) => {
   const todayPrices = filterTodayPrices(prices)
-  return todayPrices.filter(price => {
+  return todayPrices.find(price => {
     return samePeriod(price.date, Date.now());
   })
 }
@@ -35,23 +35,9 @@ const filterUserPrices = (prices, user) => {
   return prices.filter(price => price.user && price.user._id === user._id)
 }
 
-const lowestPrice = (prices) => {
-  return prices.reduce((previousPrice, currentPrice) => {
-    return previousPrice.bells < currentPrice.bells ? previousPrice : currentPrice;
-  })
-}
-
-const highestPrice = (prices) => {
-  return prices.reduce((previousPrice, currentPrice) => {
-    return previousPrice.bells > currentPrice.bells ? previousPrice : currentPrice;
-  })
-}
-
 export {
   filterTodayPrices,
   filterCurrentPrices,
-  lowestPrice,
-  highestPrice,
   filterThisWeeksPrices,
   findThisWeeksPurchasePrice,
   filterThisWeeksSellPrices,

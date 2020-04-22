@@ -72,6 +72,7 @@ const theme = {
       color: 'muted',
       py: 3,
       px: 3,
+      maxHeight: '50px',
       justifyContent: 'space-between',
       alignItems: 'center',
       position: 'fixed',
