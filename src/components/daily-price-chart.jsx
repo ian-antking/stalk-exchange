@@ -7,10 +7,11 @@ import chartData from '../utils/chart-data';
 
 const DailyPriceChart = (props) => {
   const { user } = props;
-  const data = chartData(user)
+
+  const data = user.prices.length && chartData(user)
 
   return (
-    data.prices.length > 0 && (
+    data ? (
       <Card>
         <Heading>{`${props.user.name}'s prices for week ${format(
           Date.now(),
@@ -25,7 +26,7 @@ const DailyPriceChart = (props) => {
           legendToggle
         />
       </Card>
-    )
+    ) : null
   );
 };
 
