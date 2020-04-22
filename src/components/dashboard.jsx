@@ -20,7 +20,7 @@ const Dashboard = (props) => {
   const priceDisplay = currentPriceSubmitted ? (
     <PriceList users={users} refreshPrices={refreshPrices} />
   ) : (
-    <SubmitPrice setMessage={props.setMessage} />
+    <SubmitPrice setMessage={props.setMessage} refreshPrices={props.refreshPrices} />
   );
 
   const dashBoard = (

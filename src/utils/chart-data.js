@@ -10,7 +10,10 @@ const chartData = (user) => {
   const thisWeeksPrices = filterThisWeeksPrices(user.prices);
   const thisWeeksSellPrices = filterThisWeeksSellPrices(thisWeeksPrices);
   const thisWeeksPurchasePrice = findThisWeeksPurchasePrice(thisWeeksPrices);
-  const analysis = [thisWeeksPurchasePrice.bells];
+
+  if (!thisWeeksPurchasePrice) return null;
+
+  const analysis = [thisWeeksPurchasePrice];
 
   thisWeeksSellPrices.forEach(price => analysis.push(price.bells))
 
