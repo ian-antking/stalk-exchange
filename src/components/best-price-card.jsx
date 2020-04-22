@@ -1,26 +1,22 @@
 import React from 'react';
-import { Box, Card, Heading, Text, Image } from 'rebass';
-import { isSunday } from 'date-fns';
-import { lowestPrice, highestPrice } from '../utils/filter-helpers';
-import bells from '../images/bells.svg'
+import { Box, Heading, Text, Image } from 'rebass';
+import bells from '../images/bells.svg';
+import { filterCurrentPrices } from '../utils/filter-helpers';
 
-const BestPriceCard = props => {
-  const bestPrice = isSunday(Date.now()) ? lowestPrice(props.prices) : highestPrice(props.prices);
+const BestPriceCard = (props) => {
+  const { user } = props;
+
+  const price = filterCurrentPrices(user.prices);
   return (
-    <Card>
+    <Box my={3}>
       <Heading>Current Best Price:</Heading>
-      <Box
-        display='flex'
-        width='100%'
-        justifyContent='center'
-        my={3}
-      >
-        <Text fontSize={4}>{bestPrice.bells}</Text>
-        <Image mx={1} src={bells} alt='bells'/>
+      <Box display="flex" width="100%" justifyContent="center" my={3}>
+        <Text fontSize={4}>{price.bells}</Text>
+        <Image mx={1} src={bells} alt="bells" />
       </Box>
-      <Text>{`On ${bestPrice.user.name}'s Island: ${bestPrice.user.island}`}</Text>
-      <Text>{`${bestPrice.user.dodoCode || ''}`}</Text>
-    </Card>
+      <Text>{`On ${user.name}'s Island: ${user.island}`}</Text>
+      <Text>{`${user.dodoCode || ''}`}</Text>
+    </Box>
   );
 };
 

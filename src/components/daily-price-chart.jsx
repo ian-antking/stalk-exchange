@@ -6,7 +6,8 @@ import chartOptions from '../utils/chart-options';
 import chartData from '../utils/chart-data';
 
 const DailyPriceChart = (props) => {
-  const data = chartData(props.prices, props.user)
+  const { user } = props;
+  const data = chartData(user)
 
   return (
     data.prices.length > 0 && (

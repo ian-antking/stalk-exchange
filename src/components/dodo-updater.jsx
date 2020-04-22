@@ -48,9 +48,7 @@ class DodoUpdater extends React.Component {
   };
 
   render = () => {
-    const user = this.props.users.find(
-      (user) => user._id === this.props.user._id
-    );
+    const { user } = this.props;
     const controlPanel = !user.dodoCode ? (
       <React.Fragment>
         <Heading>DodoCode</Heading>

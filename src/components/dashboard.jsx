@@ -1,59 +1,52 @@
 import React from 'react';
 import { Flex, Heading } from 'rebass';
 import SubmitPrice from './submit-price';
-import BestPriceCard from './best-price-card';
 import PriceList from './price-list';
-import { currentPeriod } from '../utils/date-helpers';
+import { sameDay, samePeriod, currentPeriod } from '../utils/date-helpers';
 import { isSunday } from 'date-fns';
-import { filterCurrentPrices } from '../utils/filter-helpers';
 import DailyPriceChart from './daily-price-chart';
 import DodoUpdater from './dodo-updater';
+import LoadingCard from './loading-card';
 
 const Dashboard = (props) => {
-  const currentPrices = props.prices && filterCurrentPrices(props.prices);
-  const userPrice =
-    currentPrices &&
-    currentPrices.find((price) => price.user._id === props.user._id);
-
-  const loading = <Heading>Loading...</Heading>;
-
-  const prices = (
-    <React.Fragment>
-      <BestPriceCard prices={currentPrices} />
-      <PriceList
-        prices={currentPrices}
-        users={props.users}
-        refreshPrices={props.refreshPrices}
-      />
-      <DodoUpdater
-        updateUser={props.updateUser}
-        user={props.user}
-        users={props.users}
-        setMessage={props.setMessage}
-      />
-    </React.Fragment>
-  );
-
-  const submit =
-    isSunday(Date.now()) && currentPeriod(Date.now()) === 'PM' ? (
-      <Heading>The Stalk Exchange is closed until tomorrow!</Heading>
-    ) : (
-      <SubmitPrice
-        setMessage={props.setMessage}
-        getPrices={props.refreshPrices}
-      />
+  const { users, user, refreshPrices, working } = props;
+  const currentPriceSubmitted =
+    user &&
+    user.prices.find(
+      (price) =>
+        sameDay(price.date, Date.now()) && samePeriod(price.date, Date.now())
     );
 
-  const display = userPrice ? prices : submit;
+  const priceDisplay = currentPriceSubmitted ? (
+    <PriceList users={users} refreshPrices={refreshPrices} />
+  ) : (
+    <SubmitPrice setMesage={props.setMesage} />
+  );
 
-  return (
-    <Flex alignItems="center" flexDirection="column" my={3}>
-      {props.working ? loading : display}
-      {currentPrices && (
-        <DailyPriceChart user={props.user} prices={props.prices} />
-      )}
+  const dashBoard = (
+    <Flex flexDirection="column">
+      {priceDisplay}
+      <DailyPriceChart user={user} users={users} />
+      <DodoUpdater
+        updateUser={props.updateUser}
+        user={user}
+        setMesage={props.setMesage}
+      />
     </Flex>
   );
+
+  const closedMessage = (
+    <Heading>The Stalk Market is closed until tomorrow.</Heading>
+  );
+
+  const display =
+    !isSunday(Date.now()) && currentPeriod(Date.now()) === 'AM'
+      ? dashBoard
+      : closedMessage;
+
+  const render = users && !working ? display : <LoadingCard />;
+
+  return render
 };
 
 export default Dashboard;
