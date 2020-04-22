@@ -17,7 +17,7 @@ const chartData = (user) => {
   const patterns = possiblePatterns(analysis);
   const minMaxPattern = patternReducer(patterns);
 
-  const dates = [ 'Mon Am', 'Mon PM', 'Tue Am', 'Tue PM', 'Wed Am', 'Wed PM', 'Thu Am', 'Thu PM', 'Fri Am', 'Fri PM', 'Sat Am', 'Sat PM',  ]
+  const dates = [ 'Mon Am', 'Mon Pm', 'Tue Am', 'Tue Pm', 'Wed Am', 'Wed Pm', 'Thu Am', 'Thu Pm', 'Fri Am', 'Fri Pm', 'Sat Am', 'Sat Pm',  ]
 
   for (let i = 1; i < minMaxPattern.length; i += 1) {
     const price = thisWeeksSellPrices[i] ? thisWeeksSellPrices[i].bells : null
