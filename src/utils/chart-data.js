@@ -4,6 +4,7 @@ import {
   findThisWeeksPurchasePrice,
 } from './filter-helpers';
 import { possiblePatterns, patternReducer } from './pattern';
+import { format } from 'date-fns';
 
 const chartData = (user) => {
   const data = [['Period', 'Bells', 'Min', 'Max']];
@@ -11,22 +12,22 @@ const chartData = (user) => {
   const thisWeeksSellPrices = filterThisWeeksSellPrices(thisWeeksPrices);
   const thisWeeksPurchasePrice = findThisWeeksPurchasePrice(thisWeeksPrices);
 
-  if (!thisWeeksPurchasePrice) return null;
+  if (!thisWeeksPrices.length) return null;
 
-  const analysis = [thisWeeksPurchasePrice.bells];
+  const analysis = [thisWeeksPurchasePrice ? thisWeeksPurchasePrice.bells : null];
 
   thisWeeksSellPrices.forEach(price => analysis.push(price.bells))
 
   const patterns = possiblePatterns(analysis);
   const minMaxPattern = patternReducer(patterns);
 
-  const dates = [ 'Mon Am', 'Mon Pm', 'Tue Am', 'Tue Pm', 'Wed Am', 'Wed Pm', 'Thu Am', 'Thu Pm', 'Fri Am', 'Fri Pm', 'Sat Am', 'Sat Pm',  ]
+  const dates = ['Mon am', 'Mon pm', 'Tue am', 'Tue pm', 'Wed am', 'Wed pm', 'Thu am', 'Thu pm', 'Fri am', 'Fri pm', 'Sat am', 'Sat pm',]
 
-  for (let i = 1; i < minMaxPattern.length; i += 1) {
-    const price = thisWeeksSellPrices[i] ? thisWeeksSellPrices[i].bells : null
-    const date = dates[i];
-    data.push([date, price, minMaxPattern[i][0], minMaxPattern[i][1]]);
-  }
+  dates.forEach((date, index) => {
+    const priceObject = thisWeeksSellPrices.find(price => format(price.date, 'E a').toLowerCase() === date.toLowerCase());
+    const price = priceObject ? priceObject.bells : null;
+    data.push([date, price, minMaxPattern[index][0], minMaxPattern[index][1]]);
+  })
 
   return {
     baseline: thisWeeksPurchasePrice,
