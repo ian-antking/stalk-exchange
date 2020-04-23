@@ -10,9 +10,7 @@ import LoadingCard from './loading-card';
 
 const Dashboard = (props) => {
   const { users, user, refreshPrices, working } = props;
-  const currentPriceSubmitted =
-    user &&
-    user.prices.find(
+  const currentPriceSubmitted = user?.prices.find(
       (price) =>
         sameDay(price.date, Date.now()) && samePeriod(price.date, Date.now())
     );
