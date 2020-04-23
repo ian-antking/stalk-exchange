@@ -10,6 +10,8 @@ import Login from './components/login';
 import SignUp from './components/sign-up';
 import TokenManager from './utils/token-manager';
 import { getUsers, patchUser } from './utils/fetch-helpers';
+import Profile from './components/profile';
+
 
 import './styles/App.scss';
 
@@ -116,7 +118,7 @@ class App extends React.Component {
           <Route
             path="/sign-up"
             exact
-            render={(props) => {
+            render={props => {
               return (
                 <SignUp
                   {...props}
@@ -125,6 +127,15 @@ class App extends React.Component {
                 />
               );
             }}
+          />
+          <Route
+            path="/user/:id"
+            render={props => (
+              <Profile
+                {...props}
+                users={this.state.users}
+              />
+            )}
           />
         </Switch>
       </Box>

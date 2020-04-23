@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box } from 'rebass';
+import { Box, Link } from 'rebass';
 import { filterCurrentPrices } from '../utils/filter-helpers';
 
 const PriceCard = (props) => {
@@ -15,7 +15,7 @@ const PriceCard = (props) => {
         gridTemplateColumns: 'repeat(auto-fit, minmax(30px, 1fr))',
       }}
     >
-      <div>{user.name}</div>
+      <Link href={`/user/${user._id}`} variant='user'>{user.name}</Link>
       <div>{currentPrice.bells}</div>
       <div>{`${user.island}: ${user.dodoCode || 'Closed'}`}</div>
     </Box>

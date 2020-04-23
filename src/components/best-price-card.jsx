@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Heading, Text, Image } from 'rebass';
+import { Box, Heading, Text, Image, Link } from 'rebass';
 import bells from '../images/bells.svg';
 import { filterCurrentPrices } from '../utils/filter-helpers';
 
@@ -14,7 +14,7 @@ const BestPriceCard = (props) => {
         <Text fontSize={4}>{price.bells}</Text>
         <Image mx={1} src={bells} alt="bells" />
       </Box>
-      <Text>{`On ${user.name}'s Island: ${user.island}`}</Text>
+      <Link href={`/user/${user._id}`} variant='user'>{`On ${user.name}'s Island: ${user.island}`}</Link>
       <Text>{`${user.dodoCode || ''}`}</Text>
     </Box>
   );
