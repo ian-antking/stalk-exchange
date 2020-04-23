@@ -133,6 +133,7 @@ class App extends React.Component {
             render={props => (
               <Profile
                 {...props}
+                loggedIn={this.isLoggedIn}
                 users={this.state.users}
               />
             )}
