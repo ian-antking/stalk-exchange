@@ -38,9 +38,9 @@ const Dashboard = (props) => {
   );
 
   const display =
-    isSunday(Date.now()) && currentPeriod(Date.now()) === 'PM'
-      ? closedMessage
-      : dashBoard;
+    !isSunday(Date.now()) && currentPeriod(Date.now()) === 'PM'
+      ? dashBoard
+      : closedMessage;
 
   const render = users && !working ? display : <LoadingCard />;
 
