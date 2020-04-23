@@ -70,6 +70,7 @@ const theme = {
     navbar: {
       backgroundColor: 'primary',
       color: 'muted',
+      zIndex: '1',
       py: 3,
       px: 3,
       maxHeight: '50px',
