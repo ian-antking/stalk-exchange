@@ -6,7 +6,7 @@ const Nav = props => {
   const location = useLocation()
   const { user } = props
 
-  const profileLink = <Link href={`/user/${user?._id}`} variant='nav'>{user?.name}</Link>
+  const profileLink = <Link href={`/user?id=${user?._id}`} variant='nav'>{user?.name}</Link>
   const dashboardLink = <Link href={`/dashboard`} variant='nav'>dashboard</Link>
 
   return (
