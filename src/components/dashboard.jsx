@@ -4,7 +4,6 @@ import SubmitPrice from './submit-price';
 import PriceList from './price-list';
 import { sameDay, samePeriod, currentPeriod } from '../utils/date-helpers';
 import { isSunday } from 'date-fns';
-import DailyPriceChart from './daily-price-chart';
 import DodoUpdater from './dodo-updater';
 import LoadingCard from './loading-card';
 
