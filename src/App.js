@@ -129,7 +129,7 @@ class App extends React.Component {
             }}
           />
           <Route
-            path="/user/:id"
+            path="/user"
             render={props => (
               <Profile
                 {...props}
