@@ -14,7 +14,7 @@ const chartData = (user) => {
 
   if (!thisWeeksPrices.length) return null;
 
-  const analysis = [thisWeeksPurchasePrice ? thisWeeksPurchasePrice.bells : null];
+  const analysis = [thisWeeksPurchasePrice?.bells || null];
 
   thisWeeksSellPrices.forEach(price => analysis.push(price.bells))
 
@@ -25,7 +25,7 @@ const chartData = (user) => {
 
   dates.forEach((date, index) => {
     const priceObject = thisWeeksSellPrices.find(price => format(price.date, 'E a').toLowerCase() === date.toLowerCase());
-    const price = priceObject ? priceObject.bells : null;
+    const price = priceObject?.bells || null;
     data.push([date, price, minMaxPattern[index][0], minMaxPattern[index][1]]);
   })
 
