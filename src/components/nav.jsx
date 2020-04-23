@@ -6,15 +6,15 @@ const Nav = props => {
   const location = useLocation()
   const { user } = props
 
-  const profileLink = <Link href={`/user?id=${user?._id}`} variant='nav'>{user?.name}</Link>
-  const dashboardLink = <Link href={`/dashboard`} variant='nav'>dashboard</Link>
+  const profileLink = props.isLoggedIn && <Link href={`/user?id=${user?._id}`} variant='nav'>{user?.name}</Link>
+  const dashboardLink = props.isLoggedIn && <Link href={`/dashboard`} variant='nav'>dashboard</Link>
 
   return (
     <Flex variant='navbar'>
       <Text fontWeight="bold">
         Stalk Exchange
       </Text>
-      {props.user && location.pathname === '/dashboard' ? profileLink : dashboardLink}
+      {location.pathname === '/dashboard' ? profileLink : dashboardLink}
       {!props.isLoggedIn && (
         <Box>
           <Link variant="nav" href="/sign-up">
