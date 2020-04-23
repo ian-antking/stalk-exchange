@@ -59,8 +59,8 @@ describe('/user', () => {
       const userData = DataFactory.user({ friendCode: 'not a friend code' });
       const expectedError = 'invalid friend code';
       UserHelper.signUp(app, userData).then((res) => {
-        expect(res.status).toBe(500);
-        expect(res.body.errors.friendCode.message).toBe(expectedError);
+        expect(res.status).toBe(400);
+        expect(res.body).toBe(expectedError);
         done();
       });
     });
@@ -98,8 +98,8 @@ describe('/user', () => {
         'Error, expected `friendCode` to be unique. Value: `SW-1234-1234-1234`';
       UserHelper.signUp(app, userData1).then(() => {
         UserHelper.signUp(app, userData2).then((res) => {
-          expect(res.status).toBe(500);
-          expect(res.body.errors.friendCode.message).toBe(ecpectedError);
+          expect(res.status).toBe(400);
+          expect(res.body).toBe(ecpectedError);
           done();
         });
       });

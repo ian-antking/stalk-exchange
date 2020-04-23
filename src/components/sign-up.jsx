@@ -36,9 +36,10 @@ class SignUP extends React.Component {
     }
     const body = JSON.stringify(fields);
     const signUpResponse = await signUp(body);
+    const signUpBody = await signUpResponse.json()
     const signUpMessage =
       !signUpResponse.ok &&
-      `${signUpResponse.status}: ${signUpResponse.statusText}`;
+      `${signUpResponse.status}: ${signUpBody}`;
     this.props.setMessage(signUpMessage, !signUpResponse.ok);
     if (signUpResponse.ok) {
       const loginResponse = await login(body);
