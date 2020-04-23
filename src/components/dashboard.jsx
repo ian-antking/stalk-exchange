@@ -24,7 +24,6 @@ const Dashboard = (props) => {
   const dashBoard = (
     <Flex flexDirection="column">
       {priceDisplay}
-      <DailyPriceChart user={user} users={users} />
       <DodoUpdater
         updateUser={props.updateUser}
         user={user}

@@ -94,6 +94,9 @@ const theme = {
         color: 'highlight',
       }
     },
+    user: {
+      color: 'text',
+    },
   },
   buttons: {
     primary: {
