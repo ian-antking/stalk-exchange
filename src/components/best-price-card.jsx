@@ -14,7 +14,7 @@ const BestPriceCard = (props) => {
         <Text fontSize={4}>{price.bells}</Text>
         <Image mx={1} src={bells} alt="bells" />
       </Box>
-      <Link href={`/user/${user._id}`} variant='user'>{`On ${user.name}'s Island: ${user.island}`}</Link>
+      <Link href={`/user?id=${user._id}`} variant='user'>{`On ${user.name}'s Island: ${user.island}`}</Link>
       <Text>{`${user.dodoCode || ''}`}</Text>
     </Box>
   );
