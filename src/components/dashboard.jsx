@@ -46,8 +46,6 @@ const Dashboard = (props) => {
 
   const render = users && !working ? display : <LoadingCard />;
 
-  console.log(!isSunday(Date.now()) && currentPeriod(Date.now()) === 'PM')
-
   return render
 };
 
