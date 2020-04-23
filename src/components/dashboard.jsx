@@ -40,7 +40,7 @@ const Dashboard = (props) => {
   );
 
   const display =
-    !isSunday(Date.now()) && currentPeriod(Date.now()) === 'AM'
+    !isSunday(Date.now()) && currentPeriod(Date.now()) === 'PM'
       ? dashBoard
       : closedMessage;
 
