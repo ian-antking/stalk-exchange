@@ -56,11 +56,8 @@ class SubmitPrice extends React.Component {
         <Card>
           <Heading>{heading}</Heading>
           <Box as="form">
-            <Box
-              display="flex"
-              flexDirection="row"
-              justifyContent="center"
-            >
+            <Box display="flex" flexDirection="row" justifyContent="center">
+              <Image src={bells} alt="a bag of bells" mx={1} />
               <Input
                 id="price_bells_input"
                 name="bells"
@@ -70,9 +67,9 @@ class SubmitPrice extends React.Component {
                 value={this.state.fields.bells}
                 onChange={(event) => this.handleFieldChange(event)}
               />
-              <Image src={bells} alt="a bag of bells" mx={1} />
               <Button
                 my={0}
+                mx={1}
                 varient="primary"
                 onClick={(event) => this.handleSubmit(event)}
               >
