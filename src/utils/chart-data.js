@@ -4,7 +4,7 @@ import {
   findThisWeeksPurchasePrice,
 } from './filter-helpers';
 import { possiblePatterns, patternReducer } from './pattern';
-import { format } from 'date-fns';
+import { format, startOfWeek, endOfWeek, eachDayOfInterval, isFuture, startOfDay, endOfDay, getTime } from 'date-fns';
 
 const chartData = (user) => {
   const data = [['Period', 'Bells', 'Min', 'Max']];
@@ -21,17 +21,25 @@ const chartData = (user) => {
   const patterns = possiblePatterns(analysis);
   const minMaxPattern = patternReducer(patterns);
 
-  const dates = ['Mon am', 'Mon pm', 'Tue am', 'Tue pm', 'Wed am', 'Wed pm', 'Thu am', 'Thu pm', 'Fri am', 'Fri pm', 'Sat am', 'Sat pm',]
+  const periods = ['Mon am', 'Mon pm', 'Tue am', 'Tue pm', 'Wed am', 'Wed pm', 'Thu am', 'Thu pm', 'Fri am', 'Fri pm', 'Sat am', 'Sat pm',];
 
-  dates.forEach((date, index) => {
-    const priceObject = thisWeeksSellPrices.find(price => format(price.date, 'E a').toLowerCase() === date.toLowerCase());
+  const datesOfWeek = eachDayOfInterval({ start: startOfWeek(Date.now()), end:endOfWeek(Date.now()) });
+
+  const missing = [];
+
+  periods.forEach((period, index) => {
+    const priceObject = thisWeeksSellPrices.find(price => format(price.date, 'E a').toLowerCase() === period.toLowerCase());
     const price = priceObject?.bells || null;
-    data.push([date, price, minMaxPattern[index][0], minMaxPattern[index][1]]);
+    data.push([period, price, minMaxPattern[index][0], minMaxPattern[index][1]]);
+    const date = datesOfWeek.find(dateOfWeek => format(dateOfWeek, 'E') === period.split(' ')[0])
+    const periodDate = getTime(period.split(' ')[1] === 'am' ? startOfDay(date) : endOfDay(date));
+    if (!price && periodDate < Date.now()) missing.push({ period, periodDate });
   })
 
   return {
     baseline: thisWeeksPurchasePrice,
     prices: data,
+    missing,
   }
 }
 
