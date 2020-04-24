@@ -16,6 +16,7 @@ import {
 
 const chartData = (user) => {
   const data = [['Period', 'Bells', 'Min', 'Max']];
+  const missing = [];
   const thisWeeksPrices = filterThisWeeksPrices(user.prices);
   const thisWeeksSellPrices = filterThisWeeksSellPrices(thisWeeksPrices);
   const thisWeeksPurchasePrice = findThisWeeksPurchasePrice(thisWeeksPrices);
@@ -49,8 +50,6 @@ const chartData = (user) => {
     end: endOfWeek(Date.now()),
   });
 
-  const missing = [];
-
   periods.forEach((period, index) => {
     const priceObject = thisWeeksSellPrices.find(
       (price) =>
@@ -71,6 +70,10 @@ const chartData = (user) => {
     );
     if (!price && periodDate < Date.now()) missing.push({ period, periodDate });
   });
+
+  if (!thisWeeksPurchasePrice) {
+    missing.unshift({ period: 'Sun am', periodDate: getTime(startOfWeek(Date.now())) })
+  }
 
   return {
     baseline: thisWeeksPurchasePrice,
