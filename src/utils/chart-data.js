@@ -72,7 +72,12 @@ const chartData = (user) => {
   });
 
   if (!thisWeeksPurchasePrice) {
-    missing.unshift({ period: 'Sun am', periodDate: getTime(startOfWeek(Date.now())) })
+    missing.unshift({
+      period: 'Sun am',
+      periodDate: getTime(
+        datesOfWeek.find((date) => format(date, 'E') === 'Sun')
+      ),
+    });
   }
 
   return {
