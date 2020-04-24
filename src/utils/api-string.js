@@ -1,4 +1,3 @@
-// const apiString = 'https://stalk-exchange.herokuapp.com';
-const apiString = 'http://localhost:8080';
+const apiString = 'https://stalk-exchange.herokuapp.com';
 
 export default apiString;
