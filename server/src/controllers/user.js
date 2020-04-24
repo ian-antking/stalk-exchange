@@ -16,8 +16,13 @@ exports.addUser = (req, res) => {
     .then(() => {
       res.status(201).json(user.sanitize());
     })
-    .catch((error) => {
-      res.status(500).json(error);
+    .catch(error => {
+      if(error.errors.friendCode) {
+        res.status(400).json(error.errors.friendCode.message);
+      } else {
+        res.status(500).send(error);
+      }
+
     });
 };
 
