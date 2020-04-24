@@ -4,11 +4,15 @@ import { Chart } from 'react-google-charts';
 import { Heading, Card } from 'rebass';
 import chartOptions from '../utils/chart-options';
 import chartData from '../utils/chart-data';
+import MissingPrices from './missing-prices';
+import tokenManager from '../utils/token-manager';
 
 const DailyPriceChart = (props) => {
   const { user } = props;
 
   const data = user.prices.length && chartData(user)
+
+  console.log(data.missing);
 
   return (
     data ? (
@@ -25,6 +29,7 @@ const DailyPriceChart = (props) => {
           height="400px"
           legendToggle
         />
+        { user._id === tokenManager.getTokenPayload()._id && <MissingPrices MissingPrices={data.missing} />}
       </Card>
     ) : null
   );
