@@ -12,7 +12,7 @@ const Profile = props => {
   if (!props.loggedIn) return <Redirect to='/' />
 
   return (
-    user ? <DailyPriceChart user={user} /> : <LoadingCard />
+    user ? <DailyPriceChart refreshPrices={props.refreshPrices} setMessage={props.setMessage} user={user} /> : <LoadingCard />
   )
 }
 
