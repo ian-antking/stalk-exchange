@@ -11,9 +11,7 @@ const DailyPriceChart = (props) => {
   const { user } = props;
 
   const data = user.prices.length && chartData(user)
-
-  console.log(data.missing);
-
+  
   return (
     data ? (
       <Card>
