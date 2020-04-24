@@ -135,6 +135,9 @@ class App extends React.Component {
                 {...props}
                 loggedIn={this.isLoggedIn}
                 users={this.state.users}
+                setMessage={this.setMessage}
+                refreshPrices={this.getUsers}
+                working={this.state.working}
               />
             )}
           />
