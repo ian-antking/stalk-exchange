@@ -4,6 +4,7 @@ import { Box, Button, Card, Heading, Image } from 'rebass';
 import { postPrice } from '../utils/fetch-helpers';
 
 import bells from '../images/bells.svg';
+import { format } from 'date-fns';
 
 class SubmitPrice extends React.Component {
   constructor(props) {
@@ -11,12 +12,13 @@ class SubmitPrice extends React.Component {
     this.state = {
       fields: {
         bells: '',
+        date: this.props.date,
       },
       working: false,
     };
   }
 
-  handleFieldChange = event => {
+  handleFieldChange = (event) => {
     this.setState({
       fields: {
         ...this.state.fields,
@@ -32,53 +34,54 @@ class SubmitPrice extends React.Component {
     });
   };
 
-  handleSubmit = async event => {
+  handleSubmit = async (event) => {
     event.preventDefault();
     this.toggleWorking();
     const body = JSON.stringify(this.state.fields);
-    const response = await postPrice(body)
-    const message = response.ok ? 'current price submitted' : `${response.status}: ${response.statusText}`;
+    const response = await postPrice(body);
+    const message = response.ok
+      ? 'current price submitted'
+      : `${response.status}: ${response.statusText}`;
     this.props.setMessage(message, !response.ok);
     response.ok && this.props.refreshPrices();
-    this.toggleWorking()
+    this.toggleWorking();
   };
 
   render() {
-    return !this.state.working && (
-      <Card>
-        <Heading>Submit Prices</Heading>
-        <Box
-          as="form"
-        >
-          <Box
-            display='flex'
-            flexDirection='row'
-            justifyContent='space-between'
-          >
-            <Image
-              src={bells}
-              alt='a bag of bells'
-              mx={3}
-            />
-            <Input
-              id="price_bells_input"
-              name="bells"
-              required
-              type="number"
-              width='80%'
-              value={this.state.fields.bells}
-              onChange={event => this.handleFieldChange(event)}
-            />  
+    const { period } = this.props;
+    const heading =
+      period || `Submit turnip price for ${format(Date.now(), 'E a')}`;
+    return (
+      !this.state.working && (
+        <Card>
+          <Heading>{heading}</Heading>
+          <Box as="form">
+            <Box
+              display="flex"
+              flexDirection="row"
+              justifyContent="center"
+            >
+              <Input
+                id="price_bells_input"
+                name="bells"
+                required
+                type="number"
+                width="30%"
+                value={this.state.fields.bells}
+                onChange={(event) => this.handleFieldChange(event)}
+              />
+              <Image src={bells} alt="a bag of bells" mx={1} />
+              <Button
+                my={0}
+                varient="primary"
+                onClick={(event) => this.handleSubmit(event)}
+              >
+                Submit
+              </Button>
+            </Box>
           </Box>
-          <Button
-            width="100%"
-            varient="primary"
-            onClick={event => this.handleSubmit(event)}
-          >
-            Submit
-          </Button>
-        </Box>
-      </Card>
+        </Card>
+      )
     );
   }
 }
