@@ -26,13 +26,13 @@ const DailyPriceChart = (props) => {
         height="400px"
         legendToggle
       />
-      {user._id === tokenManager.getTokenPayload()._id && (
+      {user._id === tokenManager.getTokenPayload()._id && data.missing.length ? (
         <MissingPrices
           refreshPrices={props.refreshPrices}
           setMessage={props.setMessage}
           MissingPrices={data.missing}
         />
-      )}
+      ) : null } 
     </Card>
   ) : null;
 };
