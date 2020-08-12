@@ -1,27 +1,30 @@
-const express = require('express');
-var cors = require('cors');
-const path = require('path');
+const express = require('express')
+var cors = require('cors')
+const path = require('path')
 
-const UserRouter = require('./routes/user');
-const AuthRouter = require('./routes/auth');
-const PriceRouter = require('./routes/price');
+const { 
+  userRouter,
+  priceRouter,
+  authRouter,
+} = require('./routes')
 
-const app = express();
-app.use(cors());
 
-app.use(express.static(path.join(process.cwd(), 'build')));
+const app = express()
+app.use(cors())
+
+app.use(express.static(path.join(process.cwd(), 'build')))
 app.use(
   express.json({
-    limit: '10mb',
+    limit: '10mb'
   })
-);
+)
 
-app.use('/user', UserRouter);
-app.use('/auth', AuthRouter);
-app.use('/price', PriceRouter);
+app.use('/user', userRouter)
+app.use('/auth', authRouter)
+app.use('/price', priceRouter)
 
 app.get('*', (_, res) => {
-  res.sendFile(path.join(process.cwd(), 'build', 'index.html'));
-});
+  res.sendFile(path.join(process.cwd(), 'build', 'index.html'))
+})
 
-module.exports = app;
+module.exports = app

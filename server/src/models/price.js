@@ -1,24 +1,24 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
 const priceSchema = new mongoose.Schema({
   bells: {
     type: Number,
-    required: true,
+    required: true
   },
   date: {
     type: Number,
-    default: Date.now,
+    default: Date.now
   },
   type: {
     type: String,
-    required: true,
+    required: true
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-  },
-});
+    ref: 'User'
+  }
+})
 
-const Price = mongoose.model('Price', priceSchema);
+const Price = mongoose.model('Price', priceSchema)
 
-module.exports = Price;
+module.exports = Price

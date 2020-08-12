@@ -1,3 +1,3 @@
-const apiString = 'https://stalk-exchange.herokuapp.com';
+const apiString = 'https://stalk-exchange.herokuapp.com'
 
-export default apiString;
+export default apiString

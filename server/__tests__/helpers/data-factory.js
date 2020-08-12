@@ -1,16 +1,16 @@
-const faker = require('faker');
+const faker = require('faker')
 
 const randomDigit = () => {
-  const digits = '123456890'.split('');
-  return digits[Math.floor(Math.random() * digits.length)];
+  const digits = '123456890'.split('')
+  return digits[Math.floor(Math.random() * digits.length)]
 }
 
 const randomFourDigits = () => {
-  const fourDigits = [];
+  const fourDigits = []
   for (let i = 0; i < 4; i += 1) {
     fourDigits.push(randomDigit())
   }
-  return fourDigits.join('');
+  return fourDigits.join('')
 }
 
 const generateFriendCode = () => {
@@ -22,5 +22,5 @@ exports.user = (options = {}) => ({
   island: options.island || faker.name.firstName(),
   password: options.password || faker.internet.password(),
   friendCode: options.friendCode || generateFriendCode(),
-  inviteCode: options.inviteCode || 'invite',
-});
+  inviteCode: options.inviteCode || 'invite'
+})

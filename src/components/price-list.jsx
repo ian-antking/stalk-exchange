@@ -1,17 +1,17 @@
-import React from 'react';
-import { Card, Text, Button } from 'rebass';
-import PriceCard from './price-card';
-import { isSunday } from 'date-fns';
-import { filterCurrentPrices } from '../utils/filter-helpers';
-import BestPriceCard from './best-price-card';
+import React from 'react'
+import { Card, Text, Button } from 'rebass'
+import PriceCard from './price-card'
+import { isSunday } from 'date-fns'
+import { filterCurrentPrices } from '../utils/filter-helpers'
+import BestPriceCard from './best-price-card'
 
 const PriceList = props => {
-  const { users } = props;
+  const { users } = props
   const activeUsers = users
     .filter(user => filterCurrentPrices(user.prices))
-    .sort((a, b) => filterCurrentPrices(a.prices).bells - filterCurrentPrices(b.prices).bells);
+    .sort((a, b) => filterCurrentPrices(a.prices).bells - filterCurrentPrices(b.prices).bells)
 
-  !isSunday(Date.now()) && activeUsers.reverse();
+  !isSunday(Date.now()) && activeUsers.reverse()
 
   return (
     <Card>
@@ -26,7 +26,7 @@ const PriceList = props => {
         Refresh
       </Button>
     </Card>
-  );
-};
+  )
+}
 
-export default PriceList;
+export default PriceList

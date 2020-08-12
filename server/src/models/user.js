@@ -1,15 +1,15 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
-var uniqueValidator = require('mongoose-unique-validator');
+const mongoose = require('mongoose')
+const bcrypt = require('bcrypt')
+var uniqueValidator = require('mongoose-unique-validator')
 
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
+    required: true
   },
   island: {
     type: String,
-    required: true,
+    required: true
   },
   friendCode: {
     type: String,
@@ -17,45 +17,45 @@ const userSchema = new mongoose.Schema({
     unique: true,
     validate: {
       validator: (code) => /SW-[0-9]{4}-[0-9]{4}-[0-9]{4}/.test(code),
-      message: 'invalid friend code',
-    },
+      message: 'invalid friend code'
+    }
   },
   dodoCode: {
     type: String,
-    default: '',
+    default: ''
   },
   password: {
     type: String,
-    minlength: [8, 'Password must be at least 8 characters long'],
-  },
-});
+    minlength: [8, 'Password must be at least 8 characters long']
+  }
+})
 
-userSchema.plugin(uniqueValidator);
+userSchema.plugin(uniqueValidator)
 
-userSchema.pre('save', function encryptPassword(next) {
+userSchema.pre('save', function encryptPassword (next) {
   if (!this.isModified('password')) {
-    next();
+    next()
   } else {
     bcrypt.hash(this.password, 10, (error, hash) => {
       if (error) {
-        next(error);
+        next(error)
       }
-      this.password = hash;
-      return next();
-    });
+      this.password = hash
+      return next()
+    })
   }
-});
+})
 
-userSchema.methods.sanitize = function sanitize(prices) {
-  const { password, friendCode, ...sanitizedUser } = this.toObject();
-  sanitizedUser.prices = prices;
-  return sanitizedUser;
-};
+userSchema.methods.sanitize = function sanitize (prices) {
+  const { password, friendCode, ...sanitizedUser } = this.toObject()
+  sanitizedUser.prices = prices
+  return sanitizedUser
+}
 
-userSchema.methods.validatePassword = function validatePassword(guess) {
-  return bcrypt.compareSync(guess, this.password);
-};
+userSchema.methods.validatePassword = function validatePassword (guess) {
+  return bcrypt.compareSync(guess, this.password)
+}
 
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model('User', userSchema)
 
-module.exports = User;
+module.exports = User

@@ -1,9 +1,9 @@
-import colors from './colors';
+import colors from './colors'
 
 const chartOptions = (baseline = null) => ({
   vAxis: {
     baseline,
-    baselineColor: colors.error,
+    baselineColor: colors.error
   },
   colors: [colors.primary, colors.secondary, colors.confirm],
   lineWidth: 3,
@@ -12,9 +12,9 @@ const chartOptions = (baseline = null) => ({
   chartArea: {
     width: '80%',
     height: '80%',
-    marginTop: '10%',
+    marginTop: '10%'
   },
-  curveType: 'function',
-});
+  curveType: 'function'
+})
 
-export default chartOptions;
+export default chartOptions

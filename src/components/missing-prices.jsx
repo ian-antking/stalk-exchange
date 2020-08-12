@@ -1,6 +1,6 @@
-import React from 'react';
-import SubmitPrice from './submit-price';
-import { Box, Heading } from 'rebass';
+import React from 'react'
+import SubmitPrice from './submit-price'
+import { Box, Heading } from 'rebass'
 
 const MissingPrices = (props) => (
   <Box my={3}>
@@ -15,6 +15,6 @@ const MissingPrices = (props) => (
       />
     ))}
   </Box>
-);
+)
 
-export default MissingPrices;
+export default MissingPrices

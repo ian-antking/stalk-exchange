@@ -1,62 +1,62 @@
-const app = require('../src/app');
-const mongoose = require('mongoose');
-const UserHelpers = require('./helpers/user-helpers');
-const DataFactory = require('./helpers/data-factory');
-const User = require('../src/models/user');
-const jwt = require('jsonwebtoken');
+const app = require('../src/app')
+const mongoose = require('mongoose')
+const UserHelpers = require('./helpers/user-helpers')
+const DataFactory = require('./helpers/data-factory')
+const User = require('../src/models/user')
+const jwt = require('jsonwebtoken')
 
 describe('/auth', () => {
-  let userData;
+  let userData
 
   beforeAll(done => {
-    const url = process.env.DATABASE_CONN;
+    const url = process.env.DATABASE_CONN
     mongoose.connect(url, {
       useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    done();
-  });
+      useUnifiedTopology: true
+    })
+    done()
+  })
 
   afterEach(done => {
     User.deleteMany({}, () => {
-      done();
-    });
-  });
+      done()
+    })
+  })
 
   afterAll(done => {
-    mongoose.connection.close();
-    done();
-  });
+    mongoose.connection.close()
+    done()
+  })
 
   beforeEach((done) => {
-    userData = DataFactory.user();
+    userData = DataFactory.user()
     UserHelpers.signUp(app, userData).then(() => {
-      done();
-    });
-  });
+      done()
+    })
+  })
 
   describe('POST', () => {
     describe('/auth/login', () => {
       it('issues a web token', (done) => {
         UserHelpers.login(app, userData)
           .then(res => {
-            expect(res.status).toBe(200);
-            const token = jwt.decode(res.body.token);
-            expect(token).toHaveProperty('_id');
-            expect(token).toHaveProperty('name');
-            expect(token).toHaveProperty('island');
-            done();
+            expect(res.status).toBe(200)
+            const token = jwt.decode(res.body.token)
+            expect(token).toHaveProperty('_id')
+            expect(token).toHaveProperty('name')
+            expect(token).toHaveProperty('island')
+            done()
           })
-          .catch(error => done(error));
-      });
-    });
+          .catch(error => done(error))
+      })
+    })
     it('handles invalid authentication', (done) => {
       UserHelpers.login(app, DataFactory.user())
         .then(res => {
-          expect(res.status).toBe(401);
-          done();
+          expect(res.status).toBe(401)
+          done()
         })
-        .catch(error => done(error));
-    });
-  });
-});
+        .catch(error => done(error))
+    })
+  })
+})

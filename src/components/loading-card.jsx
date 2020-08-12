@@ -1,5 +1,5 @@
-import React from 'react';
-import { Heading, Card } from 'rebass';
+import React from 'react'
+import { Heading, Card } from 'rebass'
 
 const LoadingCard = () => (
   <Card py={5} alignItems='center'>
@@ -7,4 +7,4 @@ const LoadingCard = () => (
   </Card>
 )
 
-export default LoadingCard;
+export default LoadingCard

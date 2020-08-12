@@ -1,33 +1,33 @@
-import { sameDay, samePeriod, sameWeek } from './date-helpers';
-import { isSunday } from 'date-fns';
+import { sameDay, samePeriod, sameWeek } from './date-helpers'
+import { isSunday } from 'date-fns'
 
 const filterTodayPrices = (prices) => {
   return prices.filter(price => {
-    return sameDay(price.date, Date.now());
+    return sameDay(price.date, Date.now())
   })
 }
 
 const filterCurrentPrices = (prices) => {
   const todayPrices = filterTodayPrices(prices)
   return todayPrices.find(price => {
-    return samePeriod(price.date, Date.now());
+    return samePeriod(price.date, Date.now())
   })
 }
 const filterThisWeeksPrices = (prices) => {
   return prices.filter(price => {
-    return sameWeek(price.date, Date.now());
+    return sameWeek(price.date, Date.now())
   })
 }
 
 const filterThisWeeksSellPrices = (prices) => {
   return prices.filter(price => {
-    return sameWeek(price.date, Date.now()) && !isSunday(price.date);
+    return sameWeek(price.date, Date.now()) && !isSunday(price.date)
   })
 }
 
 const findThisWeeksPurchasePrice = (prices) => {
   return prices.find(price => {
-    return sameWeek(price.date, Date.now()) && isSunday(price.date);
+    return sameWeek(price.date, Date.now()) && isSunday(price.date)
   })
 }
 
@@ -41,5 +41,5 @@ export {
   filterThisWeeksPrices,
   findThisWeeksPurchasePrice,
   filterThisWeeksSellPrices,
-  filterUserPrices,
+  filterUserPrices
 }

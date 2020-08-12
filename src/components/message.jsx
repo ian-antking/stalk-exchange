@@ -1,13 +1,13 @@
-import React from 'react';
-import { Text, Box } from 'rebass';
+import React from 'react'
+import { Text, Box } from 'rebass'
 
 const Message = props => {
-  const { message } = props;
+  const { message } = props
   return (
     <Box
-      width="100%"
+      width='100%'
       height='50px'
-      color="white"
+      color='white'
       display='flex'
       alignItems='center'
       justifyContent='center'
@@ -16,7 +16,7 @@ const Message = props => {
     >
       <Text>{message.text}</Text>
     </Box>
-  );
-};
+  )
+}
 
-export default Message;
+export default Message

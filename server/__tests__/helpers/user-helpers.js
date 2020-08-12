@@ -1,34 +1,34 @@
-const request = require('supertest');
+const request = require('supertest')
 
-exports.signUp = (app, data) => 
+exports.signUp = (app, data) =>
   new Promise((resolve, reject) => {
     request(app)
       .post('/user')
       .send(data)
       .end((error, response) => {
         if (error) {
-          reject(error);
+          reject(error)
         } else {
-          resolve(response);
+          resolve(response)
         }
-      });
-  });
+      })
+  })
 
 exports.manyUsers = (app, data) => {
   return data.map(user => {
     return new Promise((resolve, reject) => {
       request(app)
-      .post('/user')
-      .send(user)
-      .end((error, response) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolve(response);
-        }
-      });
-    });
-  });
+        .post('/user')
+        .send(user)
+        .end((error, response) => {
+          if (error) {
+            reject(error)
+          } else {
+            resolve(response)
+          }
+        })
+    })
+  })
 }
 
 exports.getUsers = (app, token, id = 'all') => {
@@ -40,16 +40,16 @@ exports.getUsers = (app, token, id = 'all') => {
       .send()
       .end((error, response) => {
         if (error) {
-          reject(error);
+          reject(error)
         } else {
-          resolve(response);
+          resolve(response)
         }
-      });
+      })
   })
 }
 
 exports.updateUser = (app, token, data) => {
-  const url = `/user`
+  const url = '/user'
   return new Promise((resolve, reject) => {
     request(app)
       .patch(url)
@@ -57,11 +57,11 @@ exports.updateUser = (app, token, data) => {
       .send(data)
       .end((error, response) => {
         if (error) {
-          reject(error);
+          reject(error)
         } else {
-          resolve(response);
+          resolve(response)
         }
-      });
+      })
   })
 }
 
@@ -72,13 +72,13 @@ exports.login = (app, data) =>
       .send({
         name: data.name,
         island: data.island,
-        password: data.password,
+        password: data.password
       })
       .end((error, response) => {
         if (error) {
-          reject(error);
+          reject(error)
         } else {
-          resolve(response);
+          resolve(response)
         }
-      });
+      })
   })

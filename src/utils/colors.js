@@ -8,7 +8,7 @@ const colors = {
   muted: '#f5f7e9',
   white: '#fff',
   gray: '#b7b398',
-  highlight: '#f1b260',
-};
+  highlight: '#f1b260'
+}
 
-export default colors;
+export default colors
